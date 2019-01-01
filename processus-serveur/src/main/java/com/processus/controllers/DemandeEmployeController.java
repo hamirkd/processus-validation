@@ -82,8 +82,8 @@ public class DemandeEmployeController {
         demande.setDirection(demandeur.getDirection());
         demande.setDirecteur(demandeur.getDirecteur());
         demande.setManager(demandeur.getManager());
-        demande.setDemandeur(demandeur);
-        demande.setTypeDemande(entity.getTypeDemande());
+        demande.setDemandeur(demandeur);     
+        demande.setTypeDemande(demande.getTypeDemande());
         demande.setEtat(EtatDemande.ENCOURS);
         demande.setEtatdirecteur(EtatDemande.ENCOURS);
         demande.setEtatmanager(EtatDemande.ENCOURS);

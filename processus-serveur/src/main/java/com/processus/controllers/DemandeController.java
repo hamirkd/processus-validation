@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.processus.entities.RequestState.*;
+import com.processus.services.MailService;
 
 @RestController
 @RequestMapping("/api/demandes")
@@ -37,11 +38,14 @@ public class DemandeController {
     private final DemandeService service;
     private final DirectionService directionService;
     private final TemplateService<User, Long> userService;
+   
 
     public DemandeController(DemandeService service, DirectionService directionService, TemplateService<User, Long> userService) {
         this.service = service;
         this.directionService = directionService;
         this.userService = userService;
+        
+       
     }
 
     @GetMapping
@@ -120,6 +124,15 @@ public class DemandeController {
             if (entity.getEtatmanager() == EtatDemande.REJETER) {
                 demande.setEtat(EtatDemande.REJETER);
             }
+            
+// ++++++++++++++++++++++++++++++    ENVOI DE MAIL AUTOMATIQUE AU DIRECTEUR +++++++++++++++++++++++++++++++++++++++++++
+            
+//            else {
+//
+//                String email = demande.getDirecteur().getEmail();
+//                
+//               
+//            }
         }
 //        demande.setEtat(entity.getEtat());
         return service.update(demande);
