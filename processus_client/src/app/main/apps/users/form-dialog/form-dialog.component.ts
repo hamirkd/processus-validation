@@ -88,7 +88,7 @@ export class FormDialogComponent {
             id: [this.user.id],
             nom: [this.user.nom],
             prenom: [this.user.prenom],
-            matricule: [this.user.matricule],
+            // matricule: [this.user.matricule],
             direction_id: [this.user.direction?this.user.direction.id:0],
             poste: [this.user.poste],
             directeur_id: [this.user.directeur?this.user.directeur.id:0],

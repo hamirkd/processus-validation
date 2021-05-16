@@ -41,17 +41,21 @@ public class DemandeController {
     }
 
     @GetMapping("/managers/{id}")
-    public List<Demande> getAllByManager(Long id) {
+    public List<Demande> getAllByManager(@PathVariable Long id) {
+    	System.out.println("Le id du manager"+id);
         return service.findDemandeByManager(id);
     }
 
     @GetMapping("/directeurs/{id}")
-    public List<Demande> getAllByDirecteur(Long id) {
-        return service.findDemandeByManager(id);
+    public List<Demande> getAllByDirecteur(@PathVariable Long id) {
+    	System.out.println("Le id du directeur"+id);
+        return service.findDemandeByDirecteur(id);
     }
 
     @GetMapping("/demandeurs/{id}")
-    public List<Demande> getAllByEmploye(Long id) {
+    public List<Demande> getAllByEmploye(@PathVariable Long id) {
+    	System.out.println("Le id du demandeur"+id);
+//    	return service.getAll();
         return service.findDemandeByDemandeur(id);
     }
 

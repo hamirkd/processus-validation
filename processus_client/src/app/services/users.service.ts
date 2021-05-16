@@ -297,7 +297,7 @@ export class UsersService implements Resolve<any>
     return this._httpClient.post(this.baseUrl+'/login',{email:email,password:password});
   }
 
-  get userData(){
+  get userData():User{
     
     if(this.user)return this.user;
     if(localStorage.getItem('user')&&JSON.parse(localStorage.getItem('user'))){

@@ -63,14 +63,14 @@ public class DemandeService implements TemplateService<Demande,Long> {
     }
     
     public List<Demande> findDemandeByManager(Long id){
-    	return demandeRepository.findDemandeByManager(id);
+    	return demandeRepository.findDemandeByManagerId(id);
     }
     
     public List<Demande> findDemandeByDirecteur(Long id){
-    	return demandeRepository.findDemandeByDirecteur(id);
+    	return demandeRepository.findDemandeByDirecteurId(id);
     }
     
     public List<Demande> findDemandeByDemandeur(Long id){
-    	return demandeRepository.findDemandeByDemandeur(id);
+    	return demandeRepository.findDemandeByDemandeurId(id);
     }
 }
