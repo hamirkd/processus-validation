@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
 import { environment } from 'environments/environment';
 import { Demande } from './demande.model';
+import { UsersService } from 'app/services/users.service';
 
 
 @Injectable()
@@ -30,7 +31,7 @@ export class DemandesService implements Resolve<any>
      * @param {HttpClient} _httpClient
      */
     constructor(
-        private _httpClient: HttpClient
+        private _httpClient: HttpClient,private usersService:UsersService
     ) {
         // Set the defaults
         this.onDemandesChanged = new BehaviorSubject([]);
@@ -86,7 +87,7 @@ export class DemandesService implements Resolve<any>
     getDemandes(): Promise<any> {
         return new Promise((resolve, reject) => {
 
-            this._httpClient.get(environment.addressIp+'/api/demandes')
+            this._httpClient.get(environment.addressIp+'/api/demandes/directeurs/'+this.usersService.userData.id)
                 .subscribe((response: any) => {
 
                     this.demandes = response;

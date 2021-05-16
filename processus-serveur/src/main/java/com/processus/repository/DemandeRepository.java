@@ -11,4 +11,5 @@ public interface DemandeRepository extends JpaRepository<Demande,Long> {
 	List<Demande>findDemandeByManagerId(Long id);
 	List<Demande>findDemandeByDemandeurId(Long id);
 	List<Demande>findDemandeByDirecteurId(Long id);
+	List<Demande>findDemandeByDirecteurIdAndEtatmanager(Long id,String etatmanager);
 }

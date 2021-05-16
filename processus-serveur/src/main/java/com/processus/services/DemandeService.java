@@ -2,6 +2,7 @@ package com.processus.services;
 
 import com.processus.entities.Demande;
 import com.processus.entities.Direction;
+import com.processus.entities.EtatDemande;
 import com.processus.entities.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class DemandeService implements TemplateService<Demande,Long> {
     }
     
     public List<Demande> findDemandeByDirecteur(Long id){
-    	return demandeRepository.findDemandeByDirecteurId(id);
+    	return demandeRepository.findDemandeByDirecteurIdAndEtatmanager(id,EtatDemande.ACCEPTER.toString());
     }
     
     public List<Demande> findDemandeByDemandeur(Long id){
