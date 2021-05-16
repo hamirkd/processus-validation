@@ -55,8 +55,26 @@ export class LoginComponent implements OnInit {
      */
     ngOnInit(): void {
 
-        if (this.userService.userData)
-            this.router.navigate(['apps/demandes']);
+        if (this.userService.userData){
+            switch (this.userService.userData.poste) {
+                case 'DIRECTEUR':
+                    this.router.navigate(['apps/demandes-directeur'])
+
+                    break;
+                case 'MANAGER':
+                    this.router.navigate(['apps/demandes-manager'])
+
+                    break;
+                case 'EMPLOYE':
+                    this.router.navigate(['apps/demandes'])
+
+                    break;
+                    case 'ADMINISTRATEUR':
+                        this.router.navigate(['apps/users'])
+
+                    break;
+            }
+        }
 
 
         this.loginForm = this._formBuilder.group({
