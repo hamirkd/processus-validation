@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : lun. 03 mai 2021 à 14:59
--- Version du serveur :  10.4.18-MariaDB
--- Version de PHP : 8.0.3
+-- Hôte : localhost:3306
+-- Généré le :  Dim 16 mai 2021 à 10:11
+-- Version du serveur :  8.0.18
+-- Version de PHP :  7.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `processus_server`
+-- Base de données :  `processus_server`
 --
 
 -- --------------------------------------------------------
@@ -39,15 +40,34 @@ CREATE TABLE `demandes` (
   `directeur_id` bigint(20) DEFAULT NULL,
   `direction_id` bigint(20) DEFAULT NULL,
   `manager_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `demandes`
 --
 
 INSERT INTO `demandes` (`id`, `created_on`, `description`, `etat`, `etatdirecteur`, `etatmanager`, `updated_at`, `demandeur_id`, `directeur_id`, `direction_id`, `manager_id`) VALUES
-(13, '2021-05-03 08:32:25', 'Ordinateur de bureau core i7\nPapier RAM 500', 'ACCEPTER', 'ACCEPTER', 'ACCEPTER', '2021-05-03 08:32:25', 12, 6, 1, 9),
-(14, '2021-05-03 08:56:06', 'BATTERIE ORDINATEUR PORTABLE\nCHAISE DE BUREAU\nFAUTEUIL', 'ENCOURS', 'ENCOURS', 'ENCOURS', '2021-05-03 08:56:06', 12, 6, 1, 9);
+(18, '2021-05-11 07:28:53', 'xzcxzcaasa', 'ENCOURS', 'ENCOURS', 'ENCOURS', '2021-05-11 07:28:53', 943843, 1302338, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `departements`
+--
+
+CREATE TABLE `departements` (
+  `id` bigint(20) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `departements`
+--
+
+INSERT INTO `departements` (`id`, `created_on`, `nom`, `updated_at`) VALUES
+(1, '2021-05-03 05:31:29', 'Operation IT', '2021-05-03 05:31:29');
 
 -- --------------------------------------------------------
 
@@ -60,15 +80,17 @@ CREATE TABLE `directions` (
   `created_on` datetime NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `directions`
 --
 
 INSERT INTO `directions` (`id`, `created_on`, `nom`, `updated_at`) VALUES
-(1, '2021-05-03 10:51:48', 'TECHNIQUE', '2021-05-03 10:51:48'),
-(2, '2021-05-03 10:51:48', 'MARKETING', '2021-05-03 10:51:48');
+(1, '2021-05-03 10:51:48', 'IT', '2021-05-03 10:51:48'),
+(2, '2021-05-03 10:51:48', 'MARKETING', '2021-05-03 10:51:48'),
+(3, '2021-05-03 10:51:48', 'NETWORK', '2021-05-03 10:51:48'),
+(4, '2021-05-03 10:51:48', 'SALES', '2021-05-03 10:51:48');
 
 -- --------------------------------------------------------
 
@@ -78,16 +100,16 @@ INSERT INTO `directions` (`id`, `created_on`, `nom`, `updated_at`) VALUES
 
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `hibernate_sequence`
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(15),
-(15),
-(15);
+(22),
+(22),
+(22);
 
 -- --------------------------------------------------------
 
@@ -98,26 +120,32 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 CREATE TABLE `users` (
   `id` bigint(20) NOT NULL,
   `created_on` datetime NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `matricule` varchar(255) DEFAULT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `poste` varchar(20) DEFAULT NULL,
-  `prenom` varchar(255) DEFAULT NULL,
+  `matricule` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `departement_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nationalite` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `poste` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prenom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `updated_at` datetime NOT NULL,
   `directeur_id` bigint(20) DEFAULT NULL,
   `direction_id` bigint(20) DEFAULT NULL,
-  `manager_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `interim_id` bigint(20) DEFAULT NULL,
+  `manager_id` bigint(20) DEFAULT NULL,
+  `superviseur_id` bigint(20) DEFAULT NULL,
+  `email_superviseur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `adminstrateur_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `created_on`, `email`, `matricule`, `nom`, `password`, `poste`, `prenom`, `updated_at`, `directeur_id`, `direction_id`, `manager_id`) VALUES
-(6, '2021-05-03 05:31:29', 'directeur@gmail.com', '123', 'Souley', 'directeur@gmail.com', 'DIRECTEUR', 'Moussa', '2021-05-03 05:31:29', NULL, 1, NULL),
-(9, '2021-05-03 05:33:32', 'manager@gmail.com', '33372', 'A.Kader', 'manager@gmail.com', 'MANAGER', 'Boubacar', '2021-05-03 05:33:32', 6, 1, NULL),
-(12, '2021-05-03 05:38:53', 'employe@gmail.com', 'BF002', 'Alio', 'employe@gmail.com', 'EMPLOYE', 'Mahamadou', '2021-05-03 05:38:53', 6, 1, 9);
+INSERT INTO `users` (`id`, `created_on`, `matricule`, `email`, `nom`, `password`, `departement_id`, `nationalite`, `poste`, `prenom`, `updated_at`, `directeur_id`, `direction_id`, `interim_id`, `manager_id`, `superviseur_id`, `email_superviseur`, `adminstrateur_id`) VALUES
+(101, '2021-05-03 05:31:29', '1212', 'admin@gmail.com', 'Alio', 'admin@gmail.com', NULL, 'Nigerien', 'ADMINISTRATEUR', 'Ibrahim', '2021-05-03 10:51:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(943843, '2021-05-03 05:31:29', '60', 'employe@gmail.com', '', 'employe@gmail.com', NULL, NULL, 'EMPLOYE', 'Issaka', '2021-05-03 10:51:48', 1302338, 1, NULL, NULL, NULL, NULL, NULL),
+(1302338, '2021-05-03 05:31:29', NULL, 'directeur@gmail.com', 'Alio', 'directeur@gmail.com', NULL, 'Niger', 'DIRECTEUR', NULL, '2021-05-03 10:51:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -134,6 +162,12 @@ ALTER TABLE `demandes`
   ADD KEY `FKbqcvn56b7rk5ss5467iyn050f` (`manager_id`);
 
 --
+-- Index pour la table `departements`
+--
+ALTER TABLE `departements`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `directions`
 --
 ALTER TABLE `directions`
@@ -148,7 +182,8 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `UK_t42bifyr7853ef7frriy402wg` (`matricule`),
   ADD KEY `FKkbb9ek3k3aqconkeyi5msv38o` (`directeur_id`),
   ADD KEY `FKs1he4pwgukx80jfqh7j6mqugq` (`direction_id`),
-  ADD KEY `FK5p1ci5btqfwvtaqx5n2wxi182` (`manager_id`);
+  ADD KEY `FK5p1ci5btqfwvtaqx5n2wxi182` (`manager_id`),
+  ADD KEY `FK57r79996qvjdi9a47hvdcdeyo` (`adminstrateur_id`);
 
 --
 -- Contraintes pour les tables déchargées
@@ -167,6 +202,7 @@ ALTER TABLE `demandes`
 -- Contraintes pour la table `users`
 --
 ALTER TABLE `users`
+  ADD CONSTRAINT `FK57r79996qvjdi9a47hvdcdeyo` FOREIGN KEY (`adminstrateur_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FK5p1ci5btqfwvtaqx5n2wxi182` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FKkbb9ek3k3aqconkeyi5msv38o` FOREIGN KEY (`directeur_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FKs1he4pwgukx80jfqh7j6mqugq` FOREIGN KEY (`direction_id`) REFERENCES `directions` (`id`);
