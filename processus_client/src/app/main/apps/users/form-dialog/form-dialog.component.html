@@ -1,0 +1,134 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="red m-1">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="userForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Matricule</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input matricule="'matricule" formControlName="matricule" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nom</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input nom="'nom" formControlName="nom" matInput required [readonly]="action=='show'">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Prenom</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input prenom="prenom" formControlName="prenom" matInput [readonly]="action=='show'">
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Email</mat-label>
+                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                    <input name="email" formControlName="email" matInput type="email" [readonly]="action=='show'">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Direction</mat-label>
+                    <mat-icon matSuffix class="secondary-text">users</mat-icon>
+                    <select matNativeControl placeholder="Choisir la direction" formControlName="direction_id"
+                        [readonly]="action=='show'">
+                        <option></option>
+                        <option [value]="direction.id" *ngFor="let direction of directions">{{direction.nom}} </option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Poste</mat-label>
+                    <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                    <select matNativeControl placeholder="Choisir le poste" formControlName="poste"
+                        [readonly]="action=='show'">
+                        <option></option>
+                        <option [value]="'DIRECTEUR'">Directeur</option>
+                        <option [value]="'MANAGER'">Manager</option>
+                        <option [value]="'EXECUTIVE'">EXECUTIVE</option>
+                        <option [value]="'ASSISTANT_MANAGER'">ASSISTANT_MANAGER</option>
+                        <option [value]="'SUPERVISEUR'">SUPERVISEUR</option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Directeur</mat-label>
+                    <mat-icon matSuffix class="secondary-text">users</mat-icon>
+                    <select matNativeControl placeholder="Choisir le directeur" formControlName="directeur_id"
+                        [readonly]="action=='show'">
+                        <option></option>
+                        <option [value]="directeur.id" *ngFor="let directeur of directeurs">{{directeur.nom}}
+                            {{directeur.prenom}}</option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Manager</mat-label>
+                    <mat-icon matSuffix class="secondary-text">user</mat-icon>
+                    <select matNativeControl placeholder="Choisir le manager" formControlName="manager_id"
+                        [readonly]="action=='show'">
+                        <option></option>
+                        <option [value]="manager.id" *ngFor="let manager of managers">{{manager.nom}} {{manager.prenom}}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Mot de passe</mat-label>
+                    <mat-icon matSuffix class="secondary-text">key</mat-icon>
+                    <input password="password" formControlName="password" matInput type="password"
+                        [readonly]="action=='show'">
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'new'" mat-button class="save-button" (click)="save()" [disabled]="userForm.invalid"
+            aria-label="SAVE">
+            Ajouter
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="save()" [disabled]="userForm.invalid"
+            aria-label="SAVE">
+            Modifier
+        </button>
+
+    </div>
+</div>

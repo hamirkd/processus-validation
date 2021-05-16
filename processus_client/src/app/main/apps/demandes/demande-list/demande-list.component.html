@@ -1,0 +1,116 @@
+<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let demande">
+            <mat-checkbox [(ngModel)]="checkboxes[demande.id]" (ngModelChange)="onSelectedChange(demande.id)"
+                (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>AUUID</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.demandeur.id}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="nom">
+        <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.demandeur.nom}} </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="prenom">
+        <mat-header-cell *matHeaderCellDef>Prénom(s)</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.demandeur.prenom}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="direction">
+        <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.direction.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
+<!-- 
+    <ng-container matColumnDef="departement">
+        <mat-header-cell *matHeaderCellDef>Departement</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{departement.nom}}</p>
+        </mat-cell>
+    </ng-container> -->
+
+
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Demande</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.description}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="manager">
+        <mat-header-cell *matHeaderCellDef>Manager</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}} {{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600" *ngIf="demande.manager">{{demande.manager.prenom}}
+                {{demande.manager.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="directeur">
+        <mat-header-cell *matHeaderCellDef>Directeur</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etatdirecteur}} {{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600" *ngIf="demande.directeur">{{demande.directeur.prenom}}
+                {{demande.directeur.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.createdAt|date:'dd/M/yyyy'}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let demande">
+            <div fxFlex="row" fxLayoutAlign="end center">
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                    (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Mettre à jour</span>
+                    </button>
+
+                    <button mat-menu-item aria-label="edit" (click)="deleteDemande(demande)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Supprimer</span>
+                    </button>
+
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let demande; columns: displayedColumns;" class="demande" (click)="show(demande)"
+        [ngClass]="{'accent-50':checkboxes[demande.id]}" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>

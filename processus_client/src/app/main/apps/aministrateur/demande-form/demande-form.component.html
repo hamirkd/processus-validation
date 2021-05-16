@@ -1,0 +1,55 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="red">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <div class="user-name mt-8"></div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>AUUID</mat-label>
+                <mat-icon matSuffix class="secondary-text">10k</mat-icon>
+                <input [value]="demande.demandeur.id" matInput readonly>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-label class="p-24 pb-0 m-0">Demandeur</mat-label>
+            <mat-label class="p-24 pb-0 m-0">{{demande.demandeur.prenom+' '+demande.demandeur.nom}}<mat-icon matSuffix
+                    class="secondary-text">account_circle</mat-icon>
+            </mat-label>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-label>description de la demande :</mat-label>
+            <mat-label>{{demande.description}}</mat-label>
+        </div>
+
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close(['REJETER', demandeForm])"
+            aria-label="Delete" matTooltip="Delete">
+            Rejeter
+        </button>
+
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button"
+            (click)="matDialogRef.close(['ACCEPTER',demandeForm])" [disabled]="demandeForm.invalid" aria-label="SAVE">
+            Approuver
+        </button>
+
+    </div>
+</div>

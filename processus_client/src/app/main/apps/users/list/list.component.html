@@ -1,0 +1,91 @@
+<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <mat-checkbox [(ngModel)]="checkboxes[user.id]" (ngModelChange)="onSelectedChange(user.id)"
+                (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+
+
+    <ng-container matColumnDef="matricule">
+        <mat-header-cell *matHeaderCellDef>Matricule</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{user.matricule}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="nom">
+        <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{user.nom}} </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="prenom">
+        <mat-header-cell *matHeaderCellDef>Prénom(s)</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{user.prenom}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="direction">
+        <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600" *ngIf="user.direction">{{user.direction.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="poste">
+        <mat-header-cell *matHeaderCellDef>Poste</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600" *ngIf="user.poste">{{user.poste}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{user.createdAt|date:'dd/M/yyyy'}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <div fxFlex="row" fxLayoutAlign="end center">
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                    (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="editUser(user)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Mettre à jour</span>
+                    </button>
+
+                    <button mat-menu-item aria-label="edit" (click)="deleteUser(user)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Supprimer</span>
+                    </button>
+
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let user; columns: displayedColumns;" class="user" (click)="show(user)"
+        [ngClass]="{'accent-50':checkboxes[user.id]}" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>

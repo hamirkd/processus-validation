@@ -1,0 +1,41 @@
+import { FuseUtils } from "@fuse/utils";
+import { Direction } from "app/models/direction";
+import { User } from "app/models/user";
+
+export class Demande
+{
+    id: number;
+    demandeur:User;
+    direction: Direction;
+    manager: User;
+    directeur: User;
+    administrateur: User;
+    etatdirecteur:'ENCOURS'|'ACCEPTER'|'REJETER'
+    etat:'ENCOURS'|'ACCEPTER'|'REJETER'
+    etatmanager:'ENCOURS'|'ACCEPTER'|'REJETER'
+    description:string;
+    createdAt: Date;
+   
+
+    /**
+     * 
+     * Constructor
+     *
+     * @param demande
+     */
+    constructor(demande)
+    {
+        this.id = demande.id||FuseUtils.generateGUID();
+        this.demandeur = demande.demandeur;
+        this.direction = demande.direction;
+        this.description = demande.description;
+        this.directeur = demande.directeur;
+        this.administrateur= demande.adminstrateur;
+        this.manager = demande.manager;
+        this.etatdirecteur = demande.etatdirecteur;
+        this.etatmanager = demande.etatmanager;
+        this.etat = demande.etat;
+        this.createdAt = demande.createdAt;
+       
+    }
+}
