@@ -11,7 +11,7 @@ import { FormDialogDemandeComponent } from '../demande-form/demande-form.compone
 import { Demande } from '../demande.model';
 
 @Component({
-    selector: 'demandes-list',
+    selector: 'typeDemandes-list',
     templateUrl: './demande-list.component.html',
     styleUrls: ['./demande-list.component.scss'],
     encapsulation: ViewEncapsulation.None,

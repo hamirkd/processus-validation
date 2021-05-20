@@ -96,7 +96,6 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
     }
 
-
     editDemande(demande: Demande): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',

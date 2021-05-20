@@ -144,7 +144,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `created_on`, `matricule`, `email`, `nom`, `password`, `departement_id`, `nationalite`, `poste`, `prenom`, `updated_at`, `directeur_id`, `direction_id`, `interim_id`, `manager_id`, `superviseur_id`, `email_superviseur`, `adminstrateur_id`) VALUES
 (101, '2021-05-03 05:31:29', '1212', 'admin@gmail.com', 'Alio', 'admin@gmail.com', NULL, 'Nigerien', 'ADMINISTRATEUR', 'Ibrahim', '2021-05-03 10:51:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(943843, '2021-05-03 05:31:29', '60', 'employe@gmail.com', '', 'employe@gmail.com', NULL, NULL, 'EMPLOYE', 'Issaka', '2021-05-03 10:51:48', 1302338, 1, NULL, NULL, NULL, NULL, NULL),
+(943843, '2021-05-03 05:31:29', '60', 'employe@gmail.com', '', 'employe@gmail.com', NULL, NULL, 'EMPLOYE', 'Issaka', '2021-05-03 10:51:48', 1302338, 1, NULL,1223, NULL, NULL, NULL),
+(943683, '2021-05-03 05:31:29', '60', 'employe@gmail.com', '', 'teste@gmail.com', NULL, NULL, 'EMPLOYE', 'teste', '2021-05-03 10:51:48', 1302338, 1, NULL, NULL, NULL, NULL, NULL),
+(1223, '2021-05-03 05:31:29', '60', 'manager@gmail.com', '', 'manager@gmail.com', NULL, NULL, 'MANAGER', 'manager', '2021-05-03 10:51:48', 1302338, 1, NULL, NULL, NULL, NULL, NULL),
 (1302338, '2021-05-03 05:31:29', NULL, 'directeur@gmail.com', 'Alio', 'directeur@gmail.com', NULL, 'Niger', 'DIRECTEUR', NULL, '2021-05-03 10:51:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --

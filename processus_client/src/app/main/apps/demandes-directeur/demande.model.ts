@@ -15,7 +15,7 @@ export class Demande
     etatmanager:'ENCOURS'|'ACCEPTER'|'REJETER'
     description:string;
     createdAt: Date;
-   
+  
 
     /**
      * 

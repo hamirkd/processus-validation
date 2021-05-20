@@ -1,0 +1,96 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="red">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <!-- <img [src]="pelerin.avatar" class="avatar user-avatar huge m-0" -->
+            <!-- [alt]="pelerin.nom"/> -->
+            <div class="user-name mt-8"></div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="departementForm">
+
+            <!-- <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nom</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="id" formControlName="id" matInput required>
+                </mat-form-field>
+            </div> -->
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nom</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="nom" formControlName="nom" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Direction</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="direction" formControlName="direction" matInput>
+                </mat-form-field>
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Manager</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="manager" formControlName="manager" matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Directeur</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="directeur" formControlName="directeur" matInput>
+                </mat-form-field>
+            </div>
+
+            <!-- <mat-form-field  appearance="outline">
+                    <mat-label>Selectionnez le type de contrainte </mat-label>
+                    <mat-select name="typeContrainte" formControlName="typeContrainte" (selectionChange)="conChoix($event.value)" matNativeControl required>
+                        <mat-option value="loga"></mat-option>
+                        <mat-option  value="zone">Zone</mat-option >
+                        <mat-option  value="vitesse">Vitesse</mat-option >
+                    </mat-select>
+                </mat-form-field> -->
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'" mat-button class="mr-8"
+            (click)="matDialogRef.close(['delete', departementForm])" aria-label="Delete" matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(departementForm)"
+            [disabled]="departementForm.invalid" aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button"
+            (click)="matDialogRef.close(['save',departementForm])" [disabled]="departementForm.invalid"
+            aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

@@ -44,6 +44,7 @@ public class UserController {
 //        
 //        ++++++++++++++++++++++++  Nous allons recuperé les directeurs  ++++++++++++++++++++++++++++++++++++
         User user = new User();
+        
         if (entity.getDirecteur_id() != null && entity.getDirecteur_id() != 0) {
             try {
                 User u = service.get(entity.getDirecteur_id());

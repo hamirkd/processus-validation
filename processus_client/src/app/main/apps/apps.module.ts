@@ -12,15 +12,34 @@ const routes = [
 
     },
 
+
     {
         path: 'demandes',
         loadChildren: './demandes/demandes.module#DemandesModule'
     },
 
+
+    {
+        path: 'departements',
+        loadChildren: './departements/departements.module#DepartementsModule'
+    },
+
+
+    {
+        path: 'typeDemandes',
+        loadChildren: './typeDemandes/typeDemandes.module#TypeDemandesModule'
+    },
+
+    
     {
         path: 'demandes-directeur',
         loadChildren: './demandes-directeur/demandes.module#DemandesModule'
     },
+
+
+   
+
+
     {
         path: 'demandes-manager',
         loadChildren: './demandes-manager/demandes.module#DemandesModule'

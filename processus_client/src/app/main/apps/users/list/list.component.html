@@ -12,10 +12,10 @@
     <!-- Name Column -->
 
 
-    <ng-container matColumnDef="matricule">
-        <mat-header-cell *matHeaderCellDef>Matricule</mat-header-cell>
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>AUUID</mat-header-cell>
         <mat-cell *matCellDef="let user" class="{{user.etat}}">
-            <p class="text-truncate font-weight-600">{{user.matricule}}</p>
+            <p class="text-truncate font-weight-600">{{user.id}}</p>
         </mat-cell>
     </ng-container>
 

@@ -263,6 +263,8 @@ export const navigation_directeur: FuseNavigation[] = [
 
 
 
+// ++++++++++++++++++++++++++++++++++++++++ Navigation pour administrateur +++++++++++++++++++++++++++++
+
 
 export const navigation_administrateur: FuseNavigation[] = [
     {
@@ -282,6 +284,10 @@ export const navigation_administrateur: FuseNavigation[] = [
                 url: '/apps/users'
 
             },
+
+
+
+           
 
             {
                 id: 'profile',
@@ -322,7 +328,29 @@ export const navigation_administrateur: FuseNavigation[] = [
                 type: 'item',
                 icon: 'autorenew',
                 url: '/apps/demandes-manager'
-            }
+            },
+
+
+
+            {
+                id: 'departements',
+                title: 'Departement',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'people',
+                url: '/apps/departements'
+
+            },
+
+            {
+                id: 'departements',
+                title: 'Type demande',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'people',
+                url: '/apps/typeDemandes'
+
+            },
 
         ]
     },
@@ -334,7 +362,7 @@ export const navigation_administrateur: FuseNavigation[] = [
         type: 'group',
         icon: 'apps',
         children: [
-           
+
 
 
 

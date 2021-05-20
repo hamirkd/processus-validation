@@ -1,29 +1,20 @@
 package com.processus.controllers;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.processus.dto.DepartementDTO;
 import com.processus.entities.Departement;
 import com.processus.services.TemplateService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/departements")
 @CrossOrigin("*")
 public class DepartementController {
-
 
     @Autowired
     TemplateService<Departement, Long> service;
@@ -33,29 +24,35 @@ public class DepartementController {
         return service.getAll();
     }
 
-	/**
-	 * Ce service permet d'ajouter une demande
-	 * 
-	 * @param entity
-	 * @return
-	 */
     @PostMapping
-    public Departement add(@RequestBody DepartementDTO entityDto) {
+    public Departement add(@RequestBody DepartementDTO entity) {
 
-        Departement entity = new Departement();
-        entity.setNom(entityDto.getNom());
-        return service.add(entity);
+        Departement departement = new Departement();
+
+        departement.setNom(entity.getNom());
+        departement.setDirection(entity.getDirecteur());
+        departement.setManager(entity.getManager());
+        departement.setDirecteur(entity.getDirecteur());
+            
+        return service.add(departement);
 
     }
+
+
     @PutMapping
-    public Departement update(@RequestBody DepartementDTO entityDto) {
+    public Departement update(@Valid @RequestBody DepartementDTO entity) {
 
-        Departement entity = service.get(entityDto.getId());
-        entity.setNom(entityDto.getNom());
-        return service.add(entity);
+        Departement departement = new Departement();
 
+        departement.setId(entity.getId());
+        departement.setNom(entity.getNom());
+        departement.setDirection(entity.getDirecteur());
+        departement.setManager(entity.getManager());
+        departement.setDirecteur(entity.getDirecteur());
+
+
+        return service.update(departement);
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
@@ -66,6 +63,11 @@ public class DepartementController {
     public Departement get(@PathVariable Long id) {
         return service.get(id);
     }
+
+//    @PostMapping("/login")
+//    public Pelerin login(@RequestBody Pelerin pelerin) {
+//        return ((PelerinService) service).login(pelerin);
+//    }
 
 
     @PostMapping("/all")

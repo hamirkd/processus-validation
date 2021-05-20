@@ -77,19 +77,7 @@ export class FormDialogDemandeComponent {
 
         return this._formBuilder.group(this.demande);
     }
-    // onFileChanged(event) {
-    //     if (event.target.files && event.target.files[0]) {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(event.target.files[0]);
-    //         reader.onload = (event) => {
-    //             let eve: any = event.target;
-    //             this.demande.nom = eve.result;
-    //         }
-    //     }
-    //     else {
-    //         this.demande.nom = null;
-    //     }
-    // }
+ 
     save() {
         let demandeData: Demande = this.demandeForm.getRawValue();
         demandeData.id = this.demande.id;
