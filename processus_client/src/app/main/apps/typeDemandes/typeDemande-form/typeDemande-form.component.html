@@ -8,15 +8,14 @@
         </mat-toolbar-row>
 
         <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
-            <!-- <img [src]="pelerin.avatar" class="avatar user-avatar huge m-0" -->
-            <!-- [alt]="pelerin.nom"/> -->
+
             <div class="user-name mt-8"></div>
         </mat-toolbar-row>
     </mat-toolbar>
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
-        <form [formGroup]="regionForm">
+        <form [formGroup]="typeDemandeForm">
 
 
 
@@ -30,24 +29,27 @@
             </div>
 
 
+     
+
         </form>
 
     </div>
 
     <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
 
-        <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close(['delete', regionForm])"
-            aria-label="Delete" matTooltip="Delete">
+        <button *ngIf="action === 'edit'" mat-button class="mr-8"
+            (click)="matDialogRef.close(['delete', typeDemandeForm])" aria-label="Delete" matTooltip="Delete">
             DELETE
         </button>
 
-        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(regionForm)"
-            [disabled]="regionForm.invalid" aria-label="SAVE">
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(typeDemandeForm)"
+            [disabled]="typeDemandeForm.invalid" aria-label="SAVE">
             ADD
         </button>
 
         <button *ngIf="action === 'edit'" mat-button class="save-button"
-            (click)="matDialogRef.close(['save',regionForm])" [disabled]="regionForm.invalid" aria-label="SAVE">
+            (click)="matDialogRef.close(['save',typeDemandeForm])" [disabled]="typeDemandeForm.invalid"
+            aria-label="SAVE">
             SAVE
         </button>
 

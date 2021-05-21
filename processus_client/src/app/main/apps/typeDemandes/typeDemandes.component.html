@@ -1,7 +1,7 @@
 <div id="typeDemandes" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
 
     <!-- HEADER -->
-    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+    <div class="header red p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
          fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
 
         <!-- APP TITLE -->
@@ -45,7 +45,7 @@
 
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input [formControl]="searchInput" placeholder="Chercher un pelerin">
+                    <input [formControl]="searchInput" placeholder="Chercher un type">
                 </div>
 
             </div>
@@ -89,8 +89,8 @@
 </div>
 
 <!-- ADD CONTACT BUTTON -->
-<button mat-fab class="accent" id="add-contact-button" (click)="newRegion()" aria-label="add contact"
+<button mat-fab class="red" id="add-contact-button" (click)="newRegion()" aria-label="add contact"
         [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-    <mat-icon>person_add</mat-icon>
+    <mat-icon>menu</mat-icon>
 </button>
 <!-- / ADD CONTACT BUTTON -->

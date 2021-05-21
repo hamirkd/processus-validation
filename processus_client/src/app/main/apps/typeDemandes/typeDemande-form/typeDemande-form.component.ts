@@ -40,7 +40,7 @@ export class FormDialogTypeDemandeComponent {
             this.typeDemande = _data.typeDemande;
         }
         else {
-            this.dialogTitle = 'Ajouter typeDemande';
+            this.dialogTitle = 'Ajouter un type de demande';
             this.typeDemande = new TypeDemande({});
         }
 
@@ -61,6 +61,8 @@ export class FormDialogTypeDemandeComponent {
         return this._formBuilder.group({
             id: [this.typeDemande.id],
             nom: [this.typeDemande.nom],
+            createdAt:[this.typeDemande.createdAt],
+            
             
         
             

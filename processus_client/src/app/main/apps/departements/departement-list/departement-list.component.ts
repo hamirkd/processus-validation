@@ -66,7 +66,7 @@ export class ListDepartementsComponent implements OnInit, OnDestroy {
 
         this._departementsService.onSelectedDepartementsChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(selectedEncadreurs => {
+            .subscribe(selectedDepartements => {
                 for (const id in this.checkboxes) {
                     if (!this.checkboxes.hasOwnProperty(id)) {
                         continue;

@@ -4,6 +4,7 @@ export class TypeDemande
 {
     id: number;
     nom: string; 
+    createdAt: Date;
    
 
     /**
@@ -15,6 +16,7 @@ export class TypeDemande
     {
         this.id = typeDemande.id||FuseUtils.generateGUID();
         this.nom = typeDemande.nom;
+        this.createdAt = typeDemande.createdAt;
     
        
     }

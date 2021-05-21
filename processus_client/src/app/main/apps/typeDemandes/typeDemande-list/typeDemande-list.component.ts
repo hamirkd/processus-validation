@@ -12,22 +12,21 @@ import { FormDialogTypeDemandeComponent } from '../typeDemande-form/typeDemande-
 
 
 @Component({
-    selector     : 'typeDemandes-list',
-    templateUrl  : './typeDemande-list.component.html',
-    styleUrls    : ['./typeDemande-list.component.scss'],
+    selector: 'typeDemandes-list',
+    templateUrl: './typeDemande-list.component.html',
+    styleUrls: ['./typeDemande-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class ListTypeDemandeComponent implements OnInit, OnDestroy
-{
+export class ListTypeDemandeComponent implements OnInit, OnDestroy {
     @ViewChild('dialogContent')
     dialogContent: TemplateRef<any>;
 
     typeDemandes: any;
     typeDemande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom','buttons'];
-    selectedRegions: any[];
+    displayedColumns = ['nom', 'createdAt', 'buttons'];
+    selectedTypeDemandes: any[];
     checkboxes: {};
     dialogRef: any;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
@@ -35,12 +34,11 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy
     // Private
     private _unsubscribeAll: Subject<any>;
 
-   
+
     constructor(
         private _typeDemandesService: TypeDemandesService,
         public _matDialog: MatDialog
-    )
-    {
+    ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -52,10 +50,9 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
-        this.dataSource = new FilesDataSource(this._typeDemandesService);   
-console.log(this.dataSource)
+    ngOnInit(): void {
+        this.dataSource = new FilesDataSource(this._typeDemandesService);
+        console.log(this.dataSource)
         this._typeDemandesService.onTypeDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(typeDemandes => {
@@ -70,16 +67,14 @@ console.log(this.dataSource)
         this._typeDemandesService.onSelectedTypeDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(selectedtypeDemandes => {
-                for ( const id in this.checkboxes )
-                {
-                    if ( !this.checkboxes.hasOwnProperty(id) )
-                    {
+                for (const id in this.checkboxes) {
+                    if (!this.checkboxes.hasOwnProperty(id)) {
                         continue;
                     }
 
                     this.checkboxes[id] = selectedtypeDemandes.includes(id);
                 }
-                this.selectedRegions = this.selectedRegions;
+                this.selectedTypeDemandes = this.selectedTypeDemandes;
             });
 
         this._typeDemandesService.onTypeDemandeDataChanged
@@ -98,8 +93,7 @@ console.log(this.dataSource)
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -110,27 +104,24 @@ console.log(this.dataSource)
     // -----------------------------------------------------------------------------------------------------
 
 
-    editTypeDemande(typeDemande): void
-    {
+    editTypeDemande(typeDemande): void {
         this.dialogRef = this._matDialog.open(FormDialogTypeDemandeComponent, {
             panelClass: 'typeDemande-form-dialog',
 
-            data      : {
+            data: {
                 typeDemande: typeDemande,
-                action : 'edit'
+                action: 'edit'
             }
         });
 
         this.dialogRef.afterClosed()
             .subscribe(response => {
-                if ( !response )
-                {
+                if (!response) {
                     return;
                 }
                 const actionType: string = response[0];
                 const formData: FormGroup = response[1];
-                switch ( actionType )
-                {
+                switch (actionType) {
                     /**
                      * Save
                      */
@@ -154,8 +145,7 @@ console.log(this.dataSource)
     /**
      * Delete Contact
      */
-     deleteTypeDemande(typeDemande): void
-    {
+    deleteTypeDemande(typeDemande): void {
         this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
             disableClose: false
         });
@@ -163,8 +153,7 @@ console.log(this.dataSource)
         this.confirmDialogRef.componentInstance.confirmMessage = 'Voulez vous vraiment le supprimer?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
-            if ( result )
-            {
+            if (result) {
                 this._typeDemandesService.deleteTypeDemande(typeDemande);
             }
             this.confirmDialogRef = null;
@@ -172,20 +161,16 @@ console.log(this.dataSource)
 
     }
 
-    onSelectedChange(typeDemandeId): void
-    {
+    onSelectedChange(typeDemandeId): void {
         this._typeDemandesService.toggleSelectedTypeDemande(typeDemandeId);
     }
 
 
-    toggleStar(typeDemandeId): void
-    {
-        if ( this.typeDemande.starred.includes(typeDemandeId) )
-        {
+    toggleStar(typeDemandeId): void {
+        if (this.typeDemande.starred.includes(typeDemandeId)) {
             this.typeDemande.starred.splice(this.typeDemande.starred.indexOf(typeDemandeId), 1);
         }
-        else
-        {
+        else {
             this.typeDemande.starred.push(typeDemandeId);
         }
 
@@ -202,8 +187,7 @@ export class FilesDataSource extends DataSource<any>
      */
     constructor(
         private _typeDemandesService: TypeDemandesService
-    )
-    {
+    ) {
         super();
     }
 
@@ -211,15 +195,13 @@ export class FilesDataSource extends DataSource<any>
      * Connect function called by the table to retrieve one stream containing the data to render.
      * @returns {Observable<any[]>}
      */
-    connect(): Observable<any[]>
-    {
+    connect(): Observable<any[]> {
         return this._typeDemandesService.onTypeDemandesChanged;
     }
 
     /**
      * Disconnect
      */
-    disconnect(): void
-    {
+    disconnect(): void {
     }
 }

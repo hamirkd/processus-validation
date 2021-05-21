@@ -207,7 +207,7 @@ export class DepartementsService implements Resolve<any>
     updateDepartement(departement: Departement): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(departement)
-            // pelerin.numPelerin=new Number(pelerin.numPelerin).valueOf();
+
             this._httpClient.put(environment.addressIp+'/api/departements', departement)
                 .subscribe(response => {
                     this.getDepartements();

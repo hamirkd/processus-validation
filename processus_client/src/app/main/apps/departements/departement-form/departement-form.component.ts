@@ -1,6 +1,13 @@
+import { Direction } from '@angular/cdk/bidi';
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { User } from 'app/models/user';
+import { DirectionsService } from 'app/services/directions.service';
+import { UsersService } from 'app/services/users.service';
+import { UserService } from 'app/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Departement } from '../departement.model';
 import { DepartementsService } from '../departements.service';
 
@@ -19,6 +26,11 @@ export class FormDialogDepartementComponent {
     
     choix:boolean=true;
     contrainteChoix:boolean = true;
+    directions: Direction[]=[];
+    directeurs: User[] = [];
+    users: any;
+    managers: User[] = [];
+    private _unsubscribeAll: Subject<any>;
 
     /**
      * Constructor
@@ -31,7 +43,9 @@ export class FormDialogDepartementComponent {
         public matDialogRef: MatDialogRef<FormDialogDepartementComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
-        private departementService: DepartementsService
+        private departementService: DepartementsService,
+        private directionsService: DirectionsService,
+        private _usersService: UsersService,
     ) {
         // Set the defaults
         this.action = _data.action;
@@ -44,6 +58,19 @@ export class FormDialogDepartementComponent {
             this.dialogTitle = 'Nouveau departement';
             this.departement = new Departement({});
         }
+        this._usersService.onUsersChanged
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe(users => {
+            this.users = users;
+            this.directeurs = this.users.filter(d => d.poste == 'DIRECTEUR')
+            this.managers = this.users.filter(d => d.poste == 'MANAGER')
+
+        });
+
+
+        this.directionsService.getDirections().then(data => this.directions= data);
+        // this.usersService.getUsers().then(date => this this.users= data);
+        
 
         this.departementForm = this.createDepartementForm();
     }

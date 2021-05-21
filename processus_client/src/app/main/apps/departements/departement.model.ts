@@ -5,10 +5,10 @@ import { User } from "app/models/user";
 export class Departement
 {
     id: number;
-    nom: string;
+    nom : string;
     direction: Direction;
-    manager: string;
-    directeur:string;
+    manager: User;
+    directeur: User
     createdAt: Date;
    
 
