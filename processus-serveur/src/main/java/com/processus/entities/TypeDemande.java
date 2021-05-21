@@ -7,15 +7,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Logger;
-import org.apache.catalina.Manager;
 
 @Entity
-@Table(name = "Departement")
+@Table(name = "TypeDemande")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Departement implements Serializable {
+public class TypeDemande implements Serializable {
 
     /**
      *
@@ -28,25 +26,6 @@ public class Departement implements Serializable {
 
     @Column(name = "nom")
     private String nom;
-
-
-
-
-    @ManyToOne
-    @JoinColumn(name = "direction_id", nullable = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Direction direction;
-
-    @ManyToOne
-    @JoinColumn(name = "manager_id", nullable = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User manager;
-    
-    
-     @ManyToOne
-    @JoinColumn(name = "directeur_id", nullable = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User directeur;
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,58 +40,24 @@ public class Departement implements Serializable {
         return id;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-  
-
     public Date getCreatedAt() {
         return createdAt;
     }
 
-  
-
-    
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public User getManager() {
-        return manager;
-    }
-
-    public User getDirecteur() {
-        return directeur;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public void setManager(User manager) {
-        this.manager = manager;
-    }
-
-    public void setDirecteur(User directeur) {
-        this.directeur = directeur;
-    }
-    
-    
-    
 
 }

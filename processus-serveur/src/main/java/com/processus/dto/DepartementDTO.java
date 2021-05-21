@@ -1,52 +1,66 @@
 package com.processus.dto;
 
+import com.processus.entities.Direction;
+import com.processus.entities.User;
 
 public class DepartementDTO {
-   
-	private Long id;
-    private String nom;
-    private String direction;
-    private String manager;
-    private String directeur;
-    
-   
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
 
-    public String getDirection() {
+    private Long id;
+    private String nom;
+    private Direction direction ;
+    private User user;
+    private User Directeur;
+
+    public Direction getDirection() {
         return direction;
     }
 
-    public String getManager() {
-        return manager;
+    public User getUser() {
+        return user;
     }
 
-    public String getDirecteur() {
-        return directeur;
+    public User getDirecteur() {
+        return Directeur;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setDirecteur(String directeur) {
-        this.directeur = directeur;
+    public void setDirecteur(User Directeur) {
+        this.Directeur = Directeur;
+    }
+    
+    
+    
+    
+
+    public Long getId() {
+        return id;
     }
 
-        
-        
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+   
+
+   
+   
+   
+
+   
+
 }
