@@ -1,4 +1,6 @@
 import { FuseUtils } from "@fuse/utils";
+import { Departement } from "app/main/apps/departements/departement.model";
+import { TypeDemande } from "app/main/apps/typeDemandes/typeDemande.model";
 import { Direction } from "./direction";
 
 export class User{
@@ -12,12 +14,16 @@ export class User{
     manager:User;
     administrateur: User;
     direction:Direction;
+    departement: Departement;
+    typeDemande: TypeDemande;
     poste:'DIRECTEUR'|'EMPLOYE'|'MANAGER'|'ADMINISTRATEUR';
     updatedAt:Date;
     createdAt:Date;
     direction_id?;
     directeur_id?;
-    manager_id?;   
+    manager_id?;
+    departement_id?;
+    typeDemande_id?;   
     
     constructor(user)
     {
@@ -30,6 +36,7 @@ export class User{
         this.manager = user.manager;
         this.direction = user.direction;
         this.poste = user.poste;
+        this.departement=user.departement;
         this.createdAt = user.createdAt;
         this.updatedAt = user.updatedAt;
     }

@@ -19,10 +19,19 @@ const routes = [
     },
 
 
+
+
     {
-        path: 'departements',
-        loadChildren: './departements/departements.module#DepartementsModule'
+        path: 'autreDemandes',
+        loadChildren: './autreDemandes/demandes.module#DemandesModule'
     },
+
+
+
+    // {
+    //     path: 'departements',
+    //     loadChildren: './departements/departements.module#DepartementsModule'
+    // },
 
 
     {
@@ -45,6 +54,11 @@ const routes = [
         loadChildren: './demandes-manager/demandes.module#DemandesModule'
     },
 
+
+    {
+        path: 'autreDemanades',
+        loadChildren: './autreDemanades/demandes.module#DemandesModule'
+    },
 
 
 

@@ -1,6 +1,8 @@
 import { FuseUtils } from "@fuse/utils";
 import { Direction } from "app/models/direction";
 import { User } from "app/models/user";
+import { Departement } from "../departements/departement.model";
+import { TypeDemande } from "../typeDemandes/typeDemande.model";
 
 export class Demande
 {
@@ -10,6 +12,8 @@ export class Demande
     manager: User;
     directeur: User;
     administrateur: User;
+    departement : Departement;
+    typeDemande: TypeDemande;
     etatdirecteur:'ENCOURS'|'ACCEPTER'|'REJETER'
     etat:'ENCOURS'|'ACCEPTER'|'REJETER'
     etatmanager:'ENCOURS'|'ACCEPTER'|'REJETER'
@@ -32,6 +36,7 @@ export class Demande
         this.directeur = demande.directeur;
         this.administrateur= demande.adminstrateur;
         this.manager = demande.manager;
+        this.typeDemande= demande.typeDemande;
         this.etatdirecteur = demande.etatdirecteur;
         this.etatmanager = demande.etatmanager;
         this.etat = demande.etat;

@@ -53,6 +53,22 @@
                 </mat-form-field>
             </div>
 
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Departement</mat-label>
+                    <mat-icon matSuffix class="secondary-text">users</mat-icon>
+                    <select matNativeControl placeholder="Choisir le departement" formControlName="departement_id"
+                        [readonly]="action=='show'">
+                        <option></option>
+                        <option [value]="departement.id" *ngFor="let departement of departements">{{departement.nom}} </option>
+                    </select>
+                </mat-form-field>
+            </div>
+
+
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Poste</mat-label>

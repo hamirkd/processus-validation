@@ -342,6 +342,18 @@ export const navigation_administrateur: FuseNavigation[] = [
 
             },
 
+
+
+            {
+                id: 'autreDemandes',
+                title: 'Autre demande',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'people',
+                url: '/apps/autreDemanades'
+
+            },
+
             {
                 id: 'departements',
                 title: 'Type demande',
@@ -526,7 +538,19 @@ export const navigation_employe: FuseNavigation[] = [
                 type: 'item',
                 icon: 'autorenew',
                 url: '/apps/demandes'
-            }
+            },
+
+
+
+            {
+                id: 'autreDemandes',
+                title: 'Autre demande',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'people',
+                url: '/apps/autreDemanades'
+
+            },
 
         ]
     },

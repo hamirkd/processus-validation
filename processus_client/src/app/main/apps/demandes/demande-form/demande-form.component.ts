@@ -86,8 +86,7 @@ export class FormDialogDemandeComponent {
         demandeData.directeur = this.user.directeur;
         demandeData.direction = this.user.direction;
         this.demande = demandeData;
-        let demandeForm = this.createDemandeForm2();
-        
+        let demandeForm = this.createDemandeForm2(); 
         this.matDialogRef.close(demandeForm);
     }
 

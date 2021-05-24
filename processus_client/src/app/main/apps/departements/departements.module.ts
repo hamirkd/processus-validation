@@ -1,34 +1,50 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatOption, MatOptionModule, MatSelect, MatSelectModule
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatRippleModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTabsModule, MatAutocompleteModule, MatAutocomplete
 } from '@angular/material';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
+// import { MatFileUploadModule } from 'angular-material-fileupload';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import { DepartementsComponent } from './departements.component';
 import { DepartementsService } from './departements.service';
-import { ListDepartementsComponent } from './departement-list/departement-list.component';
 import { FormDialogDepartementComponent } from './departement-form/departement-form.component';
-
+import { ListDemandesComponent } from '../aministrateur/demande-list/demande-list.component';
+import { ListDepartementComponent } from './departement-list/departement-list.component';
 
 const routes: Routes = [
     {
         path     : '**',
         component: DepartementsComponent,
         resolve  : {
-            departements: DepartementsService
-        }
+            departements: DepartementsService        }
     }
 ];
 
 @NgModule({
     declarations   : [
-        
-        DepartementsComponent,
-        ListDepartementsComponent,
-        FormDialogDepartementComponent,
 
-       
+    DepartementsComponent,
+    FormDialogDepartementComponent,
+    ListDepartementComponent,
+   
+        
+
+        
     ],
     imports        : [
         RouterModule.forChild(routes),
@@ -36,7 +52,8 @@ const routes: Routes = [
         MatButtonModule,
         MatCheckboxModule,
         MatDatepickerModule,
-        MatFormFieldModule,
+        MatFormFieldModule, AutoCompleteModule,
+        // MatFileUploadModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
@@ -48,9 +65,15 @@ const routes: Routes = [
         FuseSidebarModule,
         MatOptionModule,
         MatSelectModule,
+        MatTableModule,
+        MatTabsModule,
+        MatAutocompleteModule,
+        NgxMatSelectSearchModule,
+
+    
     ],
     providers      : [
-        DepartementsService
+        DepartementsService, 
     ],
     entryComponents: [
         FormDialogDepartementComponent,

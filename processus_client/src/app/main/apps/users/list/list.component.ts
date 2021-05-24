@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, OnDestroy {
     users: any;
     user: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id','nom','prenom','direction','poste','createdAt','buttons'];
+    displayedColumns = ['id','nom','prenom','direction','departement','poste','createdAt','buttons'];
     selectedUsers: any[];
     checkboxes: {};
     dialogRef: any;

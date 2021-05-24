@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatOption, MatOptionModule, MatSelect, MatSelectModule, MatListModule
+    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatOption, MatOptionModule, MatSelect, MatSelectModule
 } from '@angular/material';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
-import { UsersComponent } from './users.component';
-import { FormDialogComponent } from './form-dialog/form-dialog.component';
-import { ListComponent } from './list/list.component';
-import { UsersService } from 'app/services/users.service';
-import { DepartementsService } from '../departements/departements.service';
+import { DemandesComponent } from './demandes.component';
+import { ListDemandesComponent } from './demande-list/demande-list.component';
+import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
+import { DemandesService } from './demandes.service';
+import { TypeDemandesService } from '../typeDemandes/typeDemandes.service';
 
 
 const routes: Routes = [
     {
         path     : '**',
-        component: UsersComponent,
+        component: DemandesComponent,
         resolve  : {
-            demandes: UsersService
+            demandes: DemandesService
         }
     }
 ];
@@ -25,9 +25,9 @@ const routes: Routes = [
 @NgModule({
     declarations   : [
        
-        UsersComponent,
-        ListComponent,
-        FormDialogComponent,
+        DemandesComponent,
+        ListDemandesComponent,
+        FormDialogDemandeComponent,
     ],
     imports        : [
         RouterModule.forChild(routes),
@@ -39,7 +39,6 @@ const routes: Routes = [
         MatIconModule,
         MatInputModule,
         MatMenuModule,
-        MatListModule,
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,
@@ -50,14 +49,13 @@ const routes: Routes = [
         MatSelectModule,
     ],
     providers      : [
-        UsersService,
-        DepartementsService
+        DemandesService,
+        TypeDemandesService
     ],
     entryComponents: [
-        FormDialogComponent,
+        FormDialogDemandeComponent,
     ]
 })
-export class UsersModule
+export class DemandesModule
 {
-    
 }

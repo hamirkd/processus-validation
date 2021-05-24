@@ -1,6 +1,6 @@
 @import "src/@fuse/scss/fuse";
 
-departements-list{
+demandes-list {
     display: flex;
     flex: 1 1 auto;
     width: 100%;
@@ -56,4 +56,16 @@ departements-list{
         top: calc(100vh - 120px);
         bottom: auto;
     }
+}
+.ACCEPTER{
+    background-color: rgb(53, 170, 53);
+}
+.REJETER{
+    background-color: red;
+}
+.ACCEPTERDEMANDE{
+    border-bottom: solid rgb(53, 170, 53);
+}
+.REJETERDEMANDE{
+    border-bottom: solid red;
 }

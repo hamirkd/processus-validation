@@ -4,89 +4,84 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { DepartementsService } from '../departements.service';
-import { FormDialogDepartementComponent } from '../departement-form/departement-form.component';
-
+import { DemandesService } from '../demandes.service';
+import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
+import { Demande } from '../../demandes-directeur/demande.model';
 
 @Component({
-    selector: 'departements-list',
-    templateUrl: './departement-list.component.html',
-    styleUrls: ['./departement-list.component.scss'],
+    selector: 'demandes-list',
+    templateUrl: './demande-list.component.html',
+    styleUrls: ['./demande-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations
 })
-export class ListDepartementComponent implements OnInit, OnDestroy {
+export class ListDemandesComponent implements OnInit, OnDestroy {
     @ViewChild('dialogContent')
     dialogContent: TemplateRef<any>;
 
-    departements: any;
-    departement: any;
+    demandes: any;
+    demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom','direction','manager','directeur', 'createdAt', 'buttons'];
-    selectedDepartements: any[];
+    displayedColumns = ['id', 'nom' ,'prenom','direction','description','manager','directeur','createdAt','buttons'];
+    selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
-
+    
     // Private
     private _unsubscribeAll: Subject<any>;
 
-
+    /**
+     * Constructor
+     *
+     * @param {EncadreursService} _demandesService
+     * @param {MatDialog} _matDialog
+     */
     constructor(
-        private _departementsService: DepartementsService,
+        private _demandesService: DemandesService,
         public _matDialog: MatDialog
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
-        this.dataSource = new FilesDataSource(this._departementsService);
-        console.log(this.dataSource)
-        this._departementsService.onDepartementsChanged
+        this.dataSource = new FilesDataSource(this._demandesService);
+        this._demandesService.onDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(departements => {
-                this.departements = departements;
-
+            .subscribe(demandes => {
+                this.demandes = demandes;
                 this.checkboxes = {};
-                departements.map(departement => {
-                    this.checkboxes[departements.id] = false;
+                demandes.map(demande => {
+                    this.checkboxes[demande.id] = false;
                 });
             });
 
-        this._departementsService.onSelectedDepartementsChanged
+        this._demandesService.onSelectedDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(selectedDepartements => {
+            .subscribe(selectedDemandes => {
                 for (const id in this.checkboxes) {
                     if (!this.checkboxes.hasOwnProperty(id)) {
                         continue;
                     }
 
-                    this.checkboxes[id] = selectedDepartements.includes(id);
+                    this.checkboxes[id] = selectedDemandes.includes(id);
                 }
-                this.selectedDepartements = this.selectedDepartements;
+                this.selectedDemandes = selectedDemandes;
             });
 
-        this._departementsService.onDepartementDataChanged
+        this._demandesService.onDemandeDataChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(departement => {
-                this.departement = departement;
+            .subscribe(demande => {
+                this.demande = demande;
             });
 
-        this._departementsService.onFilterChanged
+        this._demandesService.onFilterChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
-                this._departementsService.deselectDepartements();
+                this._demandesService.deselectDemandes();
             });
     }
 
@@ -103,14 +98,41 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-
-    editDepartement(departement): void {
-        this.dialogRef = this._matDialog.open(FormDialogDepartementComponent, {
-            panelClass: 'departement-form-dialog',
-
+    /**
+     * Edit Pelerin
+     * 
+     *
+     * @param demande
+     */
+    editDemande(demande:Demande): void {
+        this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
+            panelClass: 'demande-form-dialog',
             data: {
-                departement: departement,
+                demande: demande,
                 action: 'edit'
+            }
+        });
+
+        this.dialogRef.afterClosed()
+            .subscribe(response => {
+                if (!response) {
+                    return;
+                }
+                
+                const formData: FormGroup = response;
+                
+                
+
+                        this._demandesService.updateDemande(formData.getRawValue(),demande.id);
+
+            });
+    }
+    show(demande): void {
+        this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
+            panelClass: 'demande-form-dialog',
+            data: {
+                demande: demande,
+                action: 'show'
             }
         });
 
@@ -127,7 +149,7 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
                      */
                     case 'save':
 
-                        this._departementsService.updateDepartement(formData.getRawValue());
+                        this._demandesService.updateDemande(formData.getRawValue());
 
                         break;
                     /**
@@ -135,7 +157,7 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
                      */
                     case 'delete':
 
-                        this.deleteDepartement(departement);
+                        this.deleteDemande(demande);
 
                         break;
                 }
@@ -143,9 +165,9 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Delete Contact
+     * Delete demande
      */
-     deleteDepartement(departement): void {
+    deleteDemande(demande): void {
         this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
             disableClose: false
         });
@@ -154,28 +176,42 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this._departementsService.deleteDepartement(departement);
+                this._demandesService.deleteDemande(demande);
             }
             this.confirmDialogRef = null;
         });
 
     }
 
-    onSelectedChange(departementId): void {
-        this._departementsService.toggleSelectedDepartement(departementId);
+    /**
+     * On selected change
+     *
+     * @param encadreurId
+     */
+    onSelectedChange(demandeId): void {
+        this._demandesService.toggleSelectedDemande(demandeId);
     }
 
-
-    toggleStar(departementId): void {
-        if (this.departement.starred.includes(departementId)) {
-            this.departement.starred.splice(this.departement.starred.indexOf(departementId), 1);
+    /**
+     * Toggle star
+     *
+     * @param demandeId
+     */
+    toggleStar(demandeId): void {
+        if (this.demande.starred.includes(demandeId)) {
+            this.demande.starred.splice(this.demande.starred.indexOf(demandeId), 1);
         }
         else {
-            this.departement.starred.push(departementId);
+            this.demande.starred.push(demandeId);
         }
 
-        this._departementsService.updateDepartementData(this.departement);
+        this._demandesService.updateDemandeData(this.demande);
     }
+
+
+
+
+    
 }
 
 export class FilesDataSource extends DataSource<any>
@@ -183,10 +219,10 @@ export class FilesDataSource extends DataSource<any>
     /**
      * Constructor
      *
-     * @param {TransfertsService} _transfertsService
+     * @param {EncadreursService} _demandesService
      */
     constructor(
-        private _departementsService: DepartementsService
+        private _demandesService: DemandesService
     ) {
         super();
     }
@@ -196,7 +232,7 @@ export class FilesDataSource extends DataSource<any>
      * @returns {Observable<any[]>}
      */
     connect(): Observable<any[]> {
-        return this._departementsService.onDepartementsChanged;
+        return this._demandesService.onDemandesChanged;
     }
 
     /**

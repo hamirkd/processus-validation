@@ -42,6 +42,15 @@
         </mat-cell>
     </ng-container>
 
+
+
+    <ng-container matColumnDef="departement">
+        <mat-header-cell *matHeaderCellDef>Departement</mat-header-cell>
+        <mat-cell *matCellDef="let user" class="{{user.etat}}">
+            <p class="text-truncate font-weight-600" *ngIf="user.departement">{{user.departement.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="poste">
         <mat-header-cell *matHeaderCellDef>Poste</mat-header-cell>
         <mat-cell *matCellDef="let user" class="{{user.etat}}">

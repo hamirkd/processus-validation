@@ -35,22 +35,12 @@ export class DepartementsService implements Resolve<any>
         // Set the defaults
         this.onDepartementsChanged = new BehaviorSubject([]);
         this.onSelectedDepartementsChanged = new BehaviorSubject([]);
-        this.onDepartementDataChanged = new BehaviorSubject([]);
+        this.onDepartementDataChanged= new BehaviorSubject([]);
         this.onSearchTextChanged = new Subject();
         this.onFilterChanged = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Resolver
-     *
-     * @param {ActivatedRouteSnapshot} route
-     * @param {RouterStateSnapshot} state
-     * @returns {Observable<any> | Promise<any> | any}
-     */
+  
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
         return new Promise<void>((resolve, reject) => {
 
@@ -111,7 +101,7 @@ export class DepartementsService implements Resolve<any>
                         return new Departement(departement);
                     });
 
-                    this.onDepartementsChanged.next(this.departement);
+                    this.onDepartementsChanged.next(this.departements);
                     resolve(this.departements);
                 }, reject => {
                     this.departements = [];
@@ -198,16 +188,11 @@ export class DepartementsService implements Resolve<any>
         this.onSelectedDepartementsChanged.next(this.selectDepartements);
     }
 
-    /**
-     * Update User
-     *
-     * @param Encadreur
-     * @returns {Promise<any>}
-     */
+
     updateDepartement(departement: Departement): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(departement)
-
+            // pelerin.numPelerin=new Number(pelerin.numPelerin).valueOf();
             this._httpClient.put(environment.addressIp+'/api/departements', departement)
                 .subscribe(response => {
                     this.getDepartements();
@@ -216,12 +201,6 @@ export class DepartementsService implements Resolve<any>
         });
     }
 
-    /**
-     * Update user data
-     *
-     * @param departementData
-     * @returns {Promise<any>}
-     */
     updateDepartementData(departementData): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.post(environment.addressIp+'/api/departements' + this.departement.id, { ...departementData })
@@ -243,12 +222,8 @@ export class DepartementsService implements Resolve<any>
         this.onSelectedDepartementsChanged.next(this.selectedDepartements);
     }
 
-    /**
-     * Delete User
-     *
-     * @param Departement
-     */
-    deleteEncadreur(departement: Departement): Promise<any> {
+
+    deleteDepartement(departement: Departement): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(departement)
             this._httpClient.delete(environment.addressIp+'/api/departements/' + departement.id)
@@ -259,9 +234,7 @@ export class DepartementsService implements Resolve<any>
         });
     }
 
-    /**
-     * Delete selected Users
-     */
+ 
     deleteSelectedDepartements(): void {
         for (const DepartementId of this.selectedDepartements) {
             const Departement = this.departements.find(_Departement => {
@@ -270,7 +243,7 @@ export class DepartementsService implements Resolve<any>
             const DepartementIndex = this.departements.indexOf(Departement);
             this.departements.splice(DepartementIndex, 1);
         }
-        this.onDepartementsChanged.next(this.departements);
+        this.onSelectedDepartementsChanged.next(this.departements);
         this.deselectDepartements();
     }
 

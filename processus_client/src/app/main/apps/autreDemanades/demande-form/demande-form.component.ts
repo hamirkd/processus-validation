@@ -1,12 +1,9 @@
-import { Direction } from '@angular/cdk/bidi';
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { User } from 'app/models/user';
-import { DirectionsService } from 'app/services/directions.service';
 import { UsersService } from 'app/services/users.service';
-import { takeUntil } from 'rxjs/operators';
-import { Demande } from '../demande.model';
+import { Demande } from '../../demandes-directeur/demande.model';
 import { DemandesService } from '../demandes.service';
 
 
@@ -22,10 +19,6 @@ export class FormDialogDemandeComponent {
     demande: Demande;
     demandeForm: FormGroup;
     dialogTitle: string;
-    managers: User[] = [];
-    directeurs: User[] = [];
-    users: User[] = [];
-    directions: Direction[] = [];
     
     choix:boolean=true;
     contrainteChoix:boolean = true;
@@ -41,29 +34,26 @@ export class FormDialogDemandeComponent {
         public matDialogRef: MatDialogRef<FormDialogDemandeComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
-        private demandeService: DemandesService,
-        private userService:UsersService,
-        private directionsService: DirectionsService
+        private demandeService: DemandesService,private userService:UsersService
     ) {
         this.user = this.userService.userData;
         // Set the defaults
         this.action = _data.action;
 
         if (this.action === 'edit') {
-            this.dialogTitle = 'Approuver ou rejeter';
+            this.dialogTitle = 'Modifier demande';
             this.demande = _data.demande;
         }
-        else {
+        else if(this.action === 'new') {
             this.dialogTitle = 'Nouvelle demande';
             this.demande = new Demande({});
         }
-
-        this.directionsService.getDirections().then(data => this.directions = data);
+        else{
+            this.dialogTitle = 'Afficher';
+            this.demande = _data.demande;
+        }
 
         this.demandeForm = this.createDemandeForm();
-    }
-    private _unsubscribeAll(_unsubscribeAll: any): any {
-        throw new Error('Method not implemented.');
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -78,53 +68,28 @@ export class FormDialogDemandeComponent {
     createDemandeForm(): FormGroup {
 
         return this._formBuilder.group({
-            description: [this.demande.description]
-
+            id: [this.demande.id],
+            description: [this.demande.description],
+            typeDemande: [this.demande.typeDemande],
         });
     }
     createDemandeForm2(): FormGroup {
 
-        return this._formBuilder.group({
-            description: [this.demande.description],
-            demandeur: [this.demande.demandeur],
-            direction: [this.demande.direction],
-            departement: [this.demande.departement],
-        });
+        return this._formBuilder.group(this.demande);
     }
-    // onFileChanged(event) {
-    //     if (event.target.files && event.target.files[0]) {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(event.target.files[0]);
-    //         reader.onload = (event) => {
-    //             let eve: any = event.target;
-    //             this.demande.nom = eve.result;
-    //         }
-    //     }
-    //     else {
-    //         this.demande.nom = null;
-    //     }
-    // }
+ 
     save() {
         let demandeData: Demande = this.demandeForm.getRawValue();
+        demandeData.id = this.demande.id;
         demandeData.demandeur = this.user;
         demandeData.manager = this.user.manager;
         demandeData.directeur = this.user.directeur;
         demandeData.direction = this.user.direction;
-        demandeData.departement=this.user.departement;
-     
+        demandeData.typeDemande=  this.user.typeDemande;
         this.demande = demandeData;
-        let demandeForm = this.createDemandeForm2();
+        let demandeForm = this.createDemandeForm2(); 
         this.matDialogRef.close(demandeForm);
     }
-   
 
-    // conChoix(value){
-    //     if(value=='vitesse'){
-    //         this.contrainteChoix=true;
-    //     }else if(value=='zone'){
-    //         this.contrainteChoix=false;
-
-    //     }
-    // }
 
 }

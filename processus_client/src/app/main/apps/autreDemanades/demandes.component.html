@@ -1,4 +1,4 @@
-<div id="departements" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+<div id="demandes" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
 
     <!-- HEADER -->
     <div class="header red p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
@@ -14,10 +14,10 @@
 
             <div class="logo" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="logo-icon mr-16"
-                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">list_alt
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">clean_hands
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    Liste des departements  
+                    Liste des demandes
                 </span>
             </div>
 
@@ -45,7 +45,7 @@
 
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input [formControl]="searchInput" placeholder="Chercher un type">
+                    <input [formControl]="searchInput" placeholder="Chercher une demande">
                 </div>
 
             </div>
@@ -71,17 +71,20 @@
             <!-- </div> -->
             <!-- / SIDEBAR CONTENT -->
 
-    
+        <!-- </fuse-sidebar> -->
+        <!-- / SIDEBAR -->
+
         <!-- CENTER -->
         <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
 
+            <!-- CONTENT -->
             <div class="content">
-                <departements-list></departements-list>
+                <demandes-list></demandes-list>
             </div>
-         
+            <!-- / CONTENT -->
 
         </div>
-  
+        <!-- / CENTER -->
 
     </div>
     <!-- / CONTENT-->
@@ -89,8 +92,8 @@
 </div>
 
 <!-- ADD CONTACT BUTTON -->
-<button mat-fab class="red" id="add-contact-button" (click)="newDepartement()" aria-label="add contact"
+<button mat-fab class="red" id="add-contact-button" (click)="newDemande()" aria-label="add contact"
         [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-    <mat-icon>menu</mat-icon>
+    <mat-icon>pan_tool</mat-icon>
 </button>
 <!-- / ADD CONTACT BUTTON -->

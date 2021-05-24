@@ -10,26 +10,28 @@ import { FormDialogDepartementComponent } from './departement-form/departement-f
 
 
 @Component({
-    selector: 'departements',
-    templateUrl: './departements.component.html',
-    styleUrls: ['./departements.component.scss'],
+    selector     : 'departements',
+    templateUrl  : './departements.component.html',
+    styleUrls    : ['./departements.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations
+    animations   : fuseAnimations
 })
-export class DepartementsComponent implements OnInit, OnDestroy {
+export class DepartementsComponent implements OnInit, OnDestroy
+{
     dialogRef: any;
-    hasSelectedDepartements: boolean;
+    hasSelectedDepartement: boolean;
     searchInput: FormControl;
 
     // Private
     private _unsubscribeAll: Subject<any>;
 
- 
+
     constructor(
         private _departementsService: DepartementsService,
         private _fuseSidebarService: FuseSidebarService,
         private _matDialog: MatDialog
-    ) {
+    )
+    {
         // Set the defaults
         this.searchInput = new FormControl('');
 
@@ -37,18 +39,13 @@ export class DepartementsComponent implements OnInit, OnDestroy {
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         this._departementsService.onSelectedDepartementsChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(selectedDepartements => {
-                this.hasSelectedDepartements = selectedDepartements.length > 0;
+            .subscribe(selectedDepartement => {
+                this.hasSelectedDepartement = selectedDepartement.length > 0;
             });
 
         this.searchInput.valueChanges
@@ -65,7 +62,8 @@ export class DepartementsComponent implements OnInit, OnDestroy {
     /**
      * On destroy
      */
-    ngOnDestroy(): void {
+    ngOnDestroy(): void
+    {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -78,17 +76,19 @@ export class DepartementsComponent implements OnInit, OnDestroy {
     /**
      * New contact
      */
-     newDepartement(): void {
+     newDepartement(): void
+    {
         this.dialogRef = this._matDialog.open(FormDialogDepartementComponent, {
             panelClass: 'departement-form-dialog',
-            data: {
+            data      : {
                 action: 'new'
             }
         });
 
         this.dialogRef.afterClosed()
             .subscribe((response: FormGroup) => {
-                if (!response) {
+                if ( !response )
+                {
                     return;
                 }
 
@@ -101,7 +101,8 @@ export class DepartementsComponent implements OnInit, OnDestroy {
      *
      * @param name
      */
-    toggleSidebar(name): void {
+    toggleSidebar(name): void
+    {
         this._fuseSidebarService.getSidebar(name).toggleOpen();
     }
 }
