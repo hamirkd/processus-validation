@@ -29,9 +29,6 @@ public class Departement implements Serializable {
     @Column(name = "nom")
     private String nom;
 
-
-
-
     @ManyToOne
     @JoinColumn(name = "direction_id", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -41,9 +38,8 @@ public class Departement implements Serializable {
     @JoinColumn(name = "manager_id", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User manager;
-    
-    
-     @ManyToOne
+
+    @ManyToOne
     @JoinColumn(name = "directeur_id", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User directeur;
@@ -65,8 +61,6 @@ public class Departement implements Serializable {
         return nom;
     }
 
-    
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,15 +69,10 @@ public class Departement implements Serializable {
         this.nom = nom;
     }
 
-  
-
     public Date getCreatedAt() {
         return createdAt;
     }
 
-  
-
-    
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -111,8 +100,5 @@ public class Departement implements Serializable {
     public void setDirecteur(User directeur) {
         this.directeur = directeur;
     }
-    
-    
-    
 
 }
