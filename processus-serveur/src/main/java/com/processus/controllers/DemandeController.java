@@ -107,6 +107,29 @@ public class DemandeController {
 //        demande.setEtat(entity.getEtat());
         return service.update(demande);
     }
+/**
+ * Nous allons faire une duplication de la demande tout en changeant la direction,
+ * le directeur, le manager
+ */
+    @PutMapping("transfert")
+    public Demande transfert(@Valid @RequestBody DemandeDTO entity) {
+        Demande demande_old = service.get(entity.getId());
+        Demande demande=new Demande();
+        demande.setDemandeur(demande_old.getDemandeur());
+        demande.setDescription(demande_old.getDescription());
+        
+        demande.setDirection(entity.getDirection());
+        demande.setDirecteur(entity.getDirecteur());
+        demande.setManager(entity.getManager());
+        demande.setEtat(EtatDemande.ENCOURS);
+    	demande.setEtatdirecteur(EtatDemande.ENCOURS);
+    	demande.setEtatmanager(EtatDemande.ENCOURS);
+    	demande_old.setEtat(EtatDemande.TERMINER);
+    	service.update(demande_old);
+//        return service.update(demande);
+//        demande.setEtat(entity.getEtat());
+        return service.add(demande);
+    }
 
     @PutMapping("modifier-une-demande")
     public Demande update(@Valid @RequestBody DemandeDTO entity) {

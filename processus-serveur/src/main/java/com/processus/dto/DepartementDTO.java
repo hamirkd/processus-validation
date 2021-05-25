@@ -8,15 +8,15 @@ public class DepartementDTO {
     private Long id;
     private String nom;
     private Direction direction ;
-    private User user;
+    private User manager;
     private User Directeur;
 
     public Direction getDirection() {
         return direction;
     }
 
-    public User getUser() {
-        return user;
+    public User getManager() {
+        return manager;
     }
 
     public User getDirecteur() {
@@ -27,8 +27,8 @@ public class DepartementDTO {
         this.direction = direction;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public void setDirecteur(User Directeur) {

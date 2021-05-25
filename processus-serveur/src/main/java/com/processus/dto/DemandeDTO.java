@@ -1,6 +1,8 @@
 package com.processus.dto;
 
+import com.processus.entities.Direction;
 import com.processus.entities.EtatDemande;
+import com.processus.entities.User;
 
 
 public class DemandeDTO {
@@ -14,6 +16,28 @@ public class DemandeDTO {
 
     private EtatDemande etatdirecteur;
     
+    private Direction direction;
+    private User directeur;
+    private User manager;
+    
+	public Direction getDirection() {
+		return direction;
+	}
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	public User getDirecteur() {
+		return directeur;
+	}
+	public void setDirecteur(User directeur) {
+		this.directeur = directeur;
+	}
+	public User getManager() {
+		return manager;
+	}
+	public void setManager(User manager) {
+		this.manager = manager;
+	}
 	public Long getId() {
 		return id;
 	}

@@ -55,7 +55,10 @@ public class Demande implements Serializable {
 
 	@Column(name = "etatdirecteur")
 	private String etatdirecteur = EtatDemande.ENCOURS.toString();
-
+	
+	@ManyToOne
+	@JoinColumn(name = "typedemande_id", nullable = true)
+    private TypeDemande typeDemande;
 	@Column(name = "created_on", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate

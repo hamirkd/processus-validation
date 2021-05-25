@@ -9,6 +9,7 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
 import { DemandesService } from '../demandes.service';
 import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
 import { Demande } from '../demande.model';
+import { FormDialogTransfertDemandeComponent } from '../demande-form-transfert/demande-form-transfert.component';
 
 @Component({
     selector: 'demandes-list',
@@ -106,7 +107,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
      *
      * @param demande
      */
-    editDemande(demande:Demande): void {
+     editDemande(demande:Demande): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
@@ -131,6 +132,32 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                         break;
                 }
                 this._demandesService.signatureDemande(demande);
+
+            });
+    }
+
+    /**
+     * Cette fonctionnalité permet de transferer une demande
+     * On change seulement le directeur, le manager et la direction par ceux ceux que l'on connait
+     *
+     * @param demande
+     */
+     transferer(demande:Demande): void {
+        this.dialogRef = this._matDialog.open(FormDialogTransfertDemandeComponent, {
+            panelClass: 'demande-form-dialog',
+            data: {
+                demande: demande,
+                action: 'edit'
+            }
+        });
+
+        this.dialogRef.afterClosed()
+            .subscribe(response => {
+                if (!response) {
+                    return;
+                }
+                const _demande = response.getRawValue();
+                this._demandesService.transfertDemande(_demande);
 
             });
     }
