@@ -72,6 +72,7 @@ public class Demande implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "manager_id", nullable = true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private User manager;
 
 	@ManyToOne
