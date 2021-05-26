@@ -88,10 +88,10 @@ export class FormDialogTransfertDemandeComponent {
         
         return this._formBuilder.group({
             id: [this.demande.id],
-            direction: [this.demande.direction],
+            direction_id: [this.demande.direction?this.demande.direction.id:0],
             departement_id: [this.demande.departement ? this.demande.departement.id : 0],
-            directeur: [this.demande.directeur],
-            manager: [this.demande.manager],
+            directeur_id: [this.demande.directeur?this.demande.directeur.id:0],
+            manager_id: [this.demande.manager?this.demande.manager.id:0],
         });
     }
     // onFileChanged(event) {

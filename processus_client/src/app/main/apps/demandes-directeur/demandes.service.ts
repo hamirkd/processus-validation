@@ -243,10 +243,7 @@ export class DemandesService implements Resolve<any>
         console.log(demande)
         return new Promise((resolve, reject) => {
             this._httpClient.put(environment.addressIp+'/api/demandes/transfert', 
-            {id:demande.id,
-                direction:demande.direction,
-                manager:demande.manager,
-                directeur:demande.directeur,})
+            demande)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
