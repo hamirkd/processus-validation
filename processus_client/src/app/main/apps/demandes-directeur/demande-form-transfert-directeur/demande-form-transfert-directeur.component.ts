@@ -12,9 +12,9 @@ import { DemandesService } from '../demandes.service';
 
 
 @Component({
-    selector: 'demande-form-dialog-transfert',
-    templateUrl: './demande-form-transfert.component.html',
-    styleUrls: ['./demande-form-transfert.component.scss'],
+    selector: 'demande-form-dialog-transfert-directeur',
+    templateUrl: './demande-form-transfert-directeur.component.html',
+    styleUrls: ['./demande-form-transfert-directeur.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
