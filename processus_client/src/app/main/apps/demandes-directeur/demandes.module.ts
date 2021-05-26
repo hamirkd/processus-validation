@@ -11,6 +11,7 @@ import { FormDialogDemandeComponent } from './demande-form/demande-form.componen
 import { DemandesService } from './demandes.service';
 import { FormDialogTransfertDemandeComponent } from './demande-form-transfert/demande-form-transfert.component';
 import { DepartementsService } from '../departements/departements.service';
+import { FormDialogTransfertDemandeDirecteurComponent } from './demande-form-transfert-directeur/demande-form-transfert.component';
 
 
 const routes: Routes = [

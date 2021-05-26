@@ -35,12 +35,12 @@ export class FormDialogTransfertDemandeDirecteurComponent {
     /**
      * Constructor
      *
-     * @param {MatDialogRef<FormDialogTransfertDemandeDirecteurComponent>} matDialogRef
+     * @param {MatDialogRef<FormDialogTransfertDemandeComponent>} matDialogRef
      * @param _data
      * @param {FormBuilder} _formBuilder
      */
     constructor(
-        public matDialogRef: MatDialogRef<MatDialogRef<FormDialogTransfertDemandeDirecteurComponent>,
+        public matDialogRef: MatDialogRef<FormDialogTransfertDemandeDirecteurComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
         private demandeService: DemandesService,
@@ -116,13 +116,5 @@ export class FormDialogTransfertDemandeDirecteurComponent {
     }
 
 
-    // conChoix(value){
-    //     if(value=='vitesse'){
-    //         this.contrainteChoix=true;
-    //     }else if(value=='zone'){
-    //         this.contrainteChoix=false;
-
-    //     }
-    // }
 
 }

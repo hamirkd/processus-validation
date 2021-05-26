@@ -10,6 +10,7 @@ import { DemandesService } from '../demandes.service';
 import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
 import { Demande } from '../demande.model';
 import { FormDialogTransfertDemandeComponent } from '../demande-form-transfert/demande-form-transfert.component';
+import { FormDialogTransfertDemandeDirecteurComponent } from '../demande-form-transfert-directeur/demande-form-transfert.component';
 
 @Component({
     selector: 'demandes-list',
@@ -24,6 +25,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
     demandes: any;
     demande: any;
+    demandeDirecteur : any;
     dataSource: FilesDataSource | null;
     displayedColumns = ['id', 'nom', 'prenom', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
@@ -150,6 +152,16 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                 action: 'edit'
             }
         });
+      
+        // transfererDirecteur(demande:Demande): void {
+        //     this.dialogRef = this._matDialog.open(FormDialogTransfertDemandeDirecteurComponent, {
+        //         panelClass: 'demande-form-dialog',
+        //         data: {
+        //             demande: demande,
+        //             action: 'edit'
+        //         }
+        //     });
+        
 
         this.dialogRef.afterClosed()
             .subscribe(response => {
