@@ -28,7 +28,9 @@ const routes: Routes = [
        
         DemandesComponent,
         ListDemandesComponent,
-        FormDialogDemandeComponent,FormDialogTransfertDemandeComponent,
+        FormDialogDemandeComponent,
+        FormDialogTransfertDemandeComponent,
+        FormDialogTransfertDemandeDirecteurComponent,
     ],
     imports        : [
         RouterModule.forChild(routes),
