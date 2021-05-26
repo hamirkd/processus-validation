@@ -26,6 +26,9 @@ public class TypeDemande implements Serializable {
 
     @Column(name = "nom")
     private String nom;
+    
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,4 +63,14 @@ public class TypeDemande implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
+    
 }

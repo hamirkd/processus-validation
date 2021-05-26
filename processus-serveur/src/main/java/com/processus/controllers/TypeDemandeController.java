@@ -30,8 +30,8 @@ public class TypeDemandeController {
     public TypeDemande add(@RequestBody TypeDemandeDTO entity) {
 
         TypeDemande typeDemande = new TypeDemande();
-
         typeDemande.setNom(entity.getNom());
+        typeDemande.setDescription(entity.getDescription());
         
 
         return service.add(typeDemande);
@@ -46,6 +46,7 @@ public class TypeDemandeController {
 
         typeDemande.setId(entity.getId());
         typeDemande.setNom(entity.getNom());
+        typeDemande.setDescription(entity.getDescription());
        
         
 

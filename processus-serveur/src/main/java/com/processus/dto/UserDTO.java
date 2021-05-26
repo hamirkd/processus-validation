@@ -11,6 +11,7 @@ public class UserDTO {
 	private Long manager_id;
 	private Long direction_id;
         private Long administrateur_id;
+        private Long departement_id;
 	private String poste;
 	
 
@@ -104,4 +105,16 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+    public Long getDepartement_id() {
+        return departement_id;
+    }
+
+    public void setDepartement_id(Long departement_id) {
+        this.departement_id = departement_id;
+    }
+        
+        
+        
+        
 }

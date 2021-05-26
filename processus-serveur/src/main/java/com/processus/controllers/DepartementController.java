@@ -1,5 +1,4 @@
 package com.processus.controllers;
-
 import com.processus.dto.DepartementDTO;
 import com.processus.entities.Departement;
 import com.processus.services.TemplateService;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/departements")
@@ -31,12 +31,14 @@ public class DepartementController {
 
         departement.setNom(entity.getNom());
         departement.setDirection(entity.getDirection());
-        departement.setManager(entity.getManager());
+//        departement.setManager(entity.getUser().getDirecteur());
         departement.setDirecteur(entity.getDirecteur());
-
+     
+            
         return service.add(departement);
 
     }
+
 
     @PutMapping
     public Departement update(@Valid @RequestBody DepartementDTO entity) {
@@ -46,8 +48,10 @@ public class DepartementController {
         departement.setId(entity.getId());
         departement.setNom(entity.getNom());
         departement.setDirection(entity.getDirection());
-        departement.setManager(entity.getManager());
+//        departement.setManager(entity.getUser().getManager());
         departement.setDirecteur(entity.getDirecteur());
+       
+
 
         return service.update(departement);
     }
@@ -61,6 +65,12 @@ public class DepartementController {
     public Departement get(@PathVariable Long id) {
         return service.get(id);
     }
+
+//    @PostMapping("/login")
+//    public Pelerin login(@RequestBody Pelerin pelerin) {
+//        return ((PelerinService) service).login(pelerin);
+//    }
+
 
     @PostMapping("/all")
     public ResponseEntity<List<Departement>> addAll(@RequestBody List<Departement> list) {
