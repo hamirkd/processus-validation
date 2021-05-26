@@ -24,6 +24,9 @@ export class DemandesService implements Resolve<any>
 
     searchText: string;
     filterBy: string;
+    transfertDemandeManager: any;
+    transfertDirecteur: any;
+   
 
     /**
      * Constructor
@@ -233,23 +236,10 @@ export class DemandesService implements Resolve<any>
                 });
         });
     }
-    /**
-     * Transfert de demande
-     *
-     * @param Demande
-     * @returns {Promise<any>}
-     */
-    transfertDemande(demande: Demande): Promise<any> {
-        console.log(demande)
-        return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes/transfert', 
-            demande)
-                .subscribe(response => {
-                    this.getDemandes();
-                    resolve(response);
-                });
-        });
-    }
+
+
+
+   
 
     /**
      * Update Demande data

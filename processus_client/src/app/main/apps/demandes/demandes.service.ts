@@ -22,15 +22,13 @@ export class DemandesService implements Resolve<any>
     demandes: Demande[];
     demande: any;
     selectedDemandes: number[] = [];
+    transfertDemandeManager : any;
 
     searchText: string;
     filterBy: string;
 
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
+
+    
     constructor(
         private _httpClient: HttpClient,private usersService:UsersService
     ) {
