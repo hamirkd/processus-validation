@@ -6,10 +6,12 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.processus.entities.Demande;
+import com.processus.entities.Direction;
 import com.processus.entities.EtatDemande;
 import com.processus.entities.User;
 import com.processus.services.TemplateService;
 import com.processus.services.DemandeService;
+import com.processus.services.DirectionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,8 @@ public class DemandeController {
 
     @Autowired
     DemandeService service;
+    @Autowired
+    DirectionService directionService;
 
     @Autowired
     TemplateService<User, Long> userService;
@@ -117,10 +121,16 @@ public class DemandeController {
         Demande demande=new Demande();
         demande.setDemandeur(demande_old.getDemandeur());
         demande.setDescription(demande_old.getDescription());
-        
-        demande.setDirection(entity.getDirection());
-        demande.setDirecteur(entity.getDirecteur());
-        demande.setManager(entity.getManager());
+        /**
+         * Recupération de la direction avec son identifiant, de meme que le 
+         * directeur et le manager
+         */
+        Direction direction = directionService.get(entity.getDirection_id());
+        User directeur = userService.get(entity.getDirecteur_id());
+        User manager = userService.get(entity.getManager_id());
+        demande.setDirection(direction);
+        demande.setDirecteur(directeur);
+        demande.setManager(manager);
         demande.setEtat(EtatDemande.ENCOURS);
     	demande.setEtatdirecteur(EtatDemande.ENCOURS);
     	demande.setEtatmanager(EtatDemande.ENCOURS);

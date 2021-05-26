@@ -16,28 +16,10 @@ public class DemandeDTO {
 
     private EtatDemande etatdirecteur;
     
-    private Direction direction;
-    private User directeur;
-    private User manager;
+    private Long directeur_id;
+    private Long manager_id;
     
-	public Direction getDirection() {
-		return direction;
-	}
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-	public User getDirecteur() {
-		return directeur;
-	}
-	public void setDirecteur(User directeur) {
-		this.directeur = directeur;
-	}
-	public User getManager() {
-		return manager;
-	}
-	public void setManager(User manager) {
-		this.manager = manager;
-	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -87,6 +69,18 @@ public class DemandeDTO {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Long getDirecteur_id() {
+		return directeur_id;
+	}
+	public void setDirecteur_id(Long directeur_id) {
+		this.directeur_id = directeur_id;
+	}
+	public Long getManager_id() {
+		return manager_id;
+	}
+	public void setManager_id(Long manager_id) {
+		this.manager_id = manager_id;
 	}
 
 }

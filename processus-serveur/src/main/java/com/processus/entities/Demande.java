@@ -42,6 +42,7 @@ public class Demande implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "direction_id", nullable = true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Direction direction;
 
 	@Column(name = "description")
@@ -75,6 +76,7 @@ public class Demande implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "directeur_id", nullable = true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private User directeur;
 
 	public User getDemandeur() {
