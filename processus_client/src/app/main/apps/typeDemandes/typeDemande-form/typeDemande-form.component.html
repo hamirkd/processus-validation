@@ -18,8 +18,6 @@
         <form [formGroup]="typeDemandeForm">
 
 
-
-
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Nom</mat-label>
@@ -29,8 +27,13 @@
             </div>
 
 
-     
-
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Description</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input description="description" formControlName="description" matInput>
+                </mat-form-field>
+            </div>
         </form>
 
     </div>

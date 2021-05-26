@@ -20,10 +20,22 @@ const routes = [
 
 
 
+
     // {
-    //     path: 'departements',
-    //     loadChildren: './departements/departements.module#DepartementsModule'
+    //     path: 'autreDemandes',
+    //     loadChildren: './autreDemandes/demandes.module#DemandesModule'
     // },
+
+
+
+
+
+
+
+    {
+        path: 'departements',
+        loadChildren: './departements/departements.module#DepartementsModule'
+    },
 
 
     {
@@ -31,14 +43,14 @@ const routes = [
         loadChildren: './typeDemandes/typeDemandes.module#TypeDemandesModule'
     },
 
-    
+
     {
         path: 'demandes-directeur',
         loadChildren: './demandes-directeur/demandes.module#DemandesModule'
     },
 
 
-   
+
 
 
     {

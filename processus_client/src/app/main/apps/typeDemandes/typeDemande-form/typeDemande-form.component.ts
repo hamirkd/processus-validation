@@ -61,6 +61,7 @@ export class FormDialogTypeDemandeComponent {
         return this._formBuilder.group({
             id: [this.typeDemande.id],
             nom: [this.typeDemande.nom],
+            description: [this.typeDemande.description],
             createdAt:[this.typeDemande.createdAt],
             
             

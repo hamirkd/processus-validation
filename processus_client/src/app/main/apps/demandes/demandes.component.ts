@@ -9,7 +9,6 @@ import { DemandesService } from './demandes.service';
 import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
 import { UsersService } from 'app/services/users.service';
 
-
 @Component({
     selector: 'demandes',
     templateUrl: './demandes.component.html',
