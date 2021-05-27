@@ -13,14 +13,12 @@
 
     <!-- Name Column -->
     
-
-    <ng-container matColumnDef="">
+    <ng-container matColumnDef="nom">
         <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
             <p class="text-truncate font-weight-600">{{typeDemande.nom}}</p>
         </mat-cell>
     </ng-container>
-
 
     <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>

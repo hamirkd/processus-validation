@@ -8,9 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { DemandesService } from '../demandes.service';
 import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
-import { Demande } from '../demande.model';
-import { FormDialogTransfertDemandeComponent } from '../demande-form-transfert/demande-form-transfert.component';
-import { FormDialogTransfertDemandeDirecteurComponent } from '../demande-form-transfert-directeur/demande-form-transfert-directeur.component';
+import { Demande } from '../../demandes-directeur/demande.model';
 
 @Component({
     selector: 'demandes-list',
@@ -26,12 +24,12 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom', 'prenom', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['id', 'nom' ,'prenom','direction','description','manager','directeur','createdAt','buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
-
+    
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -51,12 +49,10 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.dataSource = new FilesDataSource(this._demandesService);
-        console.log(this.dataSource)
         this._demandesService.onDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(demandes => {
                 this.demandes = demandes;
-                console.log(this.demandes)
                 this.checkboxes = {};
                 demandes.map(demande => {
                     this.checkboxes[demande.id] = false;
@@ -108,7 +104,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
      *
      * @param demande
      */
-    editDemande(demande: Demande): void {
+    editDemande(demande:Demande): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
@@ -122,61 +118,49 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                 if (!response) {
                     return;
                 }
-                const actionType: string = response[0];
-                demande.etat.toString();
-                switch (actionType) {
-                    case 'ACCEPTER':
-                        demande.etatdirecteur = 'ACCEPTER';
-                        break;
-                    case 'REJETER':
-                        demande.etatdirecteur = 'REJETER';
-                        break;
-                }
-                this._demandesService.signatureDemande(demande);
+                
+                const formData: FormGroup = response;
+                
+                
+
+                        this._demandesService.updateDemande(formData.getRawValue(),demande.id);
 
             });
     }
-
-    /**
-     * Cette fonctionnalité permet de transferer une demande
-     * On change seulement le directeur, le manager et la direction par ceux ceux que l'on connait
-     *
-     * @param demande
-     */
-    transferer(demande: Demande): void {
-        this.dialogRef = this._matDialog.open(FormDialogTransfertDemandeComponent, {
+    show(demande): void {
+        this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
                 demande: demande,
-                action: 'edit'
+                action: 'show'
             }
         });
-
-
-    }
-
-
-
-
-    transfererDirecteur(demande: Demande): void {
-        this.dialogRef = this._matDialog.open(FormDialogTransfertDemandeDirecteurComponent, {
-            panelClass: 'demande-form-dialog-transfert-directeur',
-            data: {
-                demande: demande,
-                action: 'edit'
-            }
-        });
-
 
         this.dialogRef.afterClosed()
             .subscribe(response => {
                 if (!response) {
                     return;
                 }
-                const _demande = response.getRawValue();
-                this._demandesService.transfertDemandeManager(_demande);
-                this._demandesService.transfertDemandeDirecteur(_demande);
+                const actionType: string = response[0];
+                const formData: FormGroup = response[1];
+                switch (actionType) {
+                    /**
+                     * Save
+                     */
+                    case 'save':
 
+                        this._demandesService.updateDemande(formData.getRawValue());
+
+                        break;
+                    /**
+                     * Delete
+                     */
+                    case 'delete':
+
+                        this.deleteDemande(demande);
+
+                        break;
+                }
             });
     }
 
@@ -227,7 +211,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
 
 
-
+    
 }
 
 export class FilesDataSource extends DataSource<any>

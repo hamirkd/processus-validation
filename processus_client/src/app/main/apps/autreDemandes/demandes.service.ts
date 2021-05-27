@@ -4,9 +4,9 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
 import { environment } from 'environments/environment';
-import { Demande } from './demande.model';
+import { Demande } from '../demandes-directeur/demande.model';
 import { UsersService } from 'app/services/users.service';
-import { AnyFn } from '@ngrx/store/src/selector';
+
 
 
 @Injectable()
@@ -22,19 +22,13 @@ export class DemandesService implements Resolve<any>
     demandes: Demande[];
     demande: any;
     selectedDemandes: number[] = [];
-    transfertDemandeManager: any;
-    transfertDemandeDirecteur: any;
+    transfertDemandeManager : any;
 
     searchText: string;
     filterBy: string;
-   
-   
 
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
+
+    
     constructor(
         private _httpClient: HttpClient,private usersService:UsersService
     ) {
@@ -85,14 +79,15 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Get Demandes
+     * Get Users
      *
      * @returns {Promise<any>}
      */
     getDemandes(): Promise<any> {
         return new Promise((resolve, reject) => {
-
-            this._httpClient.get(environment.addressIp+'/api/demandes/directeurs/'+this.usersService.userData.id)
+            console.log(this.usersService.userData)
+            console.log(environment.addressIp+'/api/demandes/demandeurs/'+this.usersService.userData.id)
+            this._httpClient.get(environment.addressIp+'/api/demandes/demandeurs/'+this.usersService.userData.id)
                 .subscribe((response: any) => {
 
                     this.demandes = response;
@@ -127,8 +122,8 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Get Demande data
-     *
+     * Get user data
+     *  
      * @returns {Promise<any>}
      */
     getDemandeData(): Promise<any> {
@@ -144,12 +139,12 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Toggle selected Demande by id
+     * Toggle selected User by id
      *
      * @param id
      */
     toggleSelectedDemande(id): void {
-        // First, check if we already have that Demande as selected...
+        // First, check if we already have that User as selected...
         if (this.selectedDemandes.length > 0) {
             const index = this.selectedDemandes.indexOf(id);
 
@@ -184,7 +179,7 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Select Demandes
+     * Select Users
      *
      * @param filterParameter
      * @param filterValue
@@ -192,7 +187,7 @@ export class DemandesService implements Resolve<any>
     selectDemandes(filterParameter?, filterValue?): void {
         this.selectedDemandes = [];
 
-        // If there is no filter, select all Demandes
+        // If there is no filter, select all Users
         if (filterParameter === undefined || filterValue === undefined) {
             this.selectedDemandes = [];
             this.demandes.map(Demande => {
@@ -205,33 +200,16 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Update Demande
+     * Update User
      *
      * @param Demande
      * @returns {Promise<any>}
      */
-    //  updateDemande(demande: Demande): Promise<any> {
-    //     return new Promise((resolve, reject) => {
-    //         this._httpClient.put(environment.addressIp+'/api/demandes', 
-    //         {demandeur_id:demande.demandeur.id,
-    //         description:demande.description,})
-    //             .subscribe(response => {
-    //                 this.getDemandes();
-    //                 resolve(response);
-    //             });
-    //     });
-    // }
-    /**
-     * Update Demande
-     *
-     * @param Demande
-     * @returns {Promise<any>}
-     */
-    signatureDemande(demande: Demande): Promise<any> {
+    updateDemande(demande: Demande,id:number=undefined): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes/signature', 
-            {id:demande.id,
-                etatdirecteur:demande.etatdirecteur,})
+            this._httpClient.put(environment.addressIp+'/api/demandes', 
+            {demandeur_id:demande.demandeur.id,
+            description:demande.description,id:id})
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
@@ -239,12 +217,8 @@ export class DemandesService implements Resolve<any>
         });
     }
 
-
-
-   
-
     /**
-     * Update Demande data
+     * Update user data
      *
      * @param demandeData
      * @returns {Promise<any>}
@@ -261,7 +235,7 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Deselect Demandes
+     * Deselect Users
      */
     deselectDemandes(): void {
         this.selectedDemandes = [];
@@ -271,7 +245,7 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Delete Demande
+     * Delete User
      *
      * @param Demande
      */
@@ -287,7 +261,7 @@ export class DemandesService implements Resolve<any>
     }
 
     /**
-     * Delete selected Demandes
+     * Delete selected Users
      */
     deleteSelectedDemandes(): void {
         for (const DemandeId of this.selectedDemandes) {

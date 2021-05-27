@@ -388,15 +388,15 @@ export const navigation_manager: FuseNavigation[] = [
         icon: 'apps',
         children: [
 
-            {
-                id: 'users',
-                title: 'Utilisateurs',
-                translate: 'NAV.CONTACTS',
-                type: 'item',
-                icon: 'people',
-                url: '/apps/users'
+            // {
+            //     id: 'users',
+            //     title: 'Utilisateurs',
+            //     translate: 'NAV.CONTACTS',
+            //     type: 'item',
+            //     icon: 'people',
+            //     url: '/apps/users'
 
-            },
+            // },
 
             {
                 id: 'profile',
