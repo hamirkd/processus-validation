@@ -5,7 +5,7 @@
 export const environment = {
     production: true,
     hmr       : false,
-    addressIp:"http://172.26.209.101:8080"
+    addressIp:"http://localhost:8080"
 };
 
 /*

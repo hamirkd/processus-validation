@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { DemandesService } from '../demandes.service';
-import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
-import { Demande } from '../../demandes-directeur/demande.model';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {DataSource} from '@angular/cdk/collections';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations';
+import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import {DemandesService} from '../demandes.service';
+import {FormDialogDemandeComponent} from '../demande-form/demande-form.component';
+import {Demande} from '../../demandes-directeur/demande.model';
 
 @Component({
     selector: 'demandes-list',
@@ -24,12 +24,12 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom' ,'prenom','direction','description','manager','directeur','createdAt','buttons'];
+    displayedColumns = ['id', 'nom', 'prenom', 'state', 'direction', 'description', 'manager', 'directeur', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
-    
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -100,11 +100,11 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
     /**
      * Edit Pelerin
-     * 
+     *
      *
      * @param demande
      */
-    editDemande(demande:Demande): void {
+    editDemande(demande: Demande): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
@@ -118,15 +118,15 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                 if (!response) {
                     return;
                 }
-                
-                const formData: FormGroup = response;
-                
-                
 
-                        this._demandesService.updateDemande(formData.getRawValue(),demande.id);
+                const formData: FormGroup = response;
+
+
+                this._demandesService.updateDemande(formData.getRawValue(), demande.id);
 
             });
     }
+
     show(demande): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
@@ -200,8 +200,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     toggleStar(demandeId): void {
         if (this.demande.starred.includes(demandeId)) {
             this.demande.starred.splice(this.demande.starred.indexOf(demandeId), 1);
-        }
-        else {
+        } else {
             this.demande.starred.push(demandeId);
         }
 
@@ -209,13 +208,9 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     }
 
 
-
-
-    
 }
 
-export class FilesDataSource extends DataSource<any>
-{
+export class FilesDataSource extends DataSource<any> {
     /**
      * Constructor
      *

@@ -17,23 +17,33 @@
 
         <form [formGroup]="typeDemandeForm">
 
-
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Nom</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input nom="nom" formControlName="nom" matInput>
+                    <mat-icon matSuffix class="secondary-text">perm_identity</mat-icon>
+                    <input name="nom" formControlName="nom" matInput required>
                 </mat-form-field>
             </div>
-
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Description</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input description="description" formControlName="description" matInput>
+                    <mat-label>Direction</mat-label>
+                    <mat-select formControlName="workFlowDirection" [compareWith]="comparatorDirection">
+                        <mat-option *ngFor="let direction of directions" [value]="direction">
+                            {{direction.nom}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
+
+
+            <!--
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Description</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input description="description" formControlName="description" matInput>
+                            </mat-form-field>
+                        </div> -->
         </form>
 
     </div>
@@ -41,18 +51,18 @@
     <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
 
         <button *ngIf="action === 'edit'" mat-button class="mr-8"
-            (click)="matDialogRef.close(['delete', typeDemandeForm])" aria-label="Delete" matTooltip="Delete">
+                (click)="matDialogRef.close(['delete', typeDemandeForm])" aria-label="Delete" matTooltip="Delete">
             DELETE
         </button>
 
         <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(typeDemandeForm)"
-            [disabled]="typeDemandeForm.invalid" aria-label="SAVE">
+                [disabled]="typeDemandeForm.invalid" aria-label="SAVE">
             ADD
         </button>
 
         <button *ngIf="action === 'edit'" mat-button class="save-button"
-            (click)="matDialogRef.close(['save',typeDemandeForm])" [disabled]="typeDemandeForm.invalid"
-            aria-label="SAVE">
+                (click)="matDialogRef.close(['save',typeDemandeForm])" [disabled]="typeDemandeForm.invalid"
+                aria-label="SAVE">
             SAVE
         </button>
 

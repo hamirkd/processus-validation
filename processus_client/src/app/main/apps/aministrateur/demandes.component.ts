@@ -6,7 +6,6 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { DemandesService } from './demandes.service';
-import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
 
 
 @Component({
@@ -84,7 +83,7 @@ export class DemandesComponent implements OnInit, OnDestroy {
     /**
      * New contact
      */
-    newDemande(): void {
+/*    newDemande(): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
@@ -99,7 +98,7 @@ export class DemandesComponent implements OnInit, OnDestroy {
                 }
                 // this._demandesService.updateDemande(response.getRawValue());
             });
-    }
+    }*/
 
     /**
      * Toggle the sidebar

@@ -42,6 +42,13 @@
         </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
+            <p class="text-truncate font-weight-600">{{demande.state}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
@@ -61,19 +68,19 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)">
+                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)" (click)="editDemande(demande)">
                         <mat-icon>edit</mat-icon>
                         <span>Signature</span>
                     </button>
-                    <button mat-menu-item aria-label="share" (click)="transfererDirecteur(demande)">
+                    <!-- <button mat-menu-item aria-label="share" (click)="transfererDirecteur(demande)">
                         <mat-icon>share</mat-icon>
                         <span>transferer a un directeur </span>
-                    </button>
+                    </button> -->
 
-                    <button mat-menu-item aria-label="share" (click)="transferer(demande)">
+                    <!-- <button mat-menu-item aria-label="share" (click)="transferer(demande)">
                         <mat-icon>share</mat-icon>
                         <span>Manager a un Manager</span>
-                    </button>
+                    </button> -->
 
                     <!-- <button mat-menu-item aria-label="edit" (click)="deleteDemande(demande)">
                         <mat-icon>delete</mat-icon>

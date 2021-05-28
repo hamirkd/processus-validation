@@ -32,7 +32,7 @@ public class TypeDemandeController {
         TypeDemande typeDemande = new TypeDemande();
         typeDemande.setNom(entity.getNom());
         typeDemande.setDescription(entity.getDescription());
-        
+        typeDemande.setWorkFlowDirection(entity.getWorkFlowDirection());
 
         return service.add(typeDemande);
 
@@ -47,8 +47,8 @@ public class TypeDemandeController {
         typeDemande.setId(entity.getId());
         typeDemande.setNom(entity.getNom());
         typeDemande.setDescription(entity.getDescription());
-       
-        
+        typeDemande.setWorkFlowDirection(entity.getWorkFlowDirection());
+
 
         return service.update(typeDemande);
     }

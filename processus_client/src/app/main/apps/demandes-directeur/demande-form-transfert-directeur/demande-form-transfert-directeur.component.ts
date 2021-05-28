@@ -65,6 +65,8 @@ export class FormDialogTransfertDemandeDirecteurComponent {
             this.directions = directions;
         }).catch(() => this.directions = [])
 
+    
+
 
 
         this._departementsService.getDepartements().then(departements => {

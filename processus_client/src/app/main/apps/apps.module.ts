@@ -19,6 +19,10 @@ const routes = [
     },
 
 
+    {
+        path: 'autreDemandes',
+        loadChildren: './autreDemandes/demandes.module#DemandesModule'
+    },
 
 
     // {

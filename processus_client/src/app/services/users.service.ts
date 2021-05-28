@@ -282,7 +282,7 @@ export class UsersService implements Resolve<any>
         this.onUsersChanged.next(this.users);
         this.deselectUsers();
     }
-    baseUrl = 'http://172.26.209.101:8080/api/users';
+    baseUrl = 'http://localhost:8080/api/users';
   private user:User;
 
   get(): Observable<any> {

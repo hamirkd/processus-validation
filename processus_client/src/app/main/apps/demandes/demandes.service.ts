@@ -207,9 +207,8 @@ export class DemandesService implements Resolve<any>
      */
     updateDemande(demande: Demande,id:number=undefined): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes', 
-            {demandeur_id:demande.demandeur.id,
-            description:demande.description,id:id})
+            this._httpClient.put(environment.addressIp+'/api/demandes',
+                demande)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);

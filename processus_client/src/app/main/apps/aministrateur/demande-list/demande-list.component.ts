@@ -9,6 +9,7 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
 import { DemandesService } from '../demandes.service';
 import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
 import { Demande } from '../../demandes-directeur/demande.model';
+import {RequestState} from '../../../../models/request-state';
 
 @Component({
     selector: 'demandes-list',
@@ -24,7 +25,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom', 'prenom', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['id', 'nom', 'prenom', 'state', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
@@ -96,6 +97,19 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
     }
 
+    inprogress(demande: Demande): boolean {
+        switch (demande.state) {
+            case RequestState.INITIAL:
+            case RequestState.APPROVED_MANAGER:
+            case RequestState.APPROVED_DIRECTOR:
+            case RequestState.REDIRECTED:
+                return true;
+            default:
+                return false;
+
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -130,7 +144,9 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                         demande.etatmanager='REJETER';
                         break;
                 }
-                this._demandesService.signatureDemande(demande);
+                // this._demandesService.signatureDemande(demande);
+                this._demandesService.updateState({requestId: demande ? demande.id : 0, isApproved: actionType}).then();
+
 
             });
     }

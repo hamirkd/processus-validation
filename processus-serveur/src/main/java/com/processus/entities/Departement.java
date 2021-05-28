@@ -38,10 +38,10 @@ public class Departement implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User manager;
 
-    @ManyToOne
-    @JoinColumn(name = "directeur_id", nullable = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User directeur;
+//    @ManyToOne
+//    @JoinColumn(name = "directeur_id", nullable = true)
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    private User directeur;
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -84,9 +84,9 @@ public class Departement implements Serializable {
         return manager;
     }
 
-    public User getDirecteur() {
-        return directeur;
-    }
+//    public User getDirecteur() {
+//        return directeur;
+//    }
 
     public void setDirection(Direction direction) {
         this.direction = direction;
@@ -96,8 +96,12 @@ public class Departement implements Serializable {
         this.manager = manager;
     }
 
-    public void setDirecteur(User directeur) {
-        this.directeur = directeur;
+//    public void setDirecteur(User directeur) {
+//        this.directeur = directeur;
+//    }
+
+    public void setUser(Object user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

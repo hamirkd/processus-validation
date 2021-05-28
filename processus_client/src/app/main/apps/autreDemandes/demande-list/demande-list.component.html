@@ -49,6 +49,13 @@
         </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
+            <p class="text-truncate font-weight-600">{{demande.state}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="manager">
         <mat-header-cell *matHeaderCellDef>Manager</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}} {{demande.etat}}DEMANDE">

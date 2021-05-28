@@ -9,6 +9,10 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { TypeDemandesService } from '../typeDemandes.service';
 import { FormDialogTypeDemandeComponent } from '../typeDemande-form/typeDemande-form.component';
+import {environment} from '../../../../../environments/environment';
+import {isArray} from 'util';
+import {HttpClient} from '@angular/common/http';
+import {Direction} from '../../../../models/direction';
 
 
 @Component({
@@ -25,8 +29,9 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
     typeDemandes: any;
     typeDemande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['nom','createdAt', 'buttons'];
     selectedTypeDemandes: any[];
+    directions: Direction[] = [];
     checkboxes: {};
     dialogRef: any;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
@@ -37,7 +42,8 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
 
     constructor(
         private _typeDemandesService: TypeDemandesService,
-        public _matDialog: MatDialog
+        public _matDialog: MatDialog,
+        private httpClient: HttpClient
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -51,6 +57,7 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+        this.getAllDirection();
         this.dataSource = new FilesDataSource(this._typeDemandesService);
         console.log(this.dataSource)
         this._typeDemandesService.onTypeDemandesChanged
@@ -90,6 +97,14 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
             });
     }
 
+
+    getAllDirection(): void {
+        this.httpClient
+            .get(environment.addressIp + '/api/directions')
+            .subscribe((response: any) =>
+                    this.directions = response && isArray(response) ? response : []
+                , () => this.directions = []);
+    }
     /**
      * On destroy
      */
@@ -110,7 +125,8 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
 
             data: {
                 typeDemande: typeDemande,
-                action: 'edit'
+                action: 'edit',
+                directions: this.directions,
             }
         });
 

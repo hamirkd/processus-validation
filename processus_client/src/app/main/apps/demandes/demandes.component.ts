@@ -94,7 +94,9 @@ export class DemandesComponent implements OnInit, OnDestroy {
                 if (!response) {
                     return;
                 }
-                this._demandesService.updateDemande(response.getRawValue());
+                const  data = response.getRawValue();
+                data.id = undefined;
+                this._demandesService.updateDemande(data);
             });
     }
 

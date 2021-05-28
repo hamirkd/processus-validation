@@ -60,6 +60,19 @@
             </div>
 
 
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Type Demande</mat-label>
+                    <mat-select formControlName="typeDemande">
+                        <mat-option *ngFor="let typeDemande of typeDemandes" [value]="typeDemande">
+                            {{typeDemande.nom}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </div>
+
+
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>description de la demande :</mat-label>

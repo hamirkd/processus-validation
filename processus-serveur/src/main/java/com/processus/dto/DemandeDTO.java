@@ -4,8 +4,10 @@ import com.processus.entities.Direction;
 import com.processus.entities.EtatDemande;
 import com.processus.entities.User;
 
+import java.io.Serializable;
 
-public class DemandeDTO {
+
+public class DemandeDTO implements Serializable {
 	private Long id;
     private Long demandeur_id;
     private Long responsable_id;
@@ -18,7 +20,18 @@ public class DemandeDTO {
     
     private Long directeur_id;
     private Long manager_id;
-    
+
+	private TypeDemandeDTO typeDemande;
+
+	public TypeDemandeDTO getTypeDemande() {
+		return typeDemande;
+	}
+
+	public void setTypeDemande(TypeDemandeDTO typeDemande) {
+		this.typeDemande = typeDemande;
+	}
+
+
 	
 	public Long getId() {
 		return id;

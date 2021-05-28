@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { User } from 'app/models/user';
 import { UsersService } from 'app/services/users.service';
 import { Demande } from '../../demandes-directeur/demande.model';
+import { TypeDemande } from '../../typeDemandes/typeDemande.model';
+import { TypeDemandesService } from '../../typeDemandes/typeDemandes.service';
 import { DemandesService } from '../demandes.service';
 
 
@@ -23,6 +25,7 @@ export class FormDialogDemandeComponent {
     choix:boolean=true;
     contrainteChoix:boolean = true;
     user:User;
+    typeDemandes: TypeDemande[] = [];
     /**
      * Constructor
      *
@@ -34,7 +37,8 @@ export class FormDialogDemandeComponent {
         public matDialogRef: MatDialogRef<FormDialogDemandeComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
-        private demandeService: DemandesService,private userService:UsersService
+        private demandeService: DemandesService,private userService:UsersService,
+        private typeDemandesService : TypeDemandesService
     ) {
         this.user = this.userService.userData;
         // Set the defaults
@@ -52,7 +56,7 @@ export class FormDialogDemandeComponent {
             this.dialogTitle = 'Afficher';
             this.demande = _data.demande;
         }
-
+        this.typeDemandesService.getTypeDemandes().then(data => this.typeDemandes = data);
         this.demandeForm = this.createDemandeForm();
     }
 
@@ -69,7 +73,10 @@ export class FormDialogDemandeComponent {
 
         return this._formBuilder.group({
             id: [this.demande.id],
-            description: [this.demande.description]
+            typeDemande: [this.demande.typeDemande],
+            description: [this.demande.description],
+
+
 
         });
     }
@@ -79,14 +86,13 @@ export class FormDialogDemandeComponent {
     }
  
     save() {
-        let demandeData: Demande = this.demandeForm.getRawValue();
+        const demandeData: Demande = this.demandeForm.getRawValue();
         demandeData.id = this.demande.id;
         demandeData.demandeur = this.user;
         demandeData.manager = this.user.manager;
         demandeData.directeur = this.user.directeur;
-        demandeData.direction = this.user.direction;
         this.demande = demandeData;
-        let demandeForm = this.createDemandeForm2(); 
+        let demandeForm = this.createDemandeForm2();
         this.matDialogRef.close(demandeForm);
     }
 

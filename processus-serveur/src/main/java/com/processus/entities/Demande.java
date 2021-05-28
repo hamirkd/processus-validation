@@ -51,6 +51,10 @@ public class Demande implements Serializable {
 	@Column(name = "etat")
 	private String etat = EtatDemande.ENCOURS.toString();
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "state")
+	private RequestState state = RequestState.INITIAL;
+
 	@Column(name = "etatmanager")
 	private String etatmanager = EtatDemande.ENCOURS.toString();
 
@@ -59,7 +63,8 @@ public class Demande implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "typedemande_id", nullable = true)
-    private TypeDemande typeDemande;
+        private TypeDemande typeDemande;
+        
 	@Column(name = "created_on", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate

@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { DemandesService } from '../demandes.service';
-import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
-import { Demande } from '../demande.model';
-import { FormDialogTransfertDemandeComponent } from '../demande-form-transfert/demande-form-transfert.component';
-import { FormDialogTransfertDemandeDirecteurComponent } from '../demande-form-transfert-directeur/demande-form-transfert-directeur.component';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {DataSource} from '@angular/cdk/collections';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations';
+import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import {DemandesService} from '../demandes.service';
+import {FormDialogDemandeComponent} from '../demande-form/demande-form.component';
+import {Demande} from '../demande.model';
+import {FormDialogTransfertDemandeComponent} from '../demande-form-transfert/demande-form-transfert.component';
+import {FormDialogTransfertDemandeDirecteurComponent} from '../demande-form-transfert-directeur/demande-form-transfert-directeur.component';
+import {RequestState} from '../../../../models/request-state';
 
 @Component({
     selector: 'demandes-list',
@@ -26,7 +27,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom', 'prenom', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['id', 'nom', 'prenom', 'state', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
@@ -51,12 +52,12 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.dataSource = new FilesDataSource(this._demandesService);
-        console.log(this.dataSource)
+        console.log(this.dataSource);
         this._demandesService.onDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(demandes => {
                 this.demandes = demandes;
-                console.log(this.demandes)
+                console.log(this.demandes);
                 this.checkboxes = {};
                 demandes.map(demande => {
                     this.checkboxes[demande.id] = false;
@@ -104,7 +105,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
     /**
      * Edit Pelerin
-     * 
+     *
      *
      * @param demande
      */
@@ -132,7 +133,9 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                         demande.etatdirecteur = 'REJETER';
                         break;
                 }
-                this._demandesService.signatureDemande(demande);
+                // this._demandesService.signatureDemande(demande);
+                this._demandesService.updateState({requestId: demande ? demande.id : 0, isApproved: actionType}).then();
+
 
             });
     }
@@ -154,8 +157,6 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
 
 
     }
-
-
 
 
     transfererDirecteur(demande: Demande): void {
@@ -216,22 +217,29 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     toggleStar(demandeId): void {
         if (this.demande.starred.includes(demandeId)) {
             this.demande.starred.splice(this.demande.starred.indexOf(demandeId), 1);
-        }
-        else {
+        } else {
             this.demande.starred.push(demandeId);
         }
 
         this._demandesService.updateDemandeData(this.demande);
     }
 
+    inprogress(demande: Demande): boolean {
+        switch (demande.state) {
+            case RequestState.INITIAL:
+            case RequestState.APPROVED_MANAGER:
+            case RequestState.APPROVED_DIRECTOR:
+            case RequestState.REDIRECTED:
+                return true;
+            default:
+                return false;
 
-
-
+        }
+    }
 
 }
 
-export class FilesDataSource extends DataSource<any>
-{
+export class FilesDataSource extends DataSource<any> {
     /**
      * Constructor
      *

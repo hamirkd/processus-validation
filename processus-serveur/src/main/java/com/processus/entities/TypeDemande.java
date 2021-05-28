@@ -35,6 +35,18 @@ public class TypeDemande implements Serializable {
     @CreatedDate
     private Date createdAt = new Date();
 
+    @ManyToOne
+    @JoinColumn(name = "work_flow_direction_id", referencedColumnName = "id")
+    private Direction workFlowDirection;
+
+    public Direction getWorkFlowDirection() {
+        return workFlowDirection;
+    }
+
+    public void setWorkFlowDirection(Direction workFlowDirection) {
+        this.workFlowDirection = workFlowDirection;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -71,6 +83,6 @@ public class TypeDemande implements Serializable {
         this.description = description;
     }
 
-    
-    
+
+
 }

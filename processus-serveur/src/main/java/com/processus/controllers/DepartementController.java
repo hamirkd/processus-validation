@@ -31,8 +31,9 @@ public class DepartementController {
 
         departement.setNom(entity.getNom());
         departement.setDirection(entity.getDirection());
-//        departement.setManager(entity.getUser().getDirecteur());
-        departement.setDirecteur(entity.getDirecteur());
+        departement.setUser(entity.getUser());
+      
+   
      
             
         return service.add(departement);
@@ -48,8 +49,8 @@ public class DepartementController {
         departement.setId(entity.getId());
         departement.setNom(entity.getNom());
         departement.setDirection(entity.getDirection());
-//        departement.setManager(entity.getUser().getManager());
-        departement.setDirecteur(entity.getDirecteur());
+        departement.setUser(entity.getUser());
+//  
        
 
 

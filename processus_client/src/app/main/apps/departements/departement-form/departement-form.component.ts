@@ -1,6 +1,10 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Direction } from 'app/models/direction';
+import { User } from 'app/models/user';
+import { DirectionsService } from 'app/services/directions.service';
+import { UsersService } from 'app/services/users.service';
 import { Departement } from '../departement.model';
 import { DepartementsService } from '../departements.service';
 
@@ -17,6 +21,8 @@ export class FormDialogDepartementComponent {
     departement: Departement;
     departementForm: FormGroup;
     dialogTitle: string;
+    directions: Direction[]= [];
+    managers: User[]=[];
 
     /**
      * Constructor
@@ -29,7 +35,9 @@ export class FormDialogDepartementComponent {
         public matDialogRef: MatDialogRef<FormDialogDepartementComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
-        private departementsService: DepartementsService
+        private departementsService: DepartementsService,
+        private directionsService: DirectionsService,
+        private usersService : UsersService,
     ) {
         // Set the defaults
         this.action = _data.action;
@@ -43,6 +51,9 @@ export class FormDialogDepartementComponent {
             this.departement = new Departement({});
         }
 
+
+        this.directionsService.getDirections().then(data => this.directions = data);
+        this.usersService.getUsers().then(data =>this.managers = data );
         this.departementForm= this.createDepartementForm();
     }
 
@@ -62,7 +73,6 @@ export class FormDialogDepartementComponent {
             nom: [this.departement.nom],
             direction: [this.departement.direction],
             manager: [this.departement.manager],
-            directeur: [this.departement.directeur],
             createdAt:[this.departement.createdAt],
             
             

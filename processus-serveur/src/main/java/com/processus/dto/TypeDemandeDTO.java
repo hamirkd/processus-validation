@@ -1,6 +1,8 @@
 package com.processus.dto;
 
 
+import com.processus.entities.Direction;
+
 import java.util.Date;
 
 public class TypeDemandeDTO {
@@ -8,7 +10,17 @@ public class TypeDemandeDTO {
     private Long id;
     private String nom;
     private String description;
-  
+
+	public Direction getWorkFlowDirection() {
+		return workFlowDirection;
+	}
+
+	public void setWorkFlowDirection(Direction workFlowDirection) {
+		this.workFlowDirection = workFlowDirection;
+	}
+
+	private Direction workFlowDirection;
+
 
 	public Long getId() {
 		return id;

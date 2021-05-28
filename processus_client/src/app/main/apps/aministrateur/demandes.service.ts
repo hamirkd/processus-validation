@@ -221,7 +221,7 @@ export class DemandesService implements Resolve<any>
      * @param Demande
      * @returns {Promise<any>}
      */
-    signatureDemande(demande: Demande): Promise<any> {
+/*    signatureDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.put(environment.addressIp+'/api/demandes/signature', 
             {id:demande.id,
@@ -230,6 +230,17 @@ export class DemandesService implements Resolve<any>
                     this.getDemandes();
                     resolve(response);
                 });
+        });
+    }*/
+
+    updateState(data: { requestId: number, isApproved: string }): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(environment.addressIp + '/api/demandes/signature-update', data)
+                .subscribe(response => {
+                    this.getDemandes()
+                        .then(() => resolve(response))
+                        .catch(() => resolve(response));
+                }, () => reject);
         });
     }
 

@@ -80,8 +80,18 @@ export const navigation_: FuseNavigation[] = [
                 type: 'item',
                 icon: 'autorenew',
                 url: '/apps/demandes-directeur'
-            }
-            ,
+            },
+
+
+            {
+                id: 'AutreDemande',
+                title: 'AutreDemande',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'autorenew',
+                url: '/apps/autreDemandes'
+            },
+            
             {
                 id: 'Demande-manager',
                 title: 'Effectuer une demande',
@@ -287,7 +297,7 @@ export const navigation_administrateur: FuseNavigation[] = [
 
 
 
-           
+
 
             {
                 id: 'profile',
@@ -345,13 +355,23 @@ export const navigation_administrateur: FuseNavigation[] = [
 
 
             {
-                id: 'departements',
+                id: 'typeDemande',
                 title: 'Type demande',
                 translate: 'NAV.CONTACTS',
                 type: 'item',
                 icon: 'people',
                 url: '/apps/typeDemandes'
 
+            },
+
+
+            {
+                id: 'AutreDemande',
+                title: 'AutreDemande',
+                translate: 'NAV.CONTACTS',
+                type: 'item',
+                icon: 'autorenew',
+                url: '/apps/autreDemandes'
             },
 
         ]
@@ -530,8 +550,8 @@ export const navigation_employe: FuseNavigation[] = [
                 url: '/apps/demandes'
             },
 
-
-
+         
+          
 
         ]
     },

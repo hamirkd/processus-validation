@@ -7,6 +7,10 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { TypeDemandesService } from './typeDemandes.service';
 import { FormDialogTypeDemandeComponent } from './typeDemande-form/typeDemande-form.component';
+import {Direction} from '../../../models/direction';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {isArray} from 'util';
 
 
 @Component({
@@ -21,6 +25,8 @@ export class TypeDemandesComponent implements OnInit, OnDestroy
     dialogRef: any;
     hasSelectedTypeDemandes: boolean;
     searchInput: FormControl;
+    directions: Direction[] = [];
+
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -29,7 +35,8 @@ export class TypeDemandesComponent implements OnInit, OnDestroy
     constructor(
         private _typeDemandesService: TypeDemandesService,
         private _fuseSidebarService: FuseSidebarService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private httpClient: HttpClient
     )
     {
         // Set the defaults
@@ -42,6 +49,7 @@ export class TypeDemandesComponent implements OnInit, OnDestroy
 
     ngOnInit(): void
     {
+        this.getAllDirection();
         this._typeDemandesService.onSelectedTypeDemandesChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(selectedRegions => {
@@ -58,6 +66,14 @@ export class TypeDemandesComponent implements OnInit, OnDestroy
                 this._typeDemandesService.onSearchTextChanged.next(searchText);
             });
     }
+
+    getAllDirection(): void {
+        this.httpClient
+            .get(environment.addressIp + '/api/directions')
+            .subscribe((response: any) =>
+                    this.directions = response && isArray(response) ? response : []
+                , () => this.directions = []);
+    };
 
     /**
      * On destroy
@@ -81,7 +97,8 @@ export class TypeDemandesComponent implements OnInit, OnDestroy
         this.dialogRef = this._matDialog.open(FormDialogTypeDemandeComponent, {
             panelClass: 'typeDemande-form-dialog',
             data      : {
-                action: 'new'
+                action: 'new',
+                directions: this.directions,
             }
         });
 
