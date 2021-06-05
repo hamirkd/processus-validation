@@ -62,6 +62,13 @@ public class User implements Serializable {
     @JoinColumn(name = "directeur_id", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User directeur;
+    
+    
+     @ManyToOne
+    @JoinColumn(name = "department_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Departement departement;
+
 
     @Column(name = "poste", nullable = true, length = 20)
     private String poste = TypePoste.EMPLOYE.toString();
@@ -191,4 +198,14 @@ public class User implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
+    
+    
 }

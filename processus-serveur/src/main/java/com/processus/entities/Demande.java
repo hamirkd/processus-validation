@@ -22,165 +22,164 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "demandes")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class Demande implements Serializable {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -3785931399738563147L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3785931399738563147L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "demandeur_id", nullable = true)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private User demandeur;
+    @ManyToOne
+    @JoinColumn(name = "demandeur_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User demandeur;
 
-	@ManyToOne
-	@JoinColumn(name = "direction_id", nullable = true)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Direction direction;
+    @ManyToOne
+    @JoinColumn(name = "direction_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Direction direction;
 
-	@Column(name = "description")
-	private String description;
+    @Column(name = "description")
+    private String description;
 
-	@Column(name = "etat")
-	private String etat = EtatDemande.ENCOURS.toString();
+    @Column(name = "etat")
+    private String etat = EtatDemande.ENCOURS.toString();
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "state")
-	private RequestState state = RequestState.INITIAL;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private RequestState state = RequestState.INITIAL;
 
-	@Column(name = "etatmanager")
-	private String etatmanager = EtatDemande.ENCOURS.toString();
+    @Column(name = "etatmanager")
+    private String etatmanager = EtatDemande.ENCOURS.toString();
 
-	@Column(name = "etatdirecteur")
-	private String etatdirecteur = EtatDemande.ENCOURS.toString();
-	
-	@ManyToOne
-	@JoinColumn(name = "typedemande_id", nullable = true)
-        private TypeDemande typeDemande;
-        
-	@Column(name = "created_on", nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createdAt = new Date();
+    @Column(name = "etatdirecteur")
+    private String etatdirecteur = EtatDemande.ENCOURS.toString();
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date updatedAt = new Date();
+    @ManyToOne
+    @JoinColumn(name = "typedemande_id", nullable = true)
+    private TypeDemande typeDemande;
 
-	@ManyToOne
-	@JoinColumn(name = "manager_id", nullable = true)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private User manager;
+    @Column(name = "created_on", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt = new Date();
 
-	@ManyToOne
-	@JoinColumn(name = "directeur_id", nullable = true)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private User directeur;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt = new Date();
 
-	public User getDemandeur() {
-		return demandeur;
-	}
+    @ManyToOne
+    @JoinColumn(name = "manager_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User manager;
 
-	public void setDemandeur(User demandeur) {
-		this.demandeur = demandeur;
-	}
-	
+    @ManyToOne
+    @JoinColumn(name = "directeur_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User directeur;
 
-	public EtatDemande getEtat() {
-		return EtatDemande.valueOf(etat);
-		
-	}
+    public User getDemandeur() {
+        return demandeur;
+    }
 
-	public void setEtat(EtatDemande etat) {
-		this.etat = etat.toString();
-	}
+    public void setDemandeur(User demandeur) {
+        this.demandeur = demandeur;
+    }
 
-	public EtatDemande getEtatmanager() {
-		return EtatDemande.valueOf(etatmanager);
-	}
+    public EtatDemande getEtat() {
+        return EtatDemande.valueOf(etat);
 
-	public void setEtatmanager(EtatDemande etatmanager) {
-		this.etatmanager = etatmanager.toString();
-	}
+    }
 
-	public EtatDemande getEtatdirecteur() {
-		return EtatDemande.valueOf(etatdirecteur);
-	}
+    public void setEtat(EtatDemande etat) {
+        this.etat = etat.toString();
+    }
 
-	public void setEtatdirecteur(EtatDemande etatdirecteur) {
-		this.etatdirecteur = etatdirecteur.toString();
-	}
+    public EtatDemande getEtatmanager() {
+        return EtatDemande.valueOf(etatmanager);
+    }
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    public void setEtatmanager(EtatDemande etatmanager) {
+        this.etatmanager = etatmanager.toString();
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public EtatDemande getEtatdirecteur() {
+        return EtatDemande.valueOf(etatdirecteur);
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setEtatdirecteur(EtatDemande etatdirecteur) {
+        this.etatdirecteur = etatdirecteur.toString();
+    }
 
-	public Direction getDirection() {
-		return direction;
-	}
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public User getManager() {
-		return manager;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setManager(User manager) {
-		this.manager = manager;
-	}
+    public Direction getDirection() {
+        return direction;
+    }
 
-	public User getDirecteur() {
-		return directeur;
-	}
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 
-	public void setDirecteur(User directeur) {
-		this.directeur = directeur;
-	}
+    public User getManager() {
+        return manager;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public User getDirecteur() {
+        return directeur;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setDirecteur(User directeur) {
+        this.directeur = directeur;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
 }

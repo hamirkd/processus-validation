@@ -20,4 +20,5 @@ public interface DemandeRepository extends JpaRepository<Demande, Long> {
     List<Demande> findByStateInAndDirectionId(List<RequestState> states, Long directionId);
 
     List<Demande> findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDirectionId(List<RequestState> states, Long directionId);
+
 }

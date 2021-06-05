@@ -38,11 +38,6 @@ public class Departement implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User manager;
 
-//    @ManyToOne
-//    @JoinColumn(name = "directeur_id", nullable = true)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    private User directeur;
-
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate

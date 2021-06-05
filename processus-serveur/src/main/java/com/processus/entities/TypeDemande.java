@@ -34,11 +34,21 @@ public class TypeDemande implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt = new Date();
-
+  
+//            +++++++++++++++++++++++++++ workFlow Pour les directions +++++++++++++++++++++++++++++++++++++
+    
     @ManyToOne
     @JoinColumn(name = "work_flow_direction_id", referencedColumnName = "id")
     private Direction workFlowDirection;
-
+    
+    //            +++++++++++++++++++++++++++ workFlow Pour les departements +++++++++++++++++++++++++++++++++++++
+    
+    @ManyToOne
+    @JoinColumn(name = "work_flow_departement", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Departement workFlowDepartement;
+    
+    
     public Direction getWorkFlowDirection() {
         return workFlowDirection;
     }
@@ -82,6 +92,16 @@ public class TypeDemande implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Departement getWorkFlowDepartement() {
+        return workFlowDepartement;
+    }
+
+    public void setWorkFlowDepartement(Departement workFlowDepartement) {
+        this.workFlowDepartement = workFlowDepartement;
+    }
+
+
 
 
 

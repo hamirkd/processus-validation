@@ -8,7 +8,7 @@ public enum RequestState {
     REDIRECTED("REDIRECTED"),
     REJECTED_DIRECTOR("REJECTED_DIRECTOR"),
     REJECTED_REDIRECT_DIRECTOR("REJECTED_REDIRECT_DIRECTOR");
-
+  
     private final String description;
 
     RequestState(String description) {
