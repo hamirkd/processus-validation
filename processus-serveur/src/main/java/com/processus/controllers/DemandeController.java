@@ -117,7 +117,7 @@ public class DemandeController {
                 demande.setEtat(EtatDemande.REJETER);
             }
         }
-//        demande.setEtat(entity.getEtat());
+        demande.setEtat(entity.getEtat());
         return service.update(demande);
     }
 
