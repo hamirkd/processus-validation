@@ -13,14 +13,14 @@
     </mat-toolbar>
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
-
+<!-- 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>AUUID</mat-label>
                     <mat-icon matSuffix class="secondary-text">10k</mat-icon>
                     <input [value]="demande.demandeur.id" matInput readonly>
                 </mat-form-field>
-            </div>
+            </div> -->
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-label class="p-24 pb-0 m-0">Demandeur</mat-label>
@@ -30,9 +30,19 @@
 
             </div>
 
+
             <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-label>description de la demande :</mat-label>
-                <mat-label>{{demande.description}}</mat-label>
+                <mat-label class="p-24 pb-0 m-0">Direction</mat-label>
+                <mat-label class="p-24 pb-0 m-0">{{demande.demandeur.direction.nom}}
+                    <mat-icon matSuffix class="secondary-text">meeting_room</mat-icon>
+                </mat-label>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-label class="p-24 pb-0 m-0">description :</mat-label>
+                <mat-label class="p-24 pb-0 m-0">{{demande.description}}</mat-label>
+                <mat-icon matSuffix class="secondary-text">descrip</mat-icon>
             </div>
 
 
@@ -41,7 +51,7 @@
     <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
 
         <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close(['REJETER', demandeForm])"
-            aria-label="Delete" matTooltip="Delete">
+            aria-label="Delete"  matTooltip="Delete">
             Rejeter
         </button>
 

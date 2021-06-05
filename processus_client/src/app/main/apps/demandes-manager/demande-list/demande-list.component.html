@@ -11,12 +11,12 @@
 
     <!-- Name Column -->
 
-    <ng-container matColumnDef="id">
+    <!-- <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>AUUID</mat-header-cell>
         <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.demandeur.id}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
 
     <ng-container matColumnDef="nom">
@@ -34,8 +34,16 @@
         </mat-cell>
     </ng-container>
 
+
+    <ng-container matColumnDef="direction">
+        <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
+        <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.demandeur.direction.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef>Demande</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
         <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.description}}</p>
         </mat-cell>

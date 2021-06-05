@@ -25,7 +25,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom', 'prenom', 'state', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['nom', 'prenom','direction', 'state', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
@@ -134,7 +134,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                         demande.etatmanager = 'REJETER';
                         break;
                 }
-                // this._demandesService.signatureDemande(demande);
+                this._demandesService.signatureDemande(demande);
                 this._demandesService.updateState({requestId: demande ? demande.id : 0, isApproved: actionType}).then();
 
             });

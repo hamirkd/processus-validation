@@ -126,8 +126,6 @@ export const navigation_: FuseNavigation[] = [
                     },
 
 
-
-
                     {
                         id: 'Ressource',
                         title: 'Ressource humaine',

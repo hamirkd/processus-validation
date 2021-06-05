@@ -224,20 +224,21 @@ export class DemandesService implements Resolve<any> {
      * @param Demande
      * @returns {Promise<any>}
      */
-   /* signatureDemande(demande: Demande): Promise<any> {
+    // +++++++++++++++++++++++++++++++++++++++ Signature avec changement d'etat ++++++++++++++++++++++
+
+    signatureDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.put(environment.addressIp + '/api/demandes/signature',
                 {
                     id: demande.id,
-                    etatdirecteur: demande.etatdirecteur,
+                    etatmanager: demande.etatmanager,
                 })
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
                 });
         });
-    }*/
-
+    }
 
     updateState(data: { requestId: number, isApproved: string }): Promise<any> {
         return new Promise((resolve, reject) => {

@@ -12,12 +12,12 @@
     <!-- Name Column -->
 
 
-    <ng-container matColumnDef="id">
+    <!-- <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>AUUID</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.demandeur.id}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
 
     <ng-container matColumnDef="nom">
@@ -42,8 +42,16 @@
         </mat-cell>
     </ng-container>
 
+
+    <ng-container matColumnDef="typeDemande">
+        <mat-header-cell *matHeaderCellDef>Type Demande</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.typeDemande.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef>Demande</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.description}}</p>
         </mat-cell>
@@ -84,10 +92,10 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)">
+                    <!-- <button mat-menu-item aria-label="remove" (click)="editDemande(demande)">
                         <mat-icon>edit</mat-icon>
                         <span>Mettre à jour</span>
-                    </button>
+                    </button> -->
 
                     <button mat-menu-item aria-label="edit" (click)="deleteDemande(demande)">
                         <mat-icon>delete</mat-icon>

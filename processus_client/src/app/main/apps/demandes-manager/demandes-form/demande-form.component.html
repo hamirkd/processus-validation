@@ -1,0 +1,105 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-red m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <div class="user-name mt-8"></div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="demandeForm">
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>AUUID</mat-label>
+                    <mat-icon matSuffix class="secondary-text">10k</mat-icon>
+                    <input [value]="user.id" matInput readonly>
+                </mat-form-field>
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Demandeur</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input [value]="user.prenom+' '+user.nom" matInput readonly>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Direction</mat-label>
+                    <mat-icon matSuffix class="secondary-text">business</mat-icon>
+                    <input [value]="user.direction.nom" matInput readonly>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" *ngIf="action=='show'">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Directeur</mat-label>
+                    <mat-icon matSuffix class="secondary-text">key</mat-icon>
+                    <input [value]="user.directeur.nom+' '+user.directeur.nom" matInput readonly>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" *ngIf="action=='show'">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Manager</mat-label>
+                    <mat-icon matSuffix class="secondary-text">key</mat-icon>
+                    <input [value]="user.manager.nom+' '+user.manager.nom" matInput readonly>
+                </mat-form-field>
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Type Demande</mat-label>
+                    <mat-select formControlName="typeDemande">
+                        <mat-option *ngFor="let typeDemande of typeDemandes" [value]="typeDemande">
+                            {{typeDemande.nom}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>description de la demande :</mat-label>
+
+                    <textarea *ngIf="action!=='show'" description="description" formControlName="description" matInput
+                        placeholder="Ex. Ordinateur..." required></textarea>
+                    <textarea *ngIf="action=='show'" description="description" formControlName="description" matInput
+                        placeholder="Ex. Ordinateur..." readonly></textarea>
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+
+        <button *ngIf="action == 'new'" mat-button mat-raised-button class="red mr-16" (click)="save()"
+            [disabled]="demandeForm.invalid" aria-label="SAVE">
+            Ajouter
+        </button>
+
+        <button *ngIf="action == 'edit'" mat-button class="save-button btn" (click)="save()"
+            [disabled]="demandeForm.invalid" aria-label="SAVE">
+            Modifier
+        </button>
+
+    </div>
+</div>

@@ -1,17 +1,21 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {DataSource} from '@angular/cdk/collections';
-import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {fuseAnimations} from '@fuse/animations';
-import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import {DemandesService} from '../demandes.service';
-import {FormDialogDemandeComponent} from '../demande-form/demande-form.component';
-import {Demande} from '../demande.model';
-import {FormDialogTransfertDemandeComponent} from '../demande-form-transfert/demande-form-transfert.component';
-import {FormDialogTransfertDemandeDirecteurComponent} from '../demande-form-transfert-directeur/demande-form-transfert-directeur.component';
-import {RequestState} from '../../../../models/request-state';
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, window } from 'rxjs/operators';
+import { fuseAnimations } from '@fuse/animations';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { DemandesService } from '../demandes.service';
+import { FormDialogDemandeComponent } from '../demande-form/demande-form.component';
+import { Demande } from '../demande.model';
+import { FormDialogTransfertDemandeComponent } from '../demande-form-transfert/demande-form-transfert.component';
+import { FormDialogTransfertDemandeDirecteurComponent } from '../demande-form-transfert-directeur/demande-form-transfert-directeur.component';
+import { RequestState } from '../../../../models/request-state';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { AIRTEL_HEADER } from 'environments/logo';
+declare var jsPDF: any;
 
 @Component({
     selector: 'demandes-list',
@@ -23,11 +27,14 @@ import {RequestState} from '../../../../models/request-state';
 export class ListDemandesComponent implements OnInit, OnDestroy {
     @ViewChild('dialogContent')
     dialogContent: TemplateRef<any>;
-
+    name = 'jsPDF Exemple';
+    title = 'html-to-pdf';
     demandes: any;
     demande: any;
+    pdfmake: any;
+    SLOW: 'SLOW';
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'nom', 'prenom', 'state', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['nom', 'prenom', 'direction', 'typeDemande', 'state', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;
@@ -133,8 +140,8 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
                         demande.etatdirecteur = 'REJETER';
                         break;
                 }
-                // this._demandesService.signatureDemande(demande);
-                this._demandesService.updateState({requestId: demande ? demande.id : 0, isApproved: actionType}).then();
+                this._demandesService.signatureDemande(demande);
+                this._demandesService.updateState({ requestId: demande ? demande.id : 0, isApproved: actionType }).then();
 
 
             });
@@ -224,6 +231,50 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
         this._demandesService.updateDemandeData(this.demande);
     }
 
+
+
+    //  +++++++++++++++++++++++++++++++ cette methode nous permet de generer un dpf ++++++++++++++++++++++
+
+    generatePDF(demande) { 
+        let doc = new jspdf('p', 'mm', 'a4', true); // A4 size page of PDF 
+        doc.setFontSize(19);
+        // doc.rect(15, 21, 180, 15);  // la marge de header du document 
+        // doc.setTextColor(255, 0, 0);
+        doc.rect(10, 62, 190,15);
+        doc.rect(10, 85, 100,45); // pour champ a gauche
+        doc.rect(110, 85, 90,45); // pour le champ a droite Requestor
+        doc.rect(10, 120, 100,45); // pour champ a gauche Approved by
+        doc.rect(110, 120, 90,45); // pour le champ a droite Approved by
+        doc.rect(10, 155, 100,45); // pour champ a gauche Approved by
+        doc.rect(110, 155, 90,45);
+        doc.addImage(AIRTEL_HEADER, 'JPEG',15,11,35,35,);
+        // doc.rect(15, 21, 100, 189);
+        doc.text(82, 17,`CELTEL - NIGER`,+ 0,300);
+        doc.text(82, 26,`DIRECTION :`,+ 0,300);
+        doc.text(82, 32,`JOB REQUEST :`,+ 0,300);
+        doc.text(15, 53,`Project`,doc.setFontSize(12));
+        doc.text(15, 59,`Tasks Description`,doc.setFontSize(12));
+        doc.text(160, 59,`Date :`,doc.setFontSize(12));
+        doc.text(15, 127,`Approved by`,doc.setFontSize(17));
+        doc.text(15, 95,`Products Manager :`,doc.setFontSize(14));
+        doc.setFontSize(10);
+        // doc.text(15, 65, 'Demandeur');
+        // doc.text(60, 65, 'Direction');
+        // doc.text(90, 65, 'Type Demande');
+        // doc.text(130, 65, 'Etat Manager');
+        // doc.text(170, 65, 'Etat Directeur');
+        // doc.setFontSize(10);
+         let index = 0;
+            doc.text(15, 60 + (10 * (index + 1)), demande.description, doc.setFontSize(12));
+            doc.text(174, 50 + (10 * (index + 1)), demande.createdAt, doc.setFontSize(12));
+            doc.text(15, 100 + (10 * (index + 1)), demande.manager.nom+ " "+ demande.manager.prenom, doc.setFontSize(14));
+            doc.text(120, 87 + (10 * (index + 1)), demande.etatmanager, doc.setFontSize(14));
+            doc.text(120, 100 + (10 * (index + 1)), demande.createdAt, doc.setFontSize(14));
+
+        doc.save(`Demande.pdf`);
+        // this.busys['generatePDFSynthese'] = false;
+    }
+
     inprogress(demande: Demande): boolean {
         switch (demande.state) {
             case RequestState.INITIAL:
@@ -237,7 +288,13 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
         }
     }
 
+
+
+
 }
+
+
+
 
 export class FilesDataSource extends DataSource<any> {
     /**
@@ -250,6 +307,7 @@ export class FilesDataSource extends DataSource<any> {
     ) {
         super();
     }
+
 
     /**
      * Connect function called by the table to retrieve one stream containing the data to render.

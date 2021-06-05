@@ -1,4 +1,4 @@
-<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+<mat-table id="contentToConvert" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
     <!-- Checkbox Column -->
     <ng-container matColumnDef="checkbox">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -12,12 +12,12 @@
     <!-- Name Column -->
 
 
-    <ng-container matColumnDef="id">
+    <!-- <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>AUUID</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
             <p class="text-truncate font-weight-600">{{demande.demandeur.id}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
 
     <ng-container matColumnDef="nom">
@@ -35,10 +35,28 @@
         </mat-cell>
     </ng-container>
 
+
+
+    <ng-container matColumnDef="direction">
+        <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.demandeur.direction.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef>Demande</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
             <p class="text-truncate font-weight-600">{{demande.description}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="typeDemande">
+        <mat-header-cell *matHeaderCellDef>Type Demande</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
+            <p class="text-truncate font-weight-600">{{demande.typeDemande.nom}}</p>
         </mat-cell>
     </ng-container>
 
@@ -68,9 +86,16 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)" (click)="editDemande(demande)">
+                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)"
+                        (click)="editDemande(demande)">
                         <mat-icon>edit</mat-icon>
                         <span>Signature</span>
+                    </button>
+
+
+                    <button mat-menu-item aria-label="remove" (click)="generatePDF(demande)">
+                        <mat-icon>print</mat-icon>
+                        <span>Imprimer</span>
                     </button>
                     <!-- <button mat-menu-item aria-label="share" (click)="transfererDirecteur(demande)">
                         <mat-icon>share</mat-icon>

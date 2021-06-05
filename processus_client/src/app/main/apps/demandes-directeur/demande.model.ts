@@ -16,7 +16,7 @@ export class Demande
     departement: Departement;
     typeDemande: TypeDemande;
     etatdirecteur: 'ENCOURS'|'ACCEPTER'|'REJETER';
-    etat: 'ENCOURS'|'ACCEPTER'|'REJETER';
+    etat: 'ENCOURS'|'ACCEPTER'|'REJETER' |'APPROVED_MANAGER';
     etatmanager: 'ENCOURS'|'ACCEPTER'|'REJETER';
     description: string;
     createdAt: Date;
@@ -44,6 +44,7 @@ export class Demande
         this.etatdirecteur = demande.etatdirecteur;
         this.etatmanager = demande.etatmanager;
         this.etat = demande.etat;
+        // this.state= demande.state;
         this.createdAt = demande.createdAt;
        
     }

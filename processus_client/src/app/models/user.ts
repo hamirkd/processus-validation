@@ -1,6 +1,5 @@
 import { FuseUtils } from "@fuse/utils";
 import { Departement } from "app/main/apps/departements/departement.model";
-import { TypeDemande } from "app/main/apps/typeDemandes/typeDemande.model";
 import { Direction } from "./direction";
 
 export class User{
@@ -15,7 +14,6 @@ export class User{
     administrateur: User;
     direction:Direction;
     departement: Departement;
-    typeDemande: TypeDemande;
     poste:'DIRECTEUR'|'EMPLOYE'|'MANAGER'|'ADMINISTRATEUR';
     updatedAt:Date;
     createdAt:Date;

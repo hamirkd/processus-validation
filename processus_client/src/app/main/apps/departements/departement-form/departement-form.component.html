@@ -15,16 +15,12 @@
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
-        <form [formGroup]="typeDemandeForm">
-
-
-
-
+        <form [formGroup]="departementForm">
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Nom</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input nom="nom" formControlName="nom" matInput>
+                    <input name="nom" formControlName="nom" matInput>
                 </mat-form-field>
             </div>
 
@@ -34,7 +30,7 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Direction</mat-label>
                     <mat-icon matSuffix class="secondary-text">users</mat-icon>
-                    <select matNativeControl placeholder="Choisir la direction" formControlName="direction_id"
+                    <select matNativeControl placeholder="Choisir la direction" formControlName="direction"
                         [readonly]="action=='show'">
                         <option></option>
                         <option [value]="direction.id" *ngFor="let direction of directions">{{direction.nom}} </option>
@@ -47,7 +43,7 @@
                     <mat-label>Manager</mat-label>
                     <mat-select name="manager" formControlName="manager">
                         <mat-option *ngFor="let manager of managers" [value]="manager">
-                            {{manager.nom}}</mat-option>
+                            {{manager.nom}} {{manager.prenom}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

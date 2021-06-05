@@ -7,6 +7,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { DemandesService } from './demandes.service';
 import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
+import { FormDialogDemandesComponent } from './demandes-form/demande-form.component';
 
 
 @Component({
@@ -84,13 +85,14 @@ export class DemandesComponent implements OnInit, OnDestroy {
     /**
      * New contact
      */
-    newDemande(): void {
+     newDemande(): void {
         this.dialogRef = this._matDialog.open(FormDialogDemandeComponent, {
             panelClass: 'demande-form-dialog',
             data: {
                 action: 'new'
             }
         });
+
 
         this.dialogRef.afterClosed()
             .subscribe((response: FormGroup) => {
@@ -100,6 +102,26 @@ export class DemandesComponent implements OnInit, OnDestroy {
                 // this._demandesService.updateDemande(response.getRawValue());
             });
     }
+
+    newDemande1(): void {
+        this.dialogRef = this._matDialog.open(FormDialogDemandesComponent, {
+            panelClass: 'demandes-form-dialog',
+            data: {
+                action: 'new'
+            }
+        });
+
+
+        this.dialogRef.afterClosed()
+            .subscribe((response: FormGroup) => {
+                if (!response) {
+                    return;
+                }
+                // this._demandesService.updateDemande(response.getRawValue());
+            });
+    }
+
+
 
     /**
      * Toggle the sidebar

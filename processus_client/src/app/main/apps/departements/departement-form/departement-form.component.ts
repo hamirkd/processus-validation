@@ -53,16 +53,17 @@ export class FormDialogDepartementComponent {
 
 
         this.directionsService.getDirections().then(data => this.directions = data);
-        this.usersService.getUsers().then(data =>this.managers = data );
+        this.usersService.getUsers().then(data =>this.managers = data );  
         this.departementForm= this.createDepartementForm();
     }
 
+    
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
     /**
-     * Create user form
+     * Create departement form
      *
      * @returns {FormGroup}
      */

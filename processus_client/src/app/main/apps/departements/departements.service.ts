@@ -110,11 +110,7 @@ export class DepartementsService implements Resolve<any>
         );
     }
 
-    /**
-     * Get user data
-     *
-     * @returns {Promise<any>}
-     */
+
     getDepartementData(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(environment.addressIp+'/api/departements')
@@ -127,11 +123,7 @@ export class DepartementsService implements Resolve<any>
         );
     }
 
-    /**
-     * Toggle selected User by id
-     *
-     * @param id
-     */
+
     toggleSelectedDepartement(id): void {
         // First, check if we already have that User as selected...
         if (this.selectedDepartements.length > 0) {

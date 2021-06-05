@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "http://172.26.209.218:8080",
+      "target": "http://locahost:8080",
       "secure": false,
       "pathRewrite": {
         "^/api": ""

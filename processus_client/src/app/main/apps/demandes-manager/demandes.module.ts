@@ -9,6 +9,8 @@ import { DemandesComponent } from './demandes.component';
 import { ListDemandesComponent } from './demande-list/demande-list.component';
 import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
 import { DemandesService } from './demandes.service';
+import { FormDialogDemandesComponent } from './demandes-form/demande-form.component';
+import { TypeDemandesService } from '../typeDemandes/typeDemandes.service';
 
 
 const routes: Routes = [
@@ -27,6 +29,7 @@ const routes: Routes = [
         DemandesComponent,
         ListDemandesComponent,
         FormDialogDemandeComponent,
+        FormDialogDemandesComponent,
     ],
     imports        : [
         RouterModule.forChild(routes),
@@ -48,10 +51,12 @@ const routes: Routes = [
         MatSelectModule,
     ],
     providers      : [
-        DemandesService
+        DemandesService,
+        TypeDemandesService
     ],
     entryComponents: [
         FormDialogDemandeComponent,
+        FormDialogDemandesComponent,
     ]
 })
 export class DemandesModule
