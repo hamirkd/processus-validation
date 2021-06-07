@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 import com.processus.repository.DemandeRepository;
 import com.processus.repository.UserRepository;
 
+import static com.processus.entities.RequestState.*;
+
 @Service
 @Transactional
 public class DemandeService implements TemplateService<Demande, Long> {
@@ -70,17 +72,26 @@ public class DemandeService implements TemplateService<Demande, Long> {
     }
 
     public List<Demande> findDemandeByManager(Long id) {
-        return demandeRepository.findDemandeByManagerId(id);
+
+        // Modifie la valeur 12 par id du departement du manager (moi je sais pas ou est ce que la valeur est stocké)
+        Long departementId = 12L;
+
+        List<Demande> demandes = demandeRepository.findDemandeByManagerIdOrDemandeurId(id, id);
+        demandes.addAll(demandeRepository
+                .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDepartementId(Arrays
+                                .asList(REDIRECTED_MANAGER, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_MANAGER, REJECTED_REDIRECT_DIRECTOR, END),
+                        departementId));
+        return demandes.stream().distinct().collect(Collectors.toList());
+
     }
 
     public List<Demande> findDemandeByDirecteur(Long id) {
-        Long directionId = userRepository.findById(id).map(user -> user.getDirection().getId()).orElse(0L);
+        Long directionId = userRepository.findById(id).map(User::getDirection).map(Direction::getId).orElse(0L);
         List<Demande> demandes = demandeRepository
-                .findByStateInAndDirectionId(Arrays.asList(RequestState.APPROVED_MANAGER, RequestState.REDIRECTED, RequestState.REJECTED_DIRECTOR, RequestState.END), directionId);
+                .findByStateInAndDirectionId(Arrays.asList(APPROVED_MANAGER, REDIRECTED_MANAGER, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_MANAGER, REDIRECTED_DIRECTOR, REJECTED_REDIRECT_DIRECTOR, REJECTED_DIRECTOR, END), directionId);
         demandes.addAll(demandeRepository
-                .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDirectionId(Arrays.asList(RequestState.REDIRECTED, RequestState.REJECTED_REDIRECT_DIRECTOR, RequestState.END), directionId));
+                .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDirectionId(Arrays.asList(REDIRECTED_DIRECTOR, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_DIRECTOR, END), directionId));
         return demandes.stream().distinct().collect(Collectors.toList());
-        // return demandeRepository.findDemandeByDirecteurIdAndEtatmanager(id,EtatDemande.ACCEPTER.toString());
     }
 
     public List<Demande> findDemandeByDemandeur(Long id) {
