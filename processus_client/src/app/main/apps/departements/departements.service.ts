@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 import { Departement } from './departement.model';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class DepartementsService implements Resolve<any>
 {
     onDepartementsChanged: BehaviorSubject<any>;
@@ -239,4 +239,7 @@ export class DepartementsService implements Resolve<any>
         this.deselectDepartements();
     }
 
+    findByDirection(id: number): Observable<Departement[]> {
+        return this._httpClient.get<Departement[]>(environment.addressIp + '/api/departements/by-director/' + id);
+    }
 }

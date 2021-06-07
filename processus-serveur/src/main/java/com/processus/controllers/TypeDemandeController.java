@@ -48,6 +48,7 @@ public class TypeDemandeController {
         typeDemande.setNom(entity.getNom());
         typeDemande.setDescription(entity.getDescription());
         typeDemande.setWorkFlowDirection(entity.getWorkFlowDirection());
+        typeDemande.setWorkFlowDepartement(entity.getWorkFlowDepartement());
 
 
         return service.update(typeDemande);

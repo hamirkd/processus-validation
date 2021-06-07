@@ -28,8 +28,9 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
 
     typeDemandes: any;
     typeDemande: any;
+    departement: []=[];
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom','createdAt', 'buttons'];
+    displayedColumns = ['nom','departement','createdAt', 'buttons'];
     selectedTypeDemandes: any[];
     directions: Direction[] = [];
     checkboxes: {};
@@ -202,7 +203,8 @@ export class FilesDataSource extends DataSource<any>
      * @param {TransfertsService} _transfertsService
      */
     constructor(
-        private _typeDemandesService: TypeDemandesService
+        private _typeDemandesService: TypeDemandesService,
+        
     ) {
         super();
     }

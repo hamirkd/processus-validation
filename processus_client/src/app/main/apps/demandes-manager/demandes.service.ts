@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { FuseUtils } from '@fuse/utils';
-import { environment } from 'environments/environment';
-import { Demande } from '../demandes-directeur/demande.model';
-import { UsersService } from 'app/services/users.service';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {FuseUtils} from '@fuse/utils';
+import {environment} from 'environments/environment';
+import {Demande} from '../demandes-directeur/demande.model';
+import {UsersService} from 'app/services/users.service';
 
 
 @Injectable()
-export class DemandesService implements Resolve<any>
-{
+export class DemandesService implements Resolve<any> {
     onDemandesChanged: BehaviorSubject<any>;
     onSelectedDemandesChanged: BehaviorSubject<any>;
     onDemandeDataChanged: BehaviorSubject<any>;
@@ -31,7 +30,7 @@ export class DemandesService implements Resolve<any>
      * @param {HttpClient} _httpClient
      */
     constructor(
-        private _httpClient: HttpClient,private usersService:UsersService
+        private _httpClient: HttpClient, private usersService: UsersService
     ) {
         // Set the defaults
         this.onDemandesChanged = new BehaviorSubject([]);
@@ -87,37 +86,37 @@ export class DemandesService implements Resolve<any>
     getDemandes(): Promise<any> {
         return new Promise((resolve, reject) => {
 
-            this._httpClient.get(environment.addressIp+'/api/demandes/managers/'+this.usersService.userData.id)
-                .subscribe((response: any) => {
+                this._httpClient.get(environment.addressIp + '/api/demandes/managers/' + this.usersService.userData.id)
+                    .subscribe((response: any) => {
 
-                    this.demandes = response;
+                        this.demandes = response;
 
-                    if (this.filterBy === 'starred') {
-                        this.demandes = this.demandes.filter(_Demande => {
-                            return this.demande.starred.includes(_Demande.id);
+                        if (this.filterBy === 'starred') {
+                            this.demandes = this.demandes.filter(_Demande => {
+                                return this.demande.starred.includes(_Demande.id);
+                            });
+                        }
+
+                        if (this.filterBy === 'frequent') {
+                            this.demandes = this.demandes.filter(_Demande => {
+                                return this.demande.frequentDemandes.includes(_Demande.id);
+                            });
+                        }
+
+                        if (this.searchText && this.searchText !== '') {
+                            this.demandes = FuseUtils.filterArrayByString(this.demandes, this.searchText);
+                        }
+
+                        this.demandes = this.demandes.map(demande => {
+                            return new Demande(demande);
                         });
-                    }
 
-                    if (this.filterBy === 'frequent') {
-                        this.demandes = this.demandes.filter(_Demande => {
-                            return this.demande.frequentDemandes.includes(_Demande.id);
-                        });
-                    }
-
-                    if (this.searchText && this.searchText !== '') {
-                        this.demandes = FuseUtils.filterArrayByString(this.demandes, this.searchText);
-                    }
-
-                    this.demandes = this.demandes.map(demande => {
-                        return new Demande(demande);
+                        this.onDemandesChanged.next(this.demandes);
+                        resolve(this.demandes);
+                    }, reject => {
+                        this.demandes = [];
                     });
-
-                    this.onDemandesChanged.next(this.demandes);
-                    resolve(this.demandes);
-                }, reject => {
-                    this.demandes = [];
-                });
-        }
+            }
         );
     }
 
@@ -128,13 +127,13 @@ export class DemandesService implements Resolve<any>
      */
     getDemandeData(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(environment.addressIp+'/api/demandes')
-                .subscribe((response: any) => {
-                    this.demande = response;
-                    this.onDemandeDataChanged.next(this.demande);
-                    resolve(this.demandes);
-                }, reject);
-        }
+                this._httpClient.get(environment.addressIp + '/api/demandes')
+                    .subscribe((response: any) => {
+                        this.demande = response;
+                        this.onDemandeDataChanged.next(this.demande);
+                        resolve(this.demandes);
+                    }, reject);
+            }
         );
     }
 
@@ -172,8 +171,7 @@ export class DemandesService implements Resolve<any>
     toggleSelectAll(): void {
         if (this.selectedDemandes.length > 0) {
             this.deselectDemandes();
-        }
-        else {
+        } else {
             this.selectDemandes();
         }
     }
@@ -205,17 +203,21 @@ export class DemandesService implements Resolve<any>
      * @param Demande
      * @returns {Promise<any>}
      */
-    //  updateDemande(demande: Demande): Promise<any> {
-    //     return new Promise((resolve, reject) => {
-    //         this._httpClient.put(environment.addressIp+'/api/demandes', 
-    //         {demandeur_id:demande.demandeur.id,
-    //         description:demande.description,})
-    //             .subscribe(response => {
-    //                 this.getDemandes();
-    //                 resolve(response);
-    //             });
-    //     });
-    // }
+    updateDemande(demande: Demande): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(environment.addressIp + '/api/demandes',
+                {
+                    ...demande,
+                    demandeur_id: demande.demandeur.id,
+                    description: demande.description,
+                })
+                .subscribe(response => {
+                    this.getDemandes();
+                    resolve(response);
+                });
+        });
+    }
+
     /**
      * Update Demande
      *
@@ -224,9 +226,11 @@ export class DemandesService implements Resolve<any>
      */
     signatureDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes/signature', 
-            {id:demande.id,
-                etatmanager:demande.etatmanager,})
+            this._httpClient.put(environment.addressIp + '/api/demandes/signature',
+                {
+                    id: demande.id,
+                    etatmanager: demande.etatmanager,
+                })
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
@@ -253,7 +257,7 @@ export class DemandesService implements Resolve<any>
      */
     updateDemandeData(demandeData): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.post(environment.addressIp+'/api/demandes' + this.demande.id, { ...demandeData })
+            this._httpClient.post(environment.addressIp + '/api/demandes' + this.demande.id, {...demandeData})
                 .subscribe(response => {
                     this.getDemandeData();
                     this.getDemandes();
@@ -279,8 +283,8 @@ export class DemandesService implements Resolve<any>
      */
     deleteDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log(demande)
-            this._httpClient.delete(environment.addressIp+'/api/demandes/' + demande.id)
+            console.log(demande);
+            this._httpClient.delete(environment.addressIp + '/api/demandes/' + demande.id)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);

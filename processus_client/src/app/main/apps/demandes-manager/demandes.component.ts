@@ -1,13 +1,14 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import { DemandesService } from './demandes.service';
-import { FormDialogDemandeComponent } from './demande-form/demande-form.component';
-import { FormDialogDemandesComponent } from './demandes-form/demande-form.component';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, takeUntil} from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations';
+import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
+import {DemandesService} from './demandes.service';
+import {FormDialogDemandeComponent} from './demande-form/demande-form.component';
+import {FormDialogDemandesComponent} from './demandes-form/demande-form.component';
+import {RequestState} from '../../../models/request-state';
 
 
 @Component({
@@ -117,7 +118,7 @@ export class DemandesComponent implements OnInit, OnDestroy {
                 if (!response) {
                     return;
                 }
-                // this._demandesService.updateDemande(response.getRawValue());
+                this._demandesService.updateDemande({...response.getRawValue(), state: RequestState.APPROVED_MANAGER, id: null});
             });
     }
 

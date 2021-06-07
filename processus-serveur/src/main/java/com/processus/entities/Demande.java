@@ -64,6 +64,13 @@ public class Demande implements Serializable {
     @ManyToOne
     @JoinColumn(name = "typedemande_id", nullable = true)
     private TypeDemande typeDemande;
+    
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "departement_id", nullable = true)
+    private Departement departement;
+
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -181,5 +188,8 @@ public class Demande implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
+    
+    
+    
 
 }

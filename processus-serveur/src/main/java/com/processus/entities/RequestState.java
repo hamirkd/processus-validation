@@ -5,10 +5,15 @@ public enum RequestState {
     APPROVED_MANAGER("APPROVED_MANAGER"),
     REJECTED_MANAGER("REJECTED_MANAGER"),
     END("END"),
-    REDIRECTED("REDIRECTED"),
+    REDIRECTED_MANAGER("REDIRECTED_MANAGER"),
+    REDIRECTED_DIRECTOR("REDIRECTED_MANAGER"),
+
+    APPROVED_REDIRECT_MANAGER("APPROVED_REDIRECT_MANAGER"),
+    REJECTED_REDIRECT_MANAGER("REJECTED_REDIRECT_MANAGER"),
+
     REJECTED_DIRECTOR("REJECTED_DIRECTOR"),
     REJECTED_REDIRECT_DIRECTOR("REJECTED_REDIRECT_DIRECTOR");
-  
+
     private final String description;
 
     RequestState(String description) {
@@ -27,10 +32,6 @@ public enum RequestState {
         return this == REJECTED_MANAGER;
     }
 
-    public boolean isRedirect() {
-        return this == REDIRECTED;
-    }
-
     public boolean isRejectedDirector() {
         return this == REJECTED_DIRECTOR;
     }
@@ -45,9 +46,5 @@ public enum RequestState {
 
     public boolean isRejected() {
         return this.isRejectedManager() || isRejectedDirector() || isRejectedRedirectDirector();
-    }
-
-    public boolean inProgress() {
-        return this.isInitial() || isApprovedManager() || isRedirect();
     }
 }

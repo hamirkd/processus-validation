@@ -21,6 +21,14 @@
     </ng-container>
 
 
+    <ng-container matColumnDef="departement">
+        <mat-header-cell *matHeaderCellDef>Prenom</mat-header-cell>
+        <mat-cell *matCellDef="let typeDemande">
+            <p class="text-truncate font-weight-600">{{departement.nom}} </p>
+        </mat-cell>
+    </ng-container>
+
+
     <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">

@@ -36,6 +36,17 @@
             </div>
 
 
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Departement</mat-label>
+                    <mat-select formControlName="workFlowDepartement" [compareWith]="comparatorDepartement">
+                        <mat-option *ngFor="let departement of departements" [value]="departement">
+                            {{departement.nom }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
             <!--
                         <div fxLayout="row" fxLayoutAlign="start start">
                             <mat-form-field appearance="outline" fxFlex>

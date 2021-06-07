@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.processus.entities.RequestState.*;
+
 @RestController
 @RequestMapping("/api/demandes")
 @CrossOrigin("*")
@@ -75,7 +77,10 @@ public class DemandeController {
      */
     @PutMapping
     public Demande add(@RequestBody Demande entity) {
+        return newRequest(entity);
+    }
 
+    private Demande newRequest(Demande entity) {
         Demande demande = new Demande();
         if (entity.getId() != null) demande = service.get(entity.getId());
         // Nous allons récuperé l'utilisateur demandeur
@@ -90,11 +95,10 @@ public class DemandeController {
         demande.setDirecteur(entity.getDirecteur());
         demande.setDescription(entity.getDescription());
         demande.setManager(entity.getManager());
-        demande.setEtat(EtatDemande.ENCOURS);
         demande.setEtatdirecteur(EtatDemande.ENCOURS);
         demande.setEtatmanager(EtatDemande.ENCOURS);
 
-        demande.setState(RequestState.INITIAL);
+        demande.setState(Optional.ofNullable(entity.getState()).orElse(INITIAL));
         demande.setDirection(Optional.ofNullable(entity.getDirecteur()).map(User::getDirection).orElse(null));
 
         return service.add(demande);
@@ -117,7 +121,7 @@ public class DemandeController {
                 demande.setEtat(EtatDemande.REJETER);
             }
         }
-        demande.setEtat(entity.getEtat());
+//        demande.setEtat(entity.getEtat());
         return service.update(demande);
     }
 
@@ -126,7 +130,6 @@ public class DemandeController {
         Demande demande = service.get(wrapper.getRequestId());
         if (Objects.isNull(demande)) return null;
         RequestState state = demande.getState();
-        System.out.println("demande = " + demande.getState());
         switch (demande.getState()) {
             case INITIAL:
             case REJECTED_MANAGER:
@@ -140,13 +143,21 @@ public class DemandeController {
                         .map(Direction::getId)
                         .map(id -> id.equals(Optional.ofNullable(demande.getDirection()).map(Direction::getId).orElse(id)))
                         .orElse(true)
-                        ? RequestState.END
-                        : RequestState.REDIRECTED
-                        : RequestState.REJECTED_REDIRECT_DIRECTOR;
+                        ? END
+                        : Optional.ofNullable(demande.getTypeDemande().getWorkFlowDepartement()).map(dep -> REDIRECTED_MANAGER).orElse(REDIRECTED_DIRECTOR)
+                        : REJECTED_DIRECTOR;
                 break;
+
+            case REDIRECTED_MANAGER:
+            case REJECTED_REDIRECT_MANAGER:
+                state = wrapper.isApproved() ? APPROVED_REDIRECT_MANAGER : REJECTED_REDIRECT_MANAGER;
+                break;
+
+            case APPROVED_REDIRECT_MANAGER:
+            case REDIRECTED_DIRECTOR:
             case REJECTED_REDIRECT_DIRECTOR:
-            case REDIRECTED:
-                state = wrapper.isApproved() ? RequestState.END : RequestState.REJECTED_REDIRECT_DIRECTOR;
+                state = wrapper.isApproved() ? END : REJECTED_REDIRECT_DIRECTOR;
+                break;
         }
         demande.setState(state);
         return service.update(demande);
@@ -163,7 +174,7 @@ public class DemandeController {
         demande.setDemandeur(demande_old.getDemandeur());
         demande.setDescription(demande_old.getDescription());
         /**
-         * Recupération de la direction avec son identifiant, de meme que le 
+         * Recupération de la direction avec son identifiant, de meme que le
          * directeur et le manager
          */
         Direction direction = directionService.get(entity.getDirection_id());

@@ -88,12 +88,7 @@ public class User implements Serializable {
     @LastModifiedDate
     private Date updatedAt = new Date();
 
-//    public String getMatricule() {
-//		return matricule;
-//	}
-//	public void setMatricule(String matricule) {
-//		this.matricule = matricule;
-//	}
+
     public String getPoste() {
         return poste;
     }

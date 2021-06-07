@@ -31,7 +31,15 @@ public class DemandeDTO implements Serializable {
 		this.typeDemande = typeDemande;
 	}
 
+        private DepartementDTO departement;
+        public DepartementDTO getDepartement(){
+            return departement;
+        }
 
+        
+        public void setDepartement (DepartementDTO departement){
+            this.departement= departement;
+        }
 	
 	public Long getId() {
 		return id;

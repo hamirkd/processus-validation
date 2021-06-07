@@ -1,8 +1,8 @@
 package com.processus.controllers;
 import com.processus.dto.DepartementDTO;
 import com.processus.entities.Departement;
+import com.processus.repository.DepartementRepository;
 import com.processus.services.TemplateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,14 @@ import java.util.List;
 @CrossOrigin("*")
 public class DepartementController {
 
-    @Autowired
-    TemplateService<Departement, Long> service;
+    private final TemplateService<Departement, Long> service;
+    private final DepartementRepository departementRepository;
+
+    public DepartementController(TemplateService<Departement, Long> service,
+                                 DepartementRepository departementRepository) {
+        this.service = service;
+        this.departementRepository = departementRepository;
+    }
 
     @GetMapping
     public List<Departement> getAll() {
@@ -67,10 +73,17 @@ public class DepartementController {
         return service.get(id);
     }
 
+    @GetMapping("by-director/{id}")
+    public List<Departement> byDirector(@PathVariable Long id) {
+        return departementRepository.findByDirectionId(id);
+    }
+
 //    @PostMapping("/login")
 //    public Pelerin login(@RequestBody Pelerin pelerin) {
 //        return ((PelerinService) service).login(pelerin);
 //    }
+
+
 
 
     @PostMapping("/all")

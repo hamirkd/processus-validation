@@ -41,7 +41,7 @@ public class TypeDemande implements Serializable {
     @JoinColumn(name = "work_flow_direction_id", referencedColumnName = "id")
     private Direction workFlowDirection;
     
-    //            +++++++++++++++++++++++++++ workFlow Pour les departements +++++++++++++++++++++++++++++++++++++
+    // +++++++++++++++++++++++++++++++++++++++++ workFlow Pour les departements +++++++++++++++++++++++++++++++++++++
     
     @ManyToOne
     @JoinColumn(name = "work_flow_departement", nullable = true)
