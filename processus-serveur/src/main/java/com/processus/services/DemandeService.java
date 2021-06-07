@@ -71,11 +71,13 @@ public class DemandeService implements TemplateService<Demande, Long> {
         return userRepository.getOne(id);
     }
 
+    
+//    +++++++++++++++++++++++++++++++ Demande manager + redirection manager ++++++++++++++++++++++++++++++++
+    
     public List<Demande> findDemandeByManager(Long id) {
 
-        // Modifie la valeur 12 par id du departement du manager (moi je sais pas ou est ce que la valeur est stocké)
-        Long departementId = 12L;
-
+//        Long departementId = 12L;
+        Long departementId = userRepository.findById(id).map(User::getDepartement).map(Departement::getId).orElse(0L);
         List<Demande> demandes = demandeRepository.findDemandeByManagerIdOrDemandeurId(id, id);
         demandes.addAll(demandeRepository
                 .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDepartementId(Arrays

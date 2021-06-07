@@ -65,8 +65,6 @@ public class Demande implements Serializable {
     @JoinColumn(name = "typedemande_id", nullable = true)
     private TypeDemande typeDemande;
     
-    
-    
     @ManyToOne
     @JoinColumn(name = "departement_id", nullable = true)
     private Departement departement;
