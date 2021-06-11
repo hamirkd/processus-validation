@@ -35,22 +35,12 @@
         </mat-cell>
     </ng-container>
 
-
-
     <ng-container matColumnDef="direction">
         <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.demandeur.direction.nom}}</p>
         </mat-cell>
     </ng-container>
-
-    <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef>description</mat-header-cell>
-        <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
-            <p class="text-truncate font-weight-600">{{demande.description}}</p>
-        </mat-cell>
-    </ng-container>
-
 
 
     <ng-container matColumnDef="typeDemande">
@@ -60,10 +50,17 @@
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="state">
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
+            <p class="text-truncate font-weight-600">{{demande.description}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="etatdirecteur">
         <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}">
-            <p class="text-truncate font-weight-600">{{demande.state}}</p>
+            <p class="text-truncate font-weight-600">{{demande.etatdirecteur}}</p>
         </mat-cell>
     </ng-container>
 
@@ -86,8 +83,8 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)"
-                        (click)="editDemande(demande)">
+                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)"
+                        *ngIf="inprogress(demande) && demande.etatdirecteur=='ENCOURS'">
                         <mat-icon>edit</mat-icon>
                         <span>Signature</span>
                     </button>

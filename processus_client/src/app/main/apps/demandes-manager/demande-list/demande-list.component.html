@@ -49,10 +49,10 @@
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="state">
+    <ng-container matColumnDef="etatmanager">
         <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
-        <mat-cell *matCellDef="let demande" class="{{demande.state}}">
-            <p class="text-truncate font-weight-600">{{demande.state}}</p>
+        <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}}">
+            <p class="text-truncate font-weight-600">{{demande.etatmanager}}</p>
         </mat-cell>
     </ng-container>
 
@@ -74,8 +74,8 @@
                     <mat-icon class="secondary-text">more_vert</mat-icon>
                 </button>
 
-                <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)" (click)="editDemande(demande)">
+                <mat-menu #moreMenu="matMenu" >
+                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)" *ngIf="inprogress(demande) && demande.etatmanager=='ENCOURS'" >
                         <mat-icon>edit</mat-icon>
                         <span>Signature</span>
                     </button>

@@ -2,14 +2,12 @@ package com.processus.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Data;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,6 +35,10 @@ public class Direction implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt = new Date();
+    
+    @ManyToOne
+    @JoinColumn(name = "directeur_idii", referencedColumnName = "id")
+    private User user;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -78,4 +80,17 @@ public class Direction implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+   
+    
+    
+    
 }

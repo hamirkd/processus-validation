@@ -22,7 +22,7 @@ export class DemandesService implements Resolve<any>
     demandes: Demande[];
     demande: any;
     selectedDemandes: number[] = [];
-    transfertDemandeManager : any;
+   
 
     searchText: string;
     filterBy: string;
@@ -207,8 +207,9 @@ export class DemandesService implements Resolve<any>
      */
     updateDemande(demande: Demande,id:number=undefined): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes',
-                demande)
+            this._httpClient.put(environment.addressIp+'/api/demandes-employe', 
+            {demandeur_id:demande.demandeur.id,
+            description:demande.description,id:id})
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
@@ -224,7 +225,7 @@ export class DemandesService implements Resolve<any>
      */
     updateDemandeData(demandeData): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.post(environment.addressIp+'/api/demandes' + this.demande.id, { ...demandeData })
+            this._httpClient.post(environment.addressIp+'/api/demandes-employe' + this.demande.id, { ...demandeData })
                 .subscribe(response => {
                     this.getDemandeData();
                     this.getDemandes();
@@ -251,7 +252,7 @@ export class DemandesService implements Resolve<any>
     deleteDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(demande)
-            this._httpClient.delete(environment.addressIp+'/api/demandes/' + demande.id)
+            this._httpClient.delete(environment.addressIp+'/api/demandes-employe/' + demande.id)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
@@ -259,9 +260,6 @@ export class DemandesService implements Resolve<any>
         });
     }
 
-    /**
-     * Delete selected Users
-     */
     deleteSelectedDemandes(): void {
         for (const DemandeId of this.selectedDemandes) {
             const Demande = this.demandes.find(_Demande => {

@@ -71,13 +71,11 @@ public class DemandeService implements TemplateService<Demande, Long> {
         return userRepository.getOne(id);
     }
 
-    
-//    +++++++++++++++++++++++++++++++ Demande manager + redirection manager ++++++++++++++++++++++++++++++++
-    
     public List<Demande> findDemandeByManager(Long id) {
 
-//        Long departementId = 12L;
-        Long departementId = userRepository.findById(id).map(User::getDepartement).map(Departement::getId).orElse(0L);
+//     ++++++++++++++++++++++++++++++++++++++++++++++ Redirection departement +++++++++++++++++++++++++++++
+        Long departementId = 12L;
+
         List<Demande> demandes = demandeRepository.findDemandeByManagerIdOrDemandeurId(id, id);
         demandes.addAll(demandeRepository
                 .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDepartementId(Arrays
@@ -95,8 +93,26 @@ public class DemandeService implements TemplateService<Demande, Long> {
                 .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDirectionId(Arrays.asList(REDIRECTED_DIRECTOR, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_DIRECTOR, END), directionId));
         return demandes.stream().distinct().collect(Collectors.toList());
     }
+    
+    
+//    ++++++++++++++++++++++++++++++++ Redirection vers une autre direction ++++++++++++++++++++++++++++++++++++
+//    
+//      public List<Demande> findDemandeByDirecteur(Long id) {
+//        Long directionId = userRepository.findById(id).map(User::getDirection).map(Direction::getId).orElse(0L);
+//        List<Demande> demandes = demandeRepository
+//                .findByStateInAndDirectionId(Arrays.asList(APPROVED_MANAGER, REDIRECTED_MANAGER, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_MANAGER, REDIRECTED_DIRECTOR, REJECTED_REDIRECT_DIRECTOR, REJECTED_DIRECTOR, END), directionId);
+//        demandes.addAll(demandeRepository
+//                .findByStateInAndTypeDemandeIsNotNullAndTypeDemandeWorkFlowDirectionId(Arrays.asList(REDIRECTED_DIRECTOR, APPROVED_REDIRECT_MANAGER, REJECTED_REDIRECT_DIRECTOR, END), directionId));
+//        return demandes.stream().distinct().collect(Collectors.toList());
+//    }
+//    
+    
 
     public List<Demande> findDemandeByDemandeur(Long id) {
         return demandeRepository.findDemandeByDemandeurId(id);
     }
+    
+    
+
 }
+

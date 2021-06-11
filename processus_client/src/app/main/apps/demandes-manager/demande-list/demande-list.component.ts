@@ -25,7 +25,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     demandes: any;
     demande: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom', 'prenom','direction', 'state', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['nom', 'prenom','direction', 'etatmanager', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;

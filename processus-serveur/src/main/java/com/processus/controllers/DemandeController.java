@@ -158,6 +158,9 @@ public class DemandeController {
             case REJECTED_REDIRECT_DIRECTOR:
                 state = wrapper.isApproved() ? END : REJECTED_REDIRECT_DIRECTOR;
                 break;
+//                
+//               case REDIRECTED_DIRECTORR:  
+                   
         }
         demande.setState(state);
         return service.update(demande);

@@ -1,5 +1,5 @@
 <div class="dialog-content-wrapper">
-    <mat-toolbar matDialogTitle class="mat-accent m-0">
+    <mat-toolbar matDialogTitle class="red m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title">{{dialogTitle}}</span>
             <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
@@ -41,7 +41,7 @@
                     <mat-label>Departement</mat-label>
                     <mat-select formControlName="workFlowDepartement" [compareWith]="comparatorDepartement">
                         <mat-option *ngFor="let departement of departements" [value]="departement">
-                            {{departement.nom }}</mat-option>
+                            {{departement.nom}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

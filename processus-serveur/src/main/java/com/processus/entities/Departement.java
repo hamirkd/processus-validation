@@ -78,7 +78,6 @@ public class Departement implements Serializable {
     public User getManager() {
         return manager;
     }
-    
 
 //    public User getDirecteur() {
 //        return directeur;

@@ -52,6 +52,11 @@ public class User implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User administrateur;
     
+//    
+//      @ManyToOne
+//    @JoinColumn(name = "ressource_id", nullable = true)
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    private User ressource ;
 
     @ManyToOne
     @JoinColumn(name = "directeur_id", nullable = true)
@@ -59,8 +64,8 @@ public class User implements Serializable {
     private User directeur;
     
     
-    @ManyToOne
-    @JoinColumn(name = "departement_id", nullable = true)
+     @ManyToOne
+    @JoinColumn(name = "department_id", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Departement departement;
 
@@ -83,7 +88,12 @@ public class User implements Serializable {
     @LastModifiedDate
     private Date updatedAt = new Date();
 
-
+//    public String getMatricule() {
+//		return matricule;
+//	}
+//	public void setMatricule(String matricule) {
+//		this.matricule = matricule;
+//	}
     public String getPoste() {
         return poste;
     }

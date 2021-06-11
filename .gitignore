@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 /processus_client/nbproject/private/
+/processus-serveur/nbproject/

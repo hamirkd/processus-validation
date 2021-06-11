@@ -1,5 +1,6 @@
 package com.processus.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
@@ -65,6 +66,8 @@ public class Demande implements Serializable {
     @JoinColumn(name = "typedemande_id", nullable = true)
     private TypeDemande typeDemande;
     
+    
+    
     @ManyToOne
     @JoinColumn(name = "departement_id", nullable = true)
     private Departement departement;
@@ -72,6 +75,7 @@ public class Demande implements Serializable {
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="dd/MM/yyyy")
     @CreatedDate
     private Date createdAt = new Date();
 
