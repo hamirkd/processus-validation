@@ -91,7 +91,7 @@ public class DemandeController {
 //        demande.setManager(demandeur.getManager());
 //        demande.setDemandeur(demandeur);
         demande.setDemandeur(entity.getDemandeur());
-        demande.setTypeDemande(entity.getTypeDemande());
+//        demande.setTypeDemande(entity.getTypeDemande());
         demande.setDirecteur(entity.getDirecteur());
         demande.setDescription(entity.getDescription());
         demande.setManager(entity.getManager());
