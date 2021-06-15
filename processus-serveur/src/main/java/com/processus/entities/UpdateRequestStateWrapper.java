@@ -1,3 +1,7 @@
+
+//+++++++++++++++++++++++++++++ Mahamadou Alio / mahamadoualio05@gmail.com  ++++++++++++++++++++++++++++++++++++++++++++
+
+
 package com.processus.entities;
 
 import lombok.AllArgsConstructor;
