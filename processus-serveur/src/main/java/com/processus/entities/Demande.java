@@ -190,8 +190,21 @@ public class Demande implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
-    
-    
-    
+
+	public TypeDemande getTypeDemande() {
+		// TODO Auto-generated method stub
+		return typeDemande;
+	}
+
+	public void setTypeDemande(TypeDemande typeDemande) {
+		this.typeDemande = typeDemande;
+	}
+
+    public RequestState getState() {
+		return state;
+	}
+    public void setState(RequestState state) {
+		this.state = state;
+	}
 
 }

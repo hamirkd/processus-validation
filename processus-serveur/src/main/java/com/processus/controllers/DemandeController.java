@@ -17,6 +17,8 @@ import com.processus.services.DirectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +40,15 @@ public class DemandeController {
     private final DemandeService service;
     private final DirectionService directionService;
     private final TemplateService<User, Long> userService;
-   
+ 
+    
+    private JavaMailSender emailSender;
 
-    public DemandeController(DemandeService service, DirectionService directionService, TemplateService<User, Long> userService) {
+    public DemandeController(DemandeService service, DirectionService directionService, TemplateService<User, Long> userService,JavaMailSender emailSender) {
         this.service = service;
         this.directionService = directionService;
         this.userService = userService;
-        
-       
+        this.emailSender = emailSender;
     }
 
     @GetMapping
@@ -127,12 +130,25 @@ public class DemandeController {
             
 // ++++++++++++++++++++++++++++++    ENVOI DE MAIL AUTOMATIQUE AU DIRECTEUR +++++++++++++++++++++++++++++++++++++++++++
             
-//            else {
-//
-//                String email = demande.getDirecteur().getEmail();
-//                
-//               
-//            }
+            else {
+
+                String emailDirecteur = demande.getDirecteur().getEmail();
+                System.out.println("++++++++++++++++ Envoie e-mail "+emailDirecteur);
+                try {
+                SimpleMailMessage message = new SimpleMailMessage();
+
+                message.setTo(emailDirecteur);
+
+                message.setSubject("Test send mail spring boot");
+                message.setText("======= Sping is good =============");
+         
+                // Send Message!
+                this.emailSender.send(message);
+                }
+                catch(Exception e) {
+                	System.err.println(e);
+                }
+            }
         }
 //        demande.setEtat(entity.getEtat());
         return service.update(demande);
