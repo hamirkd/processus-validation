@@ -23,8 +23,6 @@ export class Demande
     direction_id?;
     state: RequestState = RequestState.INITIAL;
     workFlowDirection: Direction;
-    workFlowDepartement: Departement;
-    workFlowDirection2: Direction;
   
 
     /**

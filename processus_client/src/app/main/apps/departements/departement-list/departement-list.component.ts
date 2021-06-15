@@ -25,7 +25,7 @@ export class ListDepartementComponent implements OnInit, OnDestroy {
     departements: any;
     departement: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom','direction', 'createdAt', 'buttons'];
+    displayedColumns = ['nom','direction','manager', 'createdAt', 'buttons'];
     selectedDepartements: any[];
     checkboxes: {};
     dialogRef: any;

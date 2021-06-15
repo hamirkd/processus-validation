@@ -29,8 +29,8 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
     typeDemandes: any;
     typeDemande: any;
     departement: []=[];
-    dataSource: FilesDataSource | null;ss
-    displayedColumns = ['nom','workFlowDirection','workFlowDepartement','createdAt', 'buttons'];
+    dataSource: FilesDataSource | null;
+    displayedColumns = ['nom','departement','createdAt', 'buttons'];
     selectedTypeDemandes: any[];
     directions: Direction[] = [];
     checkboxes: {};

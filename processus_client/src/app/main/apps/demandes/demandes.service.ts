@@ -22,7 +22,7 @@ export class DemandesService implements Resolve<any>
     demandes: Demande[];
     demande: any;
     selectedDemandes: number[] = [];
-   
+    transfertDemandeManager : any;
 
     searchText: string;
     filterBy: string;
@@ -86,8 +86,8 @@ export class DemandesService implements Resolve<any>
     getDemandes(): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(this.usersService.userData)
-            console.log(environment.addressIp+'/api/demandes/demandeurs/'+this.usersService.userData.id)
-            this._httpClient.get(environment.addressIp+'/api/demandes/demandeurs/'+this.usersService.userData.id)
+            console.log(environment.addressIp+'/api/demandes/demandes-employe/'+this.usersService.userData.id)
+            this._httpClient.get(environment.addressIp+'/api/demandes/demandes-employe/'+this.usersService.userData.id)
                 .subscribe((response: any) => {
 
                     this.demandes = response;
@@ -128,7 +128,7 @@ export class DemandesService implements Resolve<any>
      */
     getDemandeData(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(environment.addressIp+'/api/demandes')
+            this._httpClient.get(environment.addressIp+'/api/demandes-employe')
                 .subscribe((response: any) => {
                     this.demande = response;
                     this.onDemandeDataChanged.next(this.demande);
@@ -207,9 +207,8 @@ export class DemandesService implements Resolve<any>
      */
     updateDemande(demande: Demande,id:number=undefined): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes-employe', 
-            {demandeur_id:demande.demandeur.id,
-            description:demande.description,id:id})
+            this._httpClient.put(environment.addressIp+'/api/demandes-employe',
+                demande)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);
@@ -260,6 +259,9 @@ export class DemandesService implements Resolve<any>
         });
     }
 
+    /**
+     * Delete selected Users
+     */
     deleteSelectedDemandes(): void {
         for (const DemandeId of this.selectedDemandes) {
             const Demande = this.demandes.find(_Demande => {

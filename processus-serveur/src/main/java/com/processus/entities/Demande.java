@@ -1,6 +1,5 @@
 package com.processus.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
@@ -75,7 +74,6 @@ public class Demande implements Serializable {
 
     @Column(name = "created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-//    @JsonFormat(pattern="dd/MM/yyyy")
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -190,21 +188,8 @@ public class Demande implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
-
-	public TypeDemande getTypeDemande() {
-		// TODO Auto-generated method stub
-		return typeDemande;
-	}
-
-	public void setTypeDemande(TypeDemande typeDemande) {
-		this.typeDemande = typeDemande;
-	}
-
-    public RequestState getState() {
-		return state;
-	}
-    public void setState(RequestState state) {
-		this.state = state;
-	}
+    
+    
+    
 
 }

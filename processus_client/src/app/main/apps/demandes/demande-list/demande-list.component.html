@@ -20,38 +20,35 @@
     </ng-container> -->
 
 
-    <!-- <ng-container matColumnDef="nom">
+    <ng-container matColumnDef="nom">
         <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.demandeur.nom}} </p>
         </mat-cell>
-    </ng-container> -->
+    </ng-container>
 
 
-    <!-- <ng-container matColumnDef="prenom">
+    <ng-container matColumnDef="prenom">
         <mat-header-cell *matHeaderCellDef>Prénom(s)</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.demandeur.prenom}}</p>
         </mat-cell>
-    </ng-container> -->
+    </ng-container>
 
-    <!-- <ng-container matColumnDef="direction">
+    <ng-container matColumnDef="direction">
         <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.direction.nom}}</p>
         </mat-cell>
-    </ng-container> -->
-
-
-   <ng-container matColumnDef="typeDemande">
-        <mat-header-cell *matHeaderCellDef>Type demande</mat-header-cell>
-        <mat-cell *matCellDef="let demande">
-            <p class="text-truncate font-weight-600">
-                    {{demande.typeDemande?.nom}}
-            </p>
-        </mat-cell>
     </ng-container>
 
+
+    <ng-container matColumnDef="typeDemande">
+        <mat-header-cell *matHeaderCellDef>Type Demande</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.typeDemande.nom}}</p>
+        </mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
@@ -60,25 +57,25 @@
         </mat-cell>
     </ng-container>
 
-    <!-- <ng-container matColumnDef="manager">
+    <ng-container matColumnDef="manager">
         <mat-header-cell *matHeaderCellDef>Manager</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600" *ngIf="demande.manager">{{demande.manager.prenom}}
                 {{demande.manager.nom}}</p>
         </mat-cell>
-    </ng-container> -->
+    </ng-container>
 
-    <!-- <ng-container matColumnDef="directeur">
+    <ng-container matColumnDef="directeur">
         <mat-header-cell *matHeaderCellDef>Directeur</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etatdirecteur}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600" *ngIf="demande.directeur">{{demande.directeur.prenom}}
                 {{demande.directeur.nom}}</p>
         </mat-cell>
-    </ng-container> -->
+    </ng-container>
 
     <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-        <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600">{{demande.createdAt|date:'dd/M/yyyy'}}</p>
         </mat-cell>
     </ng-container>

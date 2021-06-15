@@ -26,7 +26,6 @@ export class FormDialogDemandesComponent {
     contrainteChoix: boolean = true;
     user: User;
     typeDemandes: TypeDemande[] = [];
-    public showMore = false;
     /**
      * Constructor
      *
@@ -52,7 +51,6 @@ export class FormDialogDemandesComponent {
         else if (this.action === 'new') {
             this.dialogTitle = 'Nouvelle demande';
             this.demande = new Demande({});
-            this.showMore = true;
         }
         else {
             this.dialogTitle = 'Afficher';

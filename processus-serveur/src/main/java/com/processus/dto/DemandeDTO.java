@@ -2,13 +2,12 @@ package com.processus.dto;
 
 import com.processus.entities.Direction;
 import com.processus.entities.EtatDemande;
-import com.processus.entities.TypeDemande;
 import com.processus.entities.User;
 
 import java.io.Serializable;
 
 
-public class DemandeDTO implements Serializable{
+public class DemandeDTO implements Serializable {
 	private Long id;
     private Long demandeur_id;
     private Long responsable_id;
@@ -16,15 +15,24 @@ public class DemandeDTO implements Serializable{
     private String description;
     private EtatDemande etat;
     private EtatDemande etatmanager;
-    private TypeDemande  typeDemande;
 
     private EtatDemande etatdirecteur;
     
     private Long directeur_id;
     private Long manager_id;
 
-    private DepartementDTO departement;
-    public DepartementDTO getDepartement(){
+	private TypeDemandeDTO typeDemande;
+
+	public TypeDemandeDTO getTypeDemande() {
+		return typeDemande;
+	}
+
+	public void setTypeDemande(TypeDemandeDTO typeDemande) {
+		this.typeDemande = typeDemande;
+	}
+
+        private DepartementDTO departement;
+        public DepartementDTO getDepartement(){
             return departement;
         }
 
@@ -96,14 +104,4 @@ public class DemandeDTO implements Serializable{
 		this.manager_id = manager_id;
 	}
 
-    public TypeDemande getTypeDemande() {
-        return typeDemande;
-    }
-
-    public void setTypeDemande(TypeDemande typeDemande) {
-        this.typeDemande = typeDemande;
-    }
-
-        
-        
 }

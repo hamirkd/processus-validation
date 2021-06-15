@@ -40,11 +40,6 @@ public class TypeDemande implements Serializable {
     @ManyToOne
     @JoinColumn(name = "work_flow_direction_id", referencedColumnName = "id")
     private Direction workFlowDirection;
-//    
-//    +++++++++++++++++++++++++++++++++++++++++ WorkFlow pour plusieur Direction ++++++++++++++++++++++++++++++
-//    @ManyToOne
-//    @JoinColumn(name = "work_flow_direction_id", referencedColumnName = "id")
-//    private Direction workFlowDirection;
     
     // +++++++++++++++++++++++++++++++++++++++++ workFlow Pour les departements +++++++++++++++++++++++++++++++++++++
     
@@ -105,8 +100,6 @@ public class TypeDemande implements Serializable {
     public void setWorkFlowDepartement(Departement workFlowDepartement) {
         this.workFlowDepartement = workFlowDepartement;
     }
-
-   
 
 
 
