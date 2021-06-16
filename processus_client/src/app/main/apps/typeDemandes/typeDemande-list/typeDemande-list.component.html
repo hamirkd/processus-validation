@@ -1,28 +1,36 @@
-
-<mat-table #table [dataSource]="dataSource"
-           [@animateStagger]="{value:'50'}">
+<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
     <!-- Checkbox Column -->
     <ng-container matColumnDef="checkbox">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
             <mat-checkbox [(ngModel)]="checkboxes[typeDemande.id]" (ngModelChange)="onSelectedChange(typeDemande.id)"
-                          (click)="$event.stopPropagation()">
+                (click)="$event.stopPropagation()">
             </mat-checkbox>
         </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
-    
+
     <ng-container matColumnDef="nom">
-        <mat-header-cell *matHeaderCellDef>Prenom</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
             <p class="text-truncate font-weight-600">{{typeDemande.nom}} </p>
         </mat-cell>
     </ng-container>
 
 
+
+    <ng-container matColumnDef="direction">
+        <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
+        <mat-cell *matCellDef="let typeDemande">
+            <p class="text-truncate font-weight-600">{{direction.nom}} </p>
+        </mat-cell>
+    </ng-container>
+
+
+
     <ng-container matColumnDef="departement">
-        <mat-header-cell *matHeaderCellDef>Prenom</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Departement</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
             <p class="text-truncate font-weight-600">{{departement.nom}} </p>
         </mat-cell>
@@ -42,9 +50,9 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
             <div fxFlex="row" fxLayoutAlign="end center">
-    
+
                 <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
-                        (click)="$event.stopPropagation();">
+                    (click)="$event.stopPropagation();">
                     <mat-icon class="secondary-text">more_vert</mat-icon>
                 </button>
 
@@ -59,7 +67,7 @@
                         <span>Supprimer</span>
                     </button>
 
-                   
+
                 </mat-menu>
             </div>
 
@@ -67,14 +75,8 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let typeDemande; columns: displayedColumns;"
-             class="typeDemande"
-             (click)="editTypeDemande(typeDemande)"
-             [ngClass]="{'accent-50':checkboxes[typeDemande.id]}"
-             matRipple
-             [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-row *matRowDef="let typeDemande; columns: displayedColumns;" class="typeDemande"
+        (click)="editTypeDemande(typeDemande)" [ngClass]="{'accent-50':checkboxes[typeDemande.id]}" matRipple
+        [@animate]="{value:'*',params:{y:'100%'}}">
     </mat-row>
 </mat-table>
-
-
-

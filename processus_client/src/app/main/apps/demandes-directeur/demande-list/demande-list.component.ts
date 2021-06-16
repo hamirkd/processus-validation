@@ -34,7 +34,7 @@ export class ListDemandesComponent implements OnInit, OnDestroy {
     pdfmake: any;
     SLOW: 'SLOW';
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom', 'prenom', 'direction', 'typeDemande', 'state', 'description', 'createdAt', 'buttons'];
+    displayedColumns = ['nom', 'prenom', 'direction', 'state', 'description', 'createdAt', 'buttons'];
     selectedDemandes: any[];
     checkboxes: {};
     dialogRef: any;

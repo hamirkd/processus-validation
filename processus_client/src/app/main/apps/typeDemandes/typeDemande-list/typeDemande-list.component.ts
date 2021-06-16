@@ -9,10 +9,10 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { TypeDemandesService } from '../typeDemandes.service';
 import { FormDialogTypeDemandeComponent } from '../typeDemande-form/typeDemande-form.component';
-import {environment} from '../../../../../environments/environment';
-import {isArray} from 'util';
-import {HttpClient} from '@angular/common/http';
-import {Direction} from '../../../../models/direction';
+import { environment } from '../../../../../environments/environment';
+import { isArray } from 'util';
+import { HttpClient } from '@angular/common/http';
+import { Direction } from '../../../../models/direction';
 
 
 @Component({
@@ -28,9 +28,9 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
 
     typeDemandes: any;
     typeDemande: any;
-    departement: []=[];
+    departement: [] = [];
     dataSource: FilesDataSource | null;
-    displayedColumns = ['nom','departement','createdAt', 'buttons'];
+    displayedColumns = ['nom', 'direction', 'departement', 'createdAt', 'buttons'];
     selectedTypeDemandes: any[];
     directions: Direction[] = [];
     checkboxes: {};
@@ -103,7 +103,7 @@ export class ListTypeDemandeComponent implements OnInit, OnDestroy {
         this.httpClient
             .get(environment.addressIp + '/api/directions')
             .subscribe((response: any) =>
-                    this.directions = response && isArray(response) ? response : []
+                this.directions = response && isArray(response) ? response : []
                 , () => this.directions = []);
     }
     /**
@@ -204,7 +204,7 @@ export class FilesDataSource extends DataSource<any>
      */
     constructor(
         private _typeDemandesService: TypeDemandesService,
-        
+
     ) {
         super();
     }

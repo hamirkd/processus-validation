@@ -1,3 +1,5 @@
+//+++++++++++++++++++++++++++++ Mahamadou Alio / mahamadoualio05@gmail.com  ++++++++++++++++++++++++++++++++++++++++++++
+
 package com.processus.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

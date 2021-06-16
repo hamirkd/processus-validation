@@ -86,8 +86,8 @@ export class DemandesService implements Resolve<any>
     getDemandes(): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(this.usersService.userData)
-            console.log(environment.addressIp+'/api/demandes/demandes-employe/'+this.usersService.userData.id)
-            this._httpClient.get(environment.addressIp+'/api/demandes/demandes-employe/'+this.usersService.userData.id)
+            console.log(environment.addressIp+'/demandes-employe/demandeurs/'+this.usersService.userData.id)
+            this._httpClient.get(environment.addressIp+'/demandes-employe/demandeurs/'+this.usersService.userData.id)
                 .subscribe((response: any) => {
 
                     this.demandes = response;
@@ -128,7 +128,7 @@ export class DemandesService implements Resolve<any>
      */
     getDemandeData(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(environment.addressIp+'/api/demandes-employe')
+            this._httpClient.get(environment.addressIp+'/demandes-employe')
                 .subscribe((response: any) => {
                     this.demande = response;
                     this.onDemandeDataChanged.next(this.demande);
@@ -207,7 +207,7 @@ export class DemandesService implements Resolve<any>
      */
     updateDemande(demande: Demande,id:number=undefined): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(environment.addressIp+'/api/demandes-employe',
+            this._httpClient.put(environment.addressIp+'/demandes-employe',
                 demande)
                 .subscribe(response => {
                     this.getDemandes();
@@ -224,7 +224,7 @@ export class DemandesService implements Resolve<any>
      */
     updateDemandeData(demandeData): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.post(environment.addressIp+'/api/demandes-employe' + this.demande.id, { ...demandeData })
+            this._httpClient.post(environment.addressIp+'/demandes-employe' + this.demande.id, { ...demandeData })
                 .subscribe(response => {
                     this.getDemandeData();
                     this.getDemandes();
@@ -251,7 +251,7 @@ export class DemandesService implements Resolve<any>
     deleteDemande(demande: Demande): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(demande)
-            this._httpClient.delete(environment.addressIp+'/api/demandes-employe/' + demande.id)
+            this._httpClient.delete(environment.addressIp+'/demandes-employe/' + demande.id)
                 .subscribe(response => {
                     this.getDemandes();
                     resolve(response);

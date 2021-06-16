@@ -42,6 +42,15 @@
         </mat-cell>
     </ng-container>
 
+
+    <ng-container matColumnDef="typeDemande">
+        <mat-header-cell *matHeaderCellDef>Type demande</mat-header-cell>
+        <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.typeDemande.nom}}</p>
+        </mat-cell>
+    </ng-container>
+
+
     <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
         <mat-cell *matCellDef="let demande"  class="demande {{demande.etatmanager}} {{demande.etat}}DEMANDE">
@@ -49,12 +58,12 @@
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="state">
+    <ng-container matColumnDef="etatmanager">
         <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
-        <mat-cell *matCellDef="let demande" class="{{demande.state}}">
-            <p class="text-truncate font-weight-600">{{demande.state}}</p>
+        <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}}">
+            <p class="text-truncate font-weight-600">{{demande.etatmanager}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> 
 
     <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
@@ -74,8 +83,8 @@
                     <mat-icon class="secondary-text">more_vert</mat-icon>
                 </button>
 
-                <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item aria-label="remove" *ngIf="inprogress(demande)" (click)="editDemande(demande)">
+                <mat-menu #moreMenu="matMenu" >
+                    <button mat-menu-item aria-label="remove" (click)="editDemande(demande)" *ngIf="inprogress(demande) && demande.etatmanager=='ENCOURS'" >
                         <mat-icon>edit</mat-icon>
                         <span>Signature</span>
                     </button>
