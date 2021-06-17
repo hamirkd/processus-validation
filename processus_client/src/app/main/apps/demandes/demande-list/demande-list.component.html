@@ -57,19 +57,26 @@
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="manager">
+    <!-- <ng-container matColumnDef="manager">
         <mat-header-cell *matHeaderCellDef>Manager</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etatmanager}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600" *ngIf="demande.manager">{{demande.manager.prenom}}
                 {{demande.manager.nom}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container matColumnDef="directeur">
+    <!-- <ng-container matColumnDef="directeur">
         <mat-header-cell *matHeaderCellDef>Directeur</mat-header-cell>
         <mat-cell *matCellDef="let demande" class="{{demande.etatdirecteur}} {{demande.etat}}DEMANDE">
             <p class="text-truncate font-weight-600" *ngIf="demande.directeur">{{demande.directeur.prenom}}
                 {{demande.directeur.nom}}</p>
+        </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="etat">
+        <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="{{demande.etat}}DEMANDE">
+            <p class="text-truncate font-weight-600">{{demande.etat}}</p>
         </mat-cell>
     </ng-container>
 

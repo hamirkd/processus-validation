@@ -23,7 +23,7 @@
     <ng-container matColumnDef="direction">
         <mat-header-cell *matHeaderCellDef>Direction</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
-            <p class="text-truncate font-weight-600">{{direction.nom}} </p>
+            <p class="text-truncate font-weight-600">{{typeDemande.workFlowDirection.nom}} </p>
         </mat-cell>
     </ng-container>
 
@@ -32,7 +32,7 @@
     <ng-container matColumnDef="departement">
         <mat-header-cell *matHeaderCellDef>Departement</mat-header-cell>
         <mat-cell *matCellDef="let typeDemande">
-            <p class="text-truncate font-weight-600">{{departement.nom}} </p>
+            <p class="text-truncate font-weight-600">{{typeDemande.workFlowDepartement.nom}} </p>
         </mat-cell>
     </ng-container>
 

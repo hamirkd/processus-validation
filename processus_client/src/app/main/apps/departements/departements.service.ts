@@ -218,7 +218,7 @@ export class DepartementsService implements Resolve<any>
     deleteDepartement(departement: Departement): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log(departement)
-            this._httpClient.delete(environment.addressIp+'/api/departements/' + departement.id)
+            this._httpClient.delete(environment.addressIp+'/api/departements' + departement.id)
                 .subscribe(response => {
                     this.getDepartements();
                     resolve(response);

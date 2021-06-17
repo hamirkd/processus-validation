@@ -91,7 +91,7 @@ export const navigation_: FuseNavigation[] = [
                 icon: 'autorenew',
                 url: '/apps/autreDemandes'
             },
-            
+
             {
                 id: 'Demande-manager',
                 title: 'Effectuer une demande',
@@ -363,14 +363,7 @@ export const navigation_administrateur: FuseNavigation[] = [
             },
 
 
-            {
-                id: 'AutreDemande',
-                title: 'AutreDemande',
-                translate: 'NAV.CONTACTS',
-                type: 'item',
-                icon: 'autorenew',
-                url: '/apps/autreDemandes'
-            },
+
 
         ]
     },
@@ -548,8 +541,8 @@ export const navigation_employe: FuseNavigation[] = [
                 url: '/apps/demandes'
             },
 
-         
-          
+
+
 
         ]
     },

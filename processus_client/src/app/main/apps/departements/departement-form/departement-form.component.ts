@@ -73,7 +73,7 @@ export class FormDialogDepartementComponent {
             id: [this.departement.id],
             nom: [this.departement.nom],
             direction: [this.departement.direction],
-            manager: [this.departement.manager],
+            // manager: [this.departement.manager],
             createdAt:[this.departement.createdAt],
             
             
