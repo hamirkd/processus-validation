@@ -16,6 +16,7 @@ public class UserService implements TemplateService<User,Long> {
 
     @Autowired
     UserRepository userRepository;
+    
     @Autowired
     DirectionService directionService;
 

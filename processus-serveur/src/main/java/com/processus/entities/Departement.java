@@ -1,6 +1,8 @@
 
 //+++++++++++++++++++++++++++++ Mahamadou Alio / mahamadoualio05@gmail.com  ++++++++++++++++++++++++++++++++++++++++++++
 
+//+++++++++++++++++++++++++++++++ Entity departement classe +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 package com.processus.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

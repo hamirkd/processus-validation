@@ -1,5 +1,8 @@
 
 //+++++++++++++++++++++++++++++ Mahamadou Alio / mahamadoualio05@gmail.com  ++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++ Entity constants configure addres email classe +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 package com.processus.entities;
 
 

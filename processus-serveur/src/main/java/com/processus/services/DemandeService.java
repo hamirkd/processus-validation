@@ -1,6 +1,3 @@
-
-//+++++++++++++++++++++++++++++ Mahamadou Alio / mahamadoualio05@gmail.com  ++++++++++++++++++++++++++++++++++++++++++++
-
 package com.processus.services;
 
 import com.processus.entities.*;
@@ -76,7 +73,7 @@ public class DemandeService implements TemplateService<Demande, Long> {
 
     public List<Demande> findDemandeByManager(Long id) {
 
-        // Modifie la valeur 12 par id du departement du manager (moi je sais pas ou est ce que la valeur est stocké)
+//     ++++++++++++++++++++++++++++++++++++++++++++++ Redirection departement +++++++++++++++++++++++++++++
         Long departementId = 12L;
 
         List<Demande> demandes = demandeRepository.findDemandeByManagerIdOrDemandeurId(id, id);

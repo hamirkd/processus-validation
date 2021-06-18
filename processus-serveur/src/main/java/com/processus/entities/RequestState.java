@@ -1,3 +1,6 @@
+
+//+++++++++++++++++++++++++++++++ Entity enum RequestState classe +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 package com.processus.entities;
 
 public enum RequestState {

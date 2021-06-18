@@ -101,6 +101,7 @@ public class DemandeController {
 //        demande.setTypeDemande(entity.getTypeDemande());
         demande.setDirecteur(entity.getDirecteur());
         demande.setDescription(entity.getDescription());
+        demande.setTypeDemande(entity.getTypeDemande());
         demande.setManager(entity.getManager());
         demande.setEtatdirecteur(EtatDemande.ENCOURS);
         demande.setEtatmanager(EtatDemande.ENCOURS);
@@ -112,6 +113,7 @@ public class DemandeController {
     }
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++ Singature (accepter ou rejeter)++++++++++++++++++++++++++++++++++
+    
     @PutMapping("signature")
     public Demande signature(@Valid @RequestBody DemandeDTO entity) {
         Demande demande = service.get(entity.getId());
@@ -133,19 +135,22 @@ public class DemandeController {
             else {
 
                 String emailDirecteur = demande.getDirecteur().getEmail();
+                String nomManager = demande.getManager().getNom();
+                String nomDemandeur = demande.getDemandeur().getNom();
+                
                 System.out.println("++++++++++++++++ Envoie e-mail "+emailDirecteur);
                 try {
                 SimpleMailMessage message = new SimpleMailMessage();
 
                 message.setTo(emailDirecteur);
 
-                message.setSubject("Test send mail spring boot");
-                message.setText("======= Sping is good =============");
+                message.setSubject("Message de confirmation");
+                message.setText("Monsieur "+nomManager+" vient d'approuver la demande de monsieur " + nomDemandeur );
          
                 // Send Message!
                 this.emailSender.send(message);
                 }
-                catch(Exception e) {
+                catch(Exception e) { 
                 	System.err.println(e);
                 }
             }
