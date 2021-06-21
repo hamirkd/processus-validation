@@ -130,21 +130,25 @@ public class DemandeController {
                 demande.setEtat(EtatDemande.REJETER);
             }
             
-// ++++++++++++++++++++++++++++++    ENVOI DE MAIL AUTOMATIQUE AU DIRECTEUR +++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++    ENVOI DE MAIL AUTOMATIQUE AU DIRECTEUR  ET AU MANAGER  +++++++++++++++++++++++++++++++++++++++++++
             
             else {
 
                 String emailDirecteur = demande.getDirecteur().getEmail();
+                String  emailDemandeur = demande.getDemandeur().getEmail();
                 String nomManager = demande.getManager().getNom();
                 String nomDemandeur = demande.getDemandeur().getNom();
-                
                 System.out.println("++++++++++++++++ Envoie e-mail "+emailDirecteur);
-                try {
+                System.out.println("+++++++++++++++++ Envoie e-mail "+emailDemandeur);
+         
+                
+//   ++++++++++++++++++++++++++++++++++++++++ ENVOI DE MAIL AU DIRECTEUR +++++++++++++++++++++++ 
+                 try {
                 SimpleMailMessage message = new SimpleMailMessage();
 
                 message.setTo(emailDirecteur);
 
-                message.setSubject("Message de confirmation");
+                message.setSubject("Notification");
                 message.setText("Monsieur "+nomManager+" vient d'approuver la demande de monsieur " + nomDemandeur );
          
                 // Send Message!
@@ -153,8 +157,27 @@ public class DemandeController {
                 catch(Exception e) { 
                 	System.err.println(e);
                 }
-            }
-        }
+               
+    //   ++++++++++++++++++++++++++++++++++++++++ ENVOI DE MAIL AU MANAGER +++++++++++++++++++++++        
+                try {
+                SimpleMailMessage message = new SimpleMailMessage();
+
+                message.setTo(emailDemandeur);
+
+                message.setSubject("Notification");
+                message.setText("Monsieur "+nomManager+" vient d'approuver la demande de monsieur " + nomDemandeur );
+         
+                // Send Message!
+                this.emailSender.send(message);
+                }
+                catch(Exception e) { 
+                	System.err.println(e);
+                }
+                
+                
+            }       
+        
+    }
 //        demande.setEtat(entity.getEtat());
         return service.update(demande);
     }

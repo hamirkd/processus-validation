@@ -5,9 +5,10 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { Error404Component } from './error-404.component';
 
 
+
 const routes = [
     {
-        path     : 'errors/error-404',
+        path: 'errors/error-404',
         component: Error404Component
     }
 ];
@@ -16,7 +17,7 @@ const routes = [
     declarations: [
         Error404Component
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(routes),
 
         MatIconModule,
@@ -24,6 +25,5 @@ const routes = [
         FuseSharedModule
     ]
 })
-export class Error404Module
-{
+export class Error404Module {
 }
