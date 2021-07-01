@@ -193,6 +193,22 @@ public class Demande implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
+
+	public RequestState getState() {
+		return state;
+	}
+
+	public void setState(RequestState state) {
+		this.state = state;
+	}
+
+	public TypeDemande getTypeDemande() {
+		return typeDemande;
+	}
+
+	public void setTypeDemande(TypeDemande typeDemande) {
+		this.typeDemande = typeDemande;
+	}
     
     
     
