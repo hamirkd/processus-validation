@@ -204,6 +204,7 @@ export class DemandesService implements Resolve<any> {
      * @returns {Promise<any>}
      */
     updateDemande(demande: Demande): Promise<any> {
+        
         return new Promise((resolve, reject) => {
             this._httpClient.put(environment.addressIp + '/api/demandes',
                 {
